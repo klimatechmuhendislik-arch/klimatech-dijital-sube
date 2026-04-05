@@ -136,57 +136,61 @@
 
     <script>
         let rates = { "$": 33.65, "€": 36.50, "TL": 1.0 }; 
-        // --- KLİMATECH GÜNCEL ÜRÜN KATALOĞU (ŞUBAT 2026) ---
-// Not: Fiyatlar KDV ve Nakliye hariçtir.
-const hvacCatalog = [
-    // --- İZOLASYONLU VE DÜZ BAKIR BORULAR ---
-    { id: "7130040007", cat: "BORU", name: "1/4\"-6,35x0,80mmx50m 13mm Kauçuk İzo.Borusu", p: 3.32, cur: "$" },
-    { id: "7130040008", cat: "BORU", name: "3/8\"-9,52x0,80mmx50m 13mm Kauçuk İzo.Borusu", p: 4.81, cur: "$" },
-    { id: "7130040009", cat: "BORU", name: "1/2\"-12,7x0,90mmx50m 13mm Kauçuk İzo.Borusu", p: 6.75, cur: "$" },
-    { id: "7130040011", cat: "BORU", name: "5/8\"-15.87x1,0mmx50m 13mm Kauçuk İzo.Borusu", p: 10.30, cur: "$" },
-    { id: "7130040012", cat: "BORU", name: "3/4\"-19,05x1,0mmx50m 13mm Kauçuk İzo.Borusu", p: 12.36, cur: "$" },
-    { id: "7130020166", cat: "BORU", name: "22 MM (22X1.0 MM) Bakır Boru (Düz)", p: 13.50, cur: "$" },
-    { id: "7130020177", cat: "BORU", name: "28 MM (28X1.0 MM) Bakır Boru (Düz)", p: 17.51, cur: "$" },
-    { id: "7130020180", cat: "BORU", name: "28 MM (28X1.20 MM) Bakır Boru (Düz)", p: 20.83, cur: "$" },
-    { id: "7130020189", cat: "BORU", name: "35 MM (35X1.0 MM) Bakır Boru (Düz)", p: 27.12, cur: "$" },
-    { id: "7130020198", cat: "BORU", name: "42 MM (42X1.4 MM) Bakır Boru (Düz)", p: 37.77, cur: "$" },
+      // --- TÜM KATALOG: 3B EXCEL & GÜNCEL LİSTE VERİLERİ ---
+        const products = [
+            // --- SOĞUTMA GAZLARI (TOTCHEM & DİĞER) ---
+            { id: 1, cat: "GAZ", name: "TOTCHEM R410A (11.3 KG)", p: 138.00, cur: "$", spec: "Yüksek Saflıkta Klima Gazı" },
+            { id: 2, cat: "GAZ", name: "TOTCHEM R32 (9 KG)", p: 138.78, cur: "$", spec: "Yeni Nesil Çevreci Gaz" },
+            { id: 3, cat: "GAZ", name: "TOTCHEM R404A (10.9 KG)", p: 94.06, cur: "$", spec: "Endüstriyel Soğutma Gazı" },
+            { id: 4, cat: "GAZ", name: "TOTCHEM R407C (11.3 KG)", p: 138.00, cur: "$", spec: "Ticari Soğutma Gazı" },
+            { id: 5, cat: "GAZ", name: "TOTCHEM R134A (13.6 KG)", p: 113.38, cur: "$", spec: "Oto & Buzdolabı Gazı" },
+            { id: 6, cat: "GAZ", name: "R600A Gaz (420 GR)", p: 5.50, cur: "$", spec: "Buzdolabı Servis Gazı" },
+            { id: 7, cat: "GAZ", name: "R22 Gaz (13.6 KG - Yenilenmiş)", p: 185.00, cur: "$", spec: "Eski Nesil Sistemler İçin" },
 
-    // --- SOĞUTMA GAZLARI ---
-    { id: "7280010147", cat: "GAZ", name: "TOTCHEM R407C Soğutma Gazı 10KG", p: 138.00, cur: "$" },
-    { id: "7280010143", cat: "GAZ", name: "TOTCHEM R410A Soğutma Gazı 10KG", p: 138.00, cur: "$" },
-    { id: "7280010145", cat: "GAZ", name: "TOTCHEM R404A Soğutma Gazı 10KG", p: 94.06, cur: "$" },
-    { id: "7280010149", cat: "GAZ", name: "TOTCHEM R32 Soğutma Gazı 9KG", p: 138.78, cur: "$" },
+            // --- WIPCOOL PROFESYONEL EKİPMAN (TAM LİSTE) ---
+            { id: 100, cat: "WIPCOOL", name: "P18 Drenaj Pompası", p: 53.82, cur: "$", spec: "Sessiz 18L/h Kapasite" },
+            { id: 101, cat: "WIPCOOL", name: "P36 Drenaj Pompası", p: 61.30, cur: "$", spec: "Yüksek Güç 36L/h" },
+            { id: 102, cat: "WIPCOOL", name: "P120S Endüstriyel Pompa", p: 115.00, cur: "$", spec: "Büyük Kapasite 120L/h" },
+            { id: 103, cat: "WIPCOOL", name: "S1.5 Vakum Pompası", p: 95.93, cur: "$", spec: "Hafif Seri 1.5 CFM" },
+            { id: 104, cat: "WIPCOOL", name: "S2 Vakum Pompası", p: 123.93, cur: "$", spec: "Profesyonel 2 CFM" },
+            { id: 105, cat: "WIPCOOL", name: "2F0 Vakum Pompası (Çift Kademe)", p: 210.00, cur: "$", spec: "Derin Vakum 5 CFM" },
+            { id: 106, cat: "WIPCOOL", name: "C10B Akülü Yıkama Makinası", p: 174.11, cur: "$", spec: "Kablosuz Basınçlı Temizleme" },
+            { id: 107, cat: "WIPCOOL", name: "C30S Buharlı Temizleme", p: 285.00, cur: "$", spec: "Sıcak Buhar Dezenfeksiyon" },
+            { id: 108, cat: "WIPCOOL", name: "EF-2 Eksantrik Havşa Takımı", p: 66.48, cur: "$", spec: "Hassas Boru Şişirme" },
+            { id: 109, cat: "WIPCOOL", name: "EF-2LR Cırcırlı Havşa", p: 93.19, cur: "$", spec: "Matkap Uyumlu Hızlı Sistem" },
+            { id: 110, cat: "WIPCOOL", name: "HTW-80 Dijital Tork Anahtarı", p: 216.83, cur: "$", spec: "Hassas Sıkma Ayarı" },
+            { id: 111, cat: "WIPCOOL", name: "WCS-50 Dijital Gaz Terazisi", p: 145.50, cur: "$", spec: "50KG Kapasite" },
+            { id: 112, cat: "WIPCOOL", name: "R220 Geri Toplama Cihazı", p: 645.00, cur: "$", spec: "Hızlı Gaz Tahliye" },
+            { id: 113, cat: "WIPCOOL", name: "Hızlı Yağ Şarj Pompası", p: 48.00, cur: "$", spec: "Manuel Yağ Basma" },
 
-    // --- WIPCOOL DRENAJ POMPALARI ---
-    { id: "7550830021", cat: "WIPCOOL-POMPA", name: "Wipcool P18 Drenaj Pompası", p: 53.82, cur: "$" },
-    { id: "7550830022", cat: "WIPCOOL-POMPA", name: "Wipcool P36 Drenaj Pompası", p: 61.30, cur: "$" },
-    { id: "7550830023", cat: "WIPCOOL-POMPA", name: "Wipcool P16 Drenaj Pompası", p: 54.99, cur: "$" },
-    { id: "7550830024", cat: "WIPCOOL-POMPA", name: "Wipcool P32 Drenaj Pompası", p: 67.25, cur: "$" },
-    { id: "7550830025", cat: "WIPCOOL-POMPA", name: "Wipcool P12 Drenaj Pompası", p: 52.80, cur: "$" },
-    { id: "7550830032", cat: "WIPCOOL-POMPA", name: "Wipcool P120S Drenaj Pompası", p: 237.11, cur: "$" },
-    { id: "7550830033", cat: "WIPCOOL-POMPA", name: "Wipcool P360S Drenaj Pompası", p: 339.23, cur: "$" },
+            // --- TESTO & ÖLÇÜM TEKNOLOJİSİ ---
+            { id: 200, cat: "TESTO", name: "550S Dijital Manifold", p: 682.65, cur: "$", spec: "Bluetooth Destekli" },
+            { id: 201, cat: "TESTO", name: "557S Vakum Problu Set", p: 895.00, cur: "$", spec: "4 Yollu Profesyonel Blok" },
+            { id: 202, cat: "TESTO", name: "830-T1 Lazer Termometre", p: 110.00, cur: "$", spec: "Temassız Hassas Ölçüm" },
+            { id: 203, cat: "TESTO", name: "549i Akıllı Basınç Probu", p: 145.00, cur: "$", spec: "Telefondan İzleme" },
+            { id: 204, cat: "TESTO", name: "115i Kıskaçlı Termometre", p: 98.00, cur: "$", spec: "Boru Tipi Akıllı Ölçüm" },
 
-    // --- WIPCOOL VAKUM POMPALARI VE TEMİZLEME ---
-    { id: "7550840001", cat: "WIPCOOL-VAKUM", name: "Wipcool S1 Vakum Pompası", p: 67.76, cur: "$" },
-    { id: "7550840002", cat: "WIPCOOL-VAKUM", name: "Wipcool S1.5 Vakum Pompası", p: 95.93, cur: "$" },
-    { id: "7550840003", cat: "WIPCOOL-VAKUM", name: "Wipcool S2 Vakum Pompası", p: 123.93, cur: "$" },
-    { id: "7550840005", cat: "WIPCOOL-VAKUM", name: "Wipcool 2F2R Vakum Pompası", p: 262.43, cur: "$" },
-    { id: "7550840012", cat: "WIPCOOL-TEMIZLIK", name: "Wipcool C10 Kablolu Temizleme Makinası", p: 179.76, cur: "$" },
-    { id: "7550840013", cat: "WIPCOOL-TEMIZLIK", name: "Wipcool C10B Kablosuz Temizleme Makinası", p: 174.11, cur: "$" },
-    { id: "7550840017", cat: "WIPCOOL-TEMIZLIK", name: "Wipcool C30S Kablolu Buharlı Temizleme", p: 393.22, cur: "$" },
+            // --- KOMPRESÖRLER (PANASONIC & DANFOSS) ---
+            { id: 300, cat: "KOMPRESÖR", name: "PANASONIC C-SCN673H8K Scroll", p: 702.00, cur: "€", spec: "R407C Endüstriyel" },
+            { id: 301, cat: "KOMPRESÖR", name: "PANASONIC 2K22S225A Rotari", p: 145.00, cur: "$", spec: "12.000 BTU Standart" },
+            { id: 302, cat: "KOMPRESÖR", name: "DANFOSS MTZ 040-4VI Maneurop", p: 669.77, cur: "€", spec: "Soğuk Hava Deposu" },
+            { id: 303, cat: "KOMPRESÖR", name: "ASPERA NEK 6210 GK", p: 120.00, cur: "€", spec: "R404A Ticari Buzdolabı" },
+            { id: 304, cat: "KOMPRESÖR", name: "DANFOSS KP1 Alçak Presostat", p: 38.00, cur: "€", spec: "Basınç Kontrol Otomatiği" },
 
-    // --- EL ALETLERİ VE EKİPMANLAR ---
-    { id: "7230020018", cat: "EKIPMAN", name: "ASA 3110 Bakır Kaynak Teli 3mm", p: 35.48, cur: "$" },
-    { id: "7110990002", cat: "EKIPMAN", name: "50 CM Klima Konsolu (Cıvatalı)", p: 7.78, cur: "$" },
-    { id: "7110990006", cat: "EKIPMAN", name: "60 CM Klima Konsolu (Kaynaklı)", p: 11.90, cur: "$" },
-    { id: "7250050323", cat: "EKIPMAN", name: "Castel Easybend4 Boru Kıvırma Seti", p: 49.31, cur: "$" },
-    { id: "75508400025", cat: "WIPCOOL-ALET", name: "Wipcool EF-2 Havşa Takımı", p: 66.48, cur: "$" },
-    { id: "75508400026", cat: "WIPCOOL-ALET", name: "Wipcool EF-2L Havşa Takımı (Matkap Uyumlu)", p: 87.33, cur: "$" },
-    { id: "75508400030", cat: "WIPCOOL-ALET", name: "Wipcool MG-2K Analog Manifold", p: 98.91, cur: "$" },
-    { id: "75508400035", cat: "WIPCOOL-ALET", name: "Wipcool MDG1 Tekli Dijital Manifold", p: 126.40, cur: "$" },
-    { id: "75508400039", cat: "WIPCOOL-ALET", name: "Wipcool HW-1 Cırcır Anahtar", p: 10.31, cur: "$" }
-];
-
+            // --- BAKIR BORU & SARF (SARKUYSAN) ---
+            { id: 400, cat: "BORU", name: "1/4\"-0,80mm İzo.Boru (50m)", p: 166.00, cur: "$", spec: "Sarkuysan Saf Bakır" },
+            { id: 401, cat: "BORU", name: "3/8\"-0,80mm İzo.Boru (50m)", p: 240.50, cur: "$", spec: "Sarkuysan Saf Bakır" },
+            { id: 402, cat: "BORU", name: "1/2\"-0,80mm İzo.Boru (50m)", p: 337.50, cur: "$", spec: "Sarkuysan Saf Bakır" },
+            { id: 403, cat: "BORU", name: "5/8\"-0,80mm İzo.Boru (50m)", p: 410.00, cur: "$", spec: "Sarkuysan Saf Bakır" },
+            { id: 404, cat: "KAYNAK", name: "ASA 3110 Bakır Kaynak Teli", p: 35.48, cur: "$", spec: "3mm Gümüşlü Tel" },
+            { id: 405, cat: "KAYNAK", name: "Gümüş Kaynak Dekapajı", p: 12.00, cur: "$", spec: "Yüksek Isı Tozu" },
+            
+            // --- SERVİS MALZEMELERİ & DİĞER ---
+            { id: 500, cat: "SERVİS", name: "Vakum Yağı (1 LT)", p: 12.00, cur: "$", spec: "Yüksek Kalite Koruma" },
+            { id: 501, cat: "SERVİS", name: "Sıvı Kaçak Dedektörü (Köpük)", p: 6.50, cur: "$", spec: "Hızlı Kaçak Tespit" },
+            { id: 502, cat: "SERVİS", name: "Kondanser Temizleme Sıvısı", p: 18.00, cur: "$", spec: "Konsantre Temizleyici" },
+            { id: 503, cat: "SERVİS", name: "Vana İğnesi Değiştirme Aparatı", p: 24.00, cur: "$", spec: "Gaz Kaçırmadan Değişim" }
+        ];
         let cart = []; let discount = 0; let userMode = "Standart";
 
         async function fetchRates() {
