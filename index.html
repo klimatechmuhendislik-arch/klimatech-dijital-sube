@@ -1,101 +1,174 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Klimatech Mühendislik A.Ş. — Chiller Servisi & VRF Sistemleri | Bursa</title>
-  <meta name="description" content="2005'ten beri chiller servisi, VRF satış & servis. KKT‑Kraus ve Riedel Cooling Türkiye & Ortadoğu servis partneri. VRFDepo B2B mağazacılığı." />
-  <link rel="canonical" href="https://www.klimatech.com.tr/" />
-  <meta name="robots" content="index,follow" />
-  <meta property="og:title" content="Klimatech Mühendislik A.Ş. — Chiller Servisi & VRF Sistemleri" />
-  <meta property="og:description" content="2005'ten beri chiller servisi, VRF satış & servis. VRFDepo B2B mağazacılığı." />
-  <meta property="og:locale" content="tr_TR" />
-  <link rel="stylesheet" href="/assets/styles.css" />
-  <script defer src="/assets/main.js"></script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"LocalBusiness",
-    "name":"Klimatech Mühendislik A.Ş.",
-    "url":"https://www.klimatech.com.tr/",
-    "logo":"https://www.klimatech.com.tr/assets/logo.png",
-    "foundingDate":"2005",
-    "description":"Chiller servisleri, VRF satış ve servis, merkezi klima projeleri. KKT-Kraus ve Riedel Cooling Türkiye & Ortadoğu servis partneri.",
-    "address":{"@type":"PostalAddress","addressLocality":"Bursa","addressRegion":"TR"},
-    "contactPoint":[{"@type":"ContactPoint","telephone":"+90-XXX-XXX-XXXX","contactType":"customer service","areaServed":"TR"}],
-    "sameAs":["https://www.facebook.com/klimatech","https://www.instagram.com/klimatech"]
-  }
-  </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Klimatech Mühendislik A.Ş. — Chiller Servisi & VRFDepo B2B</title>
+    <meta name="description" content="2005'ten beri chiller servisi, VRF satış & servis. VRFDepo B2B mağazacılığı." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .product-card:hover { transform: translateY(-5px); transition: all 0.3s; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        scroll-behavior: smooth;
+    </style>
 </head>
-<body>
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="/"><img src="/assets/logo.png" alt="Klimatech logo" height="48"></a>
-      <nav class="main-nav" aria-label="Ana menü">
-        <a href="/hakkimizda.html">Hakkımızda</a>
-        <a href="/hizmetler.html">Hizmetler</a>
-        <a href="/vrfdepo.html" id="vrfdepo-link">VRFDepo</a>
-        <a href="/iletisim.html" class="btn primary">Teklif Al</a>
-      </nav>
-    </div>
-  </header>
+<body class="bg-slate-50 font-sans text-slate-900 pb-32">
 
-  <main class="container">
-    <section class="hero">
-      <div class="hero-left">
-        <h1>Klimatech Mühendislik A.Ş. — Güvenilir İklimlendirme Çözümleri</h1>
-        <p class="lead">2005'ten beri Türkiye ve Ortadoğu'da chiller, VRF ve merkezi klima projelerinde anahtar teslim hizmet.</p>
-        <ul class="highlights">
-          <li><strong>Resmi servis partnerleri:</strong> KKT‑Kraus, Riedel Cooling (Türkiye & Ortadoğu)</li>
-          <li><strong>Hizmetler:</strong> Chiller servisleri, VRF satış & servis, merkezi klima projeleri</li>
-          <li><strong>2026:</strong> VRFDepo — Soğutma malzemeleri, showroom ve B2B mağazacılık</li>
-        </ul>
-        <div class="cta-row">
-          <a class="btn primary" href="/hizmetler.html">Hizmetlerimizi İncele</a>
-          <a class="btn" href="/iletisim.html">Servis Talebi</a>
+    <header class="sticky top-0 z-50 bg-[#001f3f] text-white shadow-xl border-b-2 border-yellow-500">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-white p-2 rounded-xl shadow-inner text-[#001f3f] font-black text-2xl italic">KLM</div>
+                <div>
+                    <h1 class="text-lg font-bold leading-none italic uppercase">Klimatech A.Ş.</h1>
+                    <p class="text-[10px] text-yellow-400 font-black tracking-widest uppercase">@vrfdepon</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex gap-6 text-xs font-bold uppercase tracking-tighter">
+                <a href="#" class="hover:text-yellow-400">Hakkımızda</a>
+                <a href="#b2b-section" class="text-yellow-400">VRFDepo B2B</a>
+                <a href="#" class="hover:text-yellow-400">İletişim</a>
+            </nav>
+            <div id="cart-btn" class="bg-yellow-500 text-[#001f3f] px-4 py-2 rounded-full font-black text-sm flex items-center gap-2 shadow-lg">
+                <i class="fa-solid fa-basket-shopping"></i> <span id="cart-count">0</span>
+            </div>
         </div>
-      </div>
+    </header>
 
-      <aside class="hero-right card">
-        <h3>VRFDepo — Klimatech Alt Kuruluşu</h3>
-        <p>Alarko Totoline ürünleri; Sarkuysan bakır boru, Totkem gazlar, Wipcool el aletleri, Testo ölçü aletleri, Panasonic & Danfoss kompresörleri. Showroom & B2B.</p>
-        <a class="btn primary" href="/vrfdepo-b2b.html" id="vrfdepo-cta" target="_blank" rel="noopener">VRFDepo B2B'ye Git</a>
-      </aside>
+    <section class="bg-gradient-to-r from-[#001f3f] to-blue-900 text-white py-16 px-4">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-4xl md:text-5xl font-black leading-tight mb-6 italic">Güvenilir İklimlendirme Çözümleri</h2>
+                <p class="text-lg text-blue-100 mb-8 leading-relaxed">2005'ten beri chiller, VRF ve merkezi klima projelerinde KKT-Kraus ve Riedel Cooling servis partneri olarak anahtar teslim hizmet sunuyoruz.</p>
+                <div class="flex gap-4">
+                    <a href="#b2b-section" class="bg-yellow-500 text-[#001f3f] px-8 py-4 rounded-2xl font-black uppercase text-sm shadow-xl hover:bg-yellow-400 transition-all">B2B Mağazaya İn</a>
+                    <button class="border-2 border-white/20 px-8 py-4 rounded-2xl font-black uppercase text-sm hover:bg-white/10 transition-all">Teklif Al</button>
+                </div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[2.5rem] border border-white/10 shadow-2xl">
+                <h3 class="text-yellow-400 font-black uppercase tracking-widest mb-4 italic text-sm">VRFDepo Hakkında</h3>
+                <p class="text-sm leading-relaxed mb-6">Alarko Totoline, Sarkuysan, Wipcool, Testo ve Danfoss ürünlerinde geniş stok ve B2B fiyat avantajları.</p>
+                <div class="grid grid-cols-2 gap-4 text-[10px] font-bold uppercase">
+                    <div class="bg-white/10 p-3 rounded-xl border border-white/5">✓ Orijinal Yedek Parça</div>
+                    <div class="bg-white/10 p-3 rounded-xl border border-white/5">✓ Hızlı Sevkiyat</div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="card quick-seo">
-      <h2>Hızlı Bilgi</h2>
-      <p><strong>Kuruluş:</strong> 2005 • <strong>Bölge:</strong> Bursa, Yalova ve Türkiye geneli • <strong>Uzmanlık:</strong> Chiller, VRF, merkezi klima projeleri</p>
-      <div class="cta-row">
-        <a class="btn" href="/referanslar.html">Referanslar</a>
-        <a class="btn" href="/iletisim.html">Teklif Al</a>
-      </div>
-    </section>
+    <main id="b2b-section" class="max-w-7xl mx-auto px-4 py-12">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+            <div>
+                <h2 class="text-3xl font-black text-[#001f3f] italic uppercase">VRFDepo Dijital Şube</h2>
+                <p class="text-slate-400 font-bold text-sm uppercase tracking-widest mt-1">Şubat 2026 Güncel Fiyat Listesi</p>
+            </div>
+            <div class="bg-white p-2 rounded-2xl shadow-sm border border-slate-200 flex gap-2">
+                <button onclick="updatePrice(0, 'Standart')" id="btn-std" class="px-6 py-3 rounded-xl font-black text-[10px] uppercase transition-all border-2 border-slate-50">Standart</button>
+                <button onclick="updatePrice(4, 'Mustafa Usta')" id="btn-usta" class="px-6 py-3 rounded-xl font-black text-[10px] uppercase bg-green-50 border-2 border-green-200 text-green-700 italic transition-all">Mustafa Usta (-%4)</button>
+            </div>
+        </div>
 
-    <section class="card faq" aria-labelledby="faq-title">
-      <h2 id="faq-title">Sık Sorulan Sorular (Öne Çıkanlar)</h2>
-      <div class="faq-item">
-        <button class="faq-q">Klimatech hangi markaların servis partneridir?</button>
-        <div class="faq-a">KKT‑Kraus ve Riedel Cooling'in Türkiye & Ortadoğu servis partnerliğini yürütüyoruz.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">VRFDepo nedir?</button>
-        <div class="faq-a">2026'da kurulan VRFDepo, Klimatech alt kuruluşu olarak Alarko Totoline ürünlerinin showroom ve B2B satışını yapar.</div>
-      </div>
-    </section>
-  </main>
+        <div class="relative mb-12 max-w-xl">
+            <input type="text" id="searchInput" onkeyup="render()" placeholder="Ürün, Marka (Wipcool, Sarkuysan, Gaz) ara..." class="w-full pl-14 pr-6 py-5 rounded-3xl border-none shadow-xl bg-white text-sm font-bold focus:ring-4 focus:ring-yellow-500/20 transition-all">
+            <i class="fa-solid fa-magnifying-glass absolute left-6 top-5.5 text-slate-300 text-xl"></i>
+        </div>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-left">
-        <strong>Klimatech Mühendislik A.Ş.</strong><br/>
-        Adres: Bursa / Yalova bölgesi · Tel: +90-XXX-XXX-XXXX
-      </div>
-      <div class="footer-right">
-        <a href="https://www.facebook.com/klimatech" aria-label="Facebook">Facebook</a> ·
-        <a href="https://www.instagram.com/klimatech" aria-label="Instagram">Instagram</a>
-      </div>
+        <div id="catalog" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+    </main>
+
+    <div id="order-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-slate-100 p-6 shadow-[0_-20px_50px_rgba(0,0,0,0.15)] z-50 transform translate-y-full transition-transform duration-500">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div>
+                <p class="text-[10px] font-black text-slate-400 uppercase italic">Toplam Sipariş Tutarı</p>
+                <p id="total-price" class="text-3xl font-black text-[#001f3f]">0.00 TL</p>
+            </div>
+            <button onclick="sendWhatsAppOrder()" class="bg-green-600 text-white px-10 py-4 rounded-2xl font-black text-sm uppercase flex items-center gap-3 shadow-xl hover:bg-green-700 transition-all active:scale-90">
+                <i class="fa-brands fa-whatsapp text-2xl"></i> SİPARİŞİ TAMAMLA
+            </button>
+        </div>
     </div>
-  </footer>
+
+    <script>
+        // ÜRÜNLER (Senin Excel'inden Gelen Tam Veri)
+        const products = [
+            { id: 1, cat: "SARKUYSAN", name: "1/4\"-6,35x0,80mmx50m İzo.Boru", usd: 3.32, spec: "13mm Kauçuk İzolasyon", img: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?w=400" },
+            { id: 2, cat: "SARKUYSAN", name: "3/8\"-9,52x0,80mmx50m İzo.Boru", usd: 4.81, spec: "13mm Kauçuk İzolasyon", img: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?w=400" },
+            { id: 3, cat: "SARKUYSAN", name: "1/2\"-12,7x0,90mmx50m İzo.Boru", usd: 6.75, spec: "13mm Kauçuk İzolasyon", img: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?w=400" },
+            { id: 4, cat: "SOĞUTUCU GAZ", name: "TOTCHEM R410A GAZ 11.3 KG", usd: 138.00, spec: "Orijinal Çelik Tüp", img: "https://images.unsplash.com/photo-1599408162489-0606eee609e0?w=400" },
+            { id: 5, cat: "WIPCOOL", name: "F-1 Mini Şarjlı Vakum Pompası", usd: 165.00, spec: "1.5 CFM, 18V Lityum", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400" },
+            { id: 6, cat: "WIPCOOL", name: "C10B Kablosuz Temizleme Makinesi", usd: 174.11, spec: "3-10 Bar, Akülü", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400" },
+            { id: 7, cat: "TESTO", name: "TESTO 550S Dijital Manifold", usd: 682.65, spec: "Bluetooth + Akıllı Çanta", img: "https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=400" },
+            { id: 8, cat: "DANFOSS", name: "MTZ040-4VI Kompresör", usd: 669.77, spec: "Maneurop Orijinal", img: "https://images.unsplash.com/photo-1590959651373-a3db0f38a961?w=400" },
+            { id: 9, cat: "SARF", name: "ASA 3110 Bakır Kaynak Teli", usd: 35.48, spec: "3mm Gümüşlü Kaynak", img: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=400" }
+        ];
+
+        let cart = [];
+        let discount = 0;
+        let mode = "Standart";
+        const rate = 33.65;
+
+        function updatePrice(d, m) { discount = d; mode = m; render(); updateCart(); }
+
+        function addToCart(pid) {
+            const p = products.find(x => x.id === pid);
+            const inCart = cart.find(x => x.id === pid);
+            if(inCart) inCart.q++; else cart.push({...p, q: 1});
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = cart.reduce((a, b) => a + b.q, 0);
+            document.getElementById('cart-count').innerText = count;
+            let total = 0;
+            cart.forEach(x => total += (x.usd * rate) * (1 - (discount/100)) * x.q);
+            document.getElementById('total-price').innerText = total.toLocaleString('tr-TR', {minimumFractionDigits: 2}) + " TL";
+            const bar = document.getElementById('order-bar');
+            count > 0 ? bar.classList.remove('translate-y-full') : bar.classList.add('translate-y-full');
+        }
+
+        function sendWhatsAppOrder() {
+            let msg = `Selamun Aleyküm Mustafa Fatih Bey,\n\n🛠 *Klimatech B2B Siparişi (${mode}):*\n---------------------------\n`;
+            cart.forEach(x => {
+                const p = (x.usd * rate) * (1 - (discount/100));
+                msg += `🔹 *${x.name}*\n${x.q} Adet x ${p.toFixed(2)} TL\n\n`;
+            });
+            msg += `---------------------------\n💰 *GENEL TOPLAM: ${document.getElementById('total-price').innerText}*\n\nHayırlı işler usta.`;
+            window.open(`https://wa.me/905326809080?text=${encodeURIComponent(msg)}`);
+        }
+
+        function render() {
+            const cat = document.getElementById('catalog');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            cat.innerHTML = '';
+
+            products.filter(p => p.name.toLowerCase().includes(search) || p.cat.toLowerCase().includes(search)).forEach(p => {
+                const price = (p.usd * rate) * (1 - (discount/100));
+                cat.innerHTML += `
+                    <div class="product-card bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl border border-slate-100 flex flex-col transition-all duration-300 group">
+                        <div class="h-48 relative overflow-hidden bg-slate-50">
+                            <img src="${p.img}" class="w-full h-full object-cover opacity-90 group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute top-4 left-4 bg-[#001f3f] px-3 py-1 rounded-full shadow-lg">
+                                <span class="text-[8px] font-black text-yellow-400 uppercase tracking-widest">${p.cat}</span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-sm font-black text-slate-800 leading-tight mb-2">${p.name}</h3>
+                            <p class="text-[10px] text-slate-400 font-bold mb-4 italic">${p.spec}</p>
+                            <div class="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xl font-black text-[#001f3f] leading-none block">${price.toLocaleString('tr-TR', {maximumFractionDigits:2})} TL</span>
+                                    <span class="text-[9px] text-slate-300 font-black uppercase tracking-tighter mt-1 block">$${p.usd} LISTE</span>
+                                </div>
+                                <button onclick="addToCart(${p.id})" class="bg-[#001f3f] text-yellow-500 w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg active:scale-90 hover:bg-blue-900 transition-all">
+                                    <i class="fa-solid fa-plus text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        render();
+    </script>
 </body>
 </html>
