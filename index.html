@@ -6,52 +6,92 @@
     <title>Klimatech & vrfdepon | B2B Katalog</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero-bg { background: linear-gradient(rgba(0,31,63,0.8), rgba(0,31,63,0.8)), url('https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?auto=format&fit=crop&q=80'); background-size: cover; background-position: center; }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans text-gray-900 pb-32">
 
-    <header class="bg-[#001f3f] text-white shadow-lg sticky top-0 z-50 border-b-4 border-yellow-500">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+    <nav class="bg-[#001f3f] text-white py-3 px-4 sticky top-0 z-50 border-b-2 border-yellow-500 shadow-xl">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="bg-white p-2 rounded-lg text-[#001f3f] font-black text-xl italic leading-none">KLM</div>
-                <div>
-                    <h1 class="text-lg font-bold leading-none uppercase tracking-tight">Klimatech Mühendislik</h1>
-                    <p class="text-[10px] text-yellow-400 font-bold tracking-widest uppercase">Bursa - @vrfdepon</p>
-                </div>
+                <span class="bg-white text-[#001f3f] px-2 py-1 rounded font-black italic">KLM</span>
+                <span class="font-bold tracking-tighter uppercase text-sm">Klimatech & vrfdepon</span>
             </div>
-            <div class="bg-yellow-500 text-[#001f3f] px-4 py-2 rounded-xl font-black text-sm flex items-center gap-2">
-                <i class="fa-solid fa-shopping-cart"></i> <span id="cart-count">0</span>
+            <div class="bg-yellow-500 text-[#001f3f] px-4 py-1.5 rounded-full font-black text-xs flex items-center gap-2">
+                <i class="fa-solid fa-cart-shopping"></i> <span id="cart-count">0</span>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="max-w-6xl mx-auto px-4 py-8">
+    <section class="hero-bg text-white py-16 px-4 text-center border-b-8 border-yellow-500">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black mb-4 italic tracking-tight uppercase">Ustanın Dijital Ambarı</h2>
+            <p class="text-yellow-400 font-bold mb-8 tracking-widest uppercase text-sm italic">Mustafa Fatih Başpehlivan Güvencesiyle</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://www.facebook.com/groups/hvacustalari" target="_blank" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 transition-all shadow-lg">
+                    <i class="fa-brands fa-facebook text-xl"></i> 51.000+ USTA GRUBU
+                </a>
+                <a href="tel:905326809080" class="bg-white text-[#001f3f] px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 transition-all shadow-lg">
+                    <i class="fa-solid fa-phone"></i> HEMEN ARA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-4 -mt-8">
+        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <div class="bg-white p-3 rounded-2xl shadow-sm flex gap-2 border border-gray-200">
-                <button onclick="updateMode(0, 'Standart')" id="btn-std" class="flex-1 py-3 rounded-xl font-bold text-xs border-2 border-blue-900 bg-blue-50 text-blue-900">STANDART</button>
-                <button onclick="updateMode(4, 'Mustafa Usta')" id="btn-usta" class="flex-1 py-3 rounded-xl font-bold text-xs border-2 border-transparent text-gray-400 italic uppercase">MUSTAFA USTA (-%4)</button>
+            <div class="glass p-3 rounded-2xl shadow-xl flex gap-2 border border-blue-100">
+                <button onclick="updateMode(0, 'Standart')" id="btn-std" class="flex-1 py-4 rounded-xl font-black text-xs transition-all border-2 border-blue-900 bg-blue-50 text-blue-900">STANDART</button>
+                <button onclick="updateMode(4, 'Mustafa Usta')" id="btn-usta" class="flex-1 py-4 rounded-xl font-black text-xs transition-all border-2 border-transparent text-gray-400 italic">MUSTAFA USTA (-%4)</button>
             </div>
-            <div class="bg-white p-3 rounded-2xl shadow-sm flex items-center justify-center gap-6 border-l-8 border-blue-900">
-                <div class="text-center"><span class="block text-[9px] font-black text-gray-400 uppercase italic">USD/TRY</span><span class="text-xl font-black text-blue-900 italic">₺33,65</span></div>
-                <div class="text-center"><span class="block text-[9px] font-black text-gray-400 uppercase italic">EUR/TRY</span><span class="text-xl font-black text-blue-900 italic">₺36,50</span></div>
+            <div class="glass p-3 rounded-2xl shadow-xl flex items-center justify-around border-l-8 border-blue-900">
+                <div class="text-center"><span class="block text-[10px] font-black text-gray-400 italic uppercase">USD/TRY</span><span class="text-2xl font-black text-blue-900 italic">₺33,65</span></div>
+                <div class="text-center"><span class="block text-[10px] font-black text-gray-400 italic uppercase">EUR/TRY</span><span class="text-2xl font-black text-blue-900 italic">₺36,50</span></div>
             </div>
         </div>
 
-        <div class="mb-8 relative">
-            <input type="text" id="search" onkeyup="render()" placeholder="Ürün, Marka veya Ölçü Ara..." class="w-full p-5 rounded-2xl border-none shadow-xl bg-white font-bold text-gray-700">
-            <i class="fa-solid fa-search absolute right-6 top-5.5 text-gray-300"></i>
+        <div class="mb-10 relative">
+            <input type="text" id="search" onkeyup="render()" placeholder="Ürün, Marka veya Ölçü Ara (Örn: 1/4, Wipcool, Gaz)..." class="w-full p-6 rounded-3xl border-none shadow-2xl bg-white font-bold text-gray-700 text-lg focus:ring-4 focus:ring-yellow-500/20">
+            <i class="fa-solid fa-magnifying-glass absolute right-8 top-6.5 text-gray-300 text-xl"></i>
         </div>
 
-        <div id="catalog" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        <div id="catalog" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </main>
 
-    <div id="order-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t p-6 shadow-[0_-10px_30px_rgba(0,0,0,0.1)] z-50 hidden">
+    <footer class="bg-[#001f3f] text-white mt-20 py-12 px-4 border-t-4 border-yellow-500">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+            <div>
+                <h4 class="font-black text-xl mb-4 italic text-yellow-500 uppercase">KLİMATECH</h4>
+                <p class="text-gray-400 text-sm font-bold">Bursa'dan tüm Türkiye'ye teknik malzeme tedariği. 2005'ten beri ustanın yanındayız.</p>
+            </div>
+            <div>
+                <h4 class="font-black text-xl mb-4 italic text-yellow-500 uppercase">İLETİŞİM</h4>
+                <p class="text-sm font-bold mb-2"><i class="fa-solid fa-location-dot text-yellow-500 mr-2"></i> Bursa / Türkiye</p>
+                <p class="text-sm font-bold mb-2"><i class="fa-solid fa-phone text-yellow-500 mr-2"></i> 0532 680 90 80</p>
+                <p class="text-sm font-bold"><i class="fa-solid fa-envelope text-yellow-500 mr-2"></i> info@vrfdepon.com</p>
+            </div>
+            <div>
+                <h4 class="font-black text-xl mb-4 italic text-yellow-500 uppercase">TAKİP ET</h4>
+                <div class="flex justify-center md:justify-start gap-4">
+                    <a href="https://www.instagram.com/vrfdepon" class="text-3xl hover:text-yellow-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-3xl hover:text-yellow-500 transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/groups/hvacustalari" class="text-3xl hover:text-yellow-500 transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="order-bar" class="fixed bottom-0 left-0 right-0 glass border-t-2 border-blue-900 p-6 shadow-[0_-15px_40px_rgba(0,0,0,0.2)] z-[60] hidden">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
             <div>
-                <p class="text-[10px] font-bold text-gray-400 uppercase italic">Toplam Tutar</p>
+                <p class="text-[10px] font-black text-gray-400 uppercase italic">Toplam Sipariş Tutarı</p>
                 <p id="total-price" class="text-3xl font-black text-blue-900 italic">0.00 TL</p>
             </div>
-            <button onclick="sendOrder()" class="bg-green-600 text-white px-8 py-4 rounded-2xl font-black text-sm uppercase flex items-center gap-3">
-                <i class="fa-brands fa-whatsapp text-2xl"></i> SİPARİŞ VER
+            <button onclick="sendOrder()" class="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-2xl font-black text-sm uppercase flex items-center gap-3 shadow-xl active:scale-95 transition-all">
+                <i class="fa-brands fa-whatsapp text-2xl"></i> SİPARİŞİ TAMAMLA
             </button>
         </div>
     </div>
@@ -59,20 +99,26 @@
     <script>
         const rates = { "$": 33.65, "€": 36.50, "TL": 1.0 };
         const products = [
-            // --- SARKUYSAN VE GAZLAR ---
-            { id: 1, cat: "SARKUYSAN", name: "1/4\"-0,80mmx50m İzo.Boru", p: 3.32, cur: "$", spec: "METRE" },
-            { id: 2, cat: "SARKUYSAN", name: "3/8\"-0,80mmx50m İzo.Boru", p: 4.81, cur: "$", spec: "METRE" },
-            { id: 3, cat: "GAZ", name: "TOTCHEM R410A (11.3 KG)", p: 138.00, cur: "$", spec: "Orijinal Tüp" },
-            { id: 4, cat: "GAZ", name: "TOTCHEM R32 (9 KG)", p: 138.78, cur: "$", spec: "Orijinal Tüp" },
-            // --- WIPCOOL (TAM LİSTE) ---
-            { id: 100, cat: "WIPCOOL", name: "P18 Drenaj Pompası", p: 53.82, cur: "$", spec: "Sessiz" },
-            { id: 101, cat: "WIPCOOL", name: "S1.5 Vakum Pompası", p: 95.93, cur: "$", spec: "1.5 CFM" },
-            { id: 102, cat: "WIPCOOL", name: "C10B Akülü Temizleme", p: 174.11, cur: "$", spec: "Akülü" },
-            { id: 103, cat: "WIPCOOL", name: "EF-2 Havşa Takımı", p: 66.48, cur: "$", spec: "Hassas" },
-            // --- PANASONIC & DANFOSS ---
-            { id: 200, cat: "PANASONIC", name: "C-SCN673H8K R407C Scroll", p: 702.00, cur: "€", spec: "Kompresör" },
+            // GAZLAR
+            { id: 10, cat: "GAZ", name: "TOTCHEM R410A (11.3 KG)", p: 138.00, cur: "$", spec: "Orijinal Tüp" },
+            { id: 11, cat: "GAZ", name: "TOTCHEM R32 (9 KG)", p: 138.78, cur: "$", spec: "Orijinal Tüp" },
+            { id: 12, cat: "GAZ", name: "TOTCHEM R404A (10.9 KG)", p: 94.06, cur: "$", spec: "Orijinal Tüp" },
+            { id: 13, cat: "GAZ", name: "TOTCHEM R407C (11.3 KG)", p: 138.00, cur: "$", spec: "Orijinal Tüp" },
+            // WIPCOOL
+            { id: 100, cat: "WIPCOOL", name: "P18 Drenaj Pompası", p: 53.82, cur: "$", spec: "Sessiz Tip" },
+            { id: 101, cat: "WIPCOOL", name: "P36 Drenaj Pompası", p: 61.30, cur: "$", spec: "Yüksek Kapasite" },
+            { id: 102, cat: "WIPCOOL", name: "S1.5 Vakum Pompası", p: 95.93, cur: "$", spec: "1.5 CFM" },
+            { id: 103, cat: "WIPCOOL", name: "S2 Vakum Pompası", p: 123.93, cur: "$", spec: "2 CFM" },
+            { id: 104, cat: "WIPCOOL", name: "C10B Akülü Temizleme", p: 174.11, cur: "$", spec: "Kablosuz" },
+            { id: 105, cat: "WIPCOOL", name: "EF-2 Havşa Takımı", p: 66.48, cur: "$", spec: "Hassas İşçilik" },
+            { id: 106, cat: "WIPCOOL", name: "HTW-80 Dijital Tork Anahtarı", p: 216.83, cur: "$", spec: "Cırcırlı" },
+            // KOMPRESÖR
+            { id: 200, cat: "PANASONIC", name: "C-SCN673H8K R407C Scroll", p: 702.00, cur: "€", spec: "Dış Ünite" },
             { id: 201, cat: "DANFOSS", name: "MTZ 040-4VI Kompresör", p: 669.77, cur: "€", spec: "Maneurop" },
-            { id: 202, cat: "DANFOSS", name: "KP15 Presostat Kombine", p: 64.50, cur: "€", spec: "Oto. Reset" }
+            { id: 202, cat: "PANASONIC", name: "2K22S225A Rotari (12k)", p: 145.00, cur: "$", spec: "R22" },
+            // BAKIR
+            { id: 300, cat: "SARKUYSAN", name: "1/4\"-0,80mmx50m İzo.Boru", p: 3.32, cur: "$", spec: "Metre Fiyatı" },
+            { id: 301, cat: "SARKUYSAN", name: "3/8\"-0,80mmx50m İzo.Boru", p: 4.81, cur: "$", spec: "Metre Fiyatı" }
         ];
 
         let cart = [];
@@ -81,8 +127,8 @@
 
         function updateMode(d, m) {
             discount = d; userMode = m;
-            document.getElementById('btn-std').className = d === 0 ? "flex-1 py-3 rounded-xl font-bold text-xs bg-blue-50 text-blue-900 border-2 border-blue-900" : "flex-1 py-3 rounded-xl font-bold text-xs bg-white text-gray-400";
-            document.getElementById('btn-usta').className = d === 4 ? "flex-1 py-3 rounded-xl font-bold text-xs bg-green-50 text-green-700 border-2 border-green-700 italic" : "flex-1 py-3 rounded-xl font-bold text-xs bg-white text-gray-400";
+            document.getElementById('btn-std').className = d === 0 ? "flex-1 py-4 rounded-xl font-black text-xs border-2 border-blue-900 bg-blue-50 text-blue-900" : "flex-1 py-4 rounded-xl font-black text-xs border-2 border-transparent text-gray-400 italic";
+            document.getElementById('btn-usta').className = d === 4 ? "flex-1 py-4 rounded-xl font-black text-xs border-2 border-green-700 bg-green-50 text-green-700 italic" : "flex-1 py-4 rounded-xl font-black text-xs border-2 border-transparent text-gray-400 italic";
             render(); updateCart();
         }
 
@@ -97,9 +143,9 @@
             const count = cart.reduce((a, b) => a + b.q, 0);
             document.getElementById('cart-count').innerText = count;
             let total = 0;
-            cart.forEach(x => { total += (x.p * rates[x.cur]) * (1 - (discount/100)) * x.q; });
+            cart.forEach(x => { total += (x.p * (rates[x.cur] || 33.65)) * (1 - (discount/100)) * x.q; });
             document.getElementById('total-price').innerText = total.toLocaleString('tr-TR', {minimumFractionDigits: 2}) + " TL";
-            document.getElementById('order-bar').style.display = count > 0 ? 'block' : 'none';
+            document.getElementById('order-bar').style.display = count > 0 ? 'flex' : 'none';
         }
 
         function render() {
@@ -107,18 +153,32 @@
             const term = document.getElementById('search').value.toLowerCase();
             catalog.innerHTML = '';
             products.filter(p => p.name.toLowerCase().includes(term) || p.cat.toLowerCase().includes(term)).forEach(p => {
-                const finalPrice = (p.p * rates[p.cur]) * (1 - (discount/100));
-                catalog.innerHTML += `<div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex flex-col"><div class="flex justify-between items-start mb-4"><span class="bg-blue-50 text-blue-800 text-[9px] font-black px-3 py-1 rounded-full uppercase">${p.cat}</span><span class="text-gray-300 text-[10px] font-bold">${p.cur}${p.p}</span></div><h3 class="font-black text-gray-800 mb-1 leading-tight h-10 overflow-hidden">${p.name}</h3><p class="text-[11px] text-gray-400 font-bold mb-6">${p.spec}</p><div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-50"><span class="text-xl font-black text-blue-900 italic">${finalPrice.toLocaleString('tr-TR', {maximumFractionDigits: 2})} TL</span><button onclick="addToCart(${p.id})" class="bg-[#001f3f] text-white w-12 h-12 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-plus text-lg"></i></button></div></div>`;
+                const price = (p.p * (rates[p.cur] || 33.65)) * (1 - (discount/100));
+                catalog.innerHTML += `
+                    <div class="bg-white p-6 rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all border border-gray-100 flex flex-col group">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-blue-900 text-white text-[10px] font-black px-4 py-1 rounded-full uppercase italic">${p.cat}</span>
+                            <span class="text-gray-300 text-[10px] font-bold">${p.cur}${p.p}</span>
+                        </div>
+                        <h3 class="font-black text-gray-800 mb-2 leading-tight h-12 overflow-hidden text-lg">${p.name}</h3>
+                        <p class="text-[11px] text-blue-400 font-black mb-6 uppercase tracking-widest italic">${p.spec}</p>
+                        <div class="mt-auto flex items-center justify-between pt-6 border-t border-gray-50">
+                            <span class="text-2xl font-black text-[#001f3f] italic">${price.toLocaleString('tr-TR', {maximumFractionDigits: 2})} TL</span>
+                            <button onclick="addToCart(${p.id})" class="bg-[#001f3f] group-hover:bg-yellow-500 group-hover:text-[#001f3f] text-white w-14 h-14 rounded-2xl flex items-center justify-center transition-all shadow-lg active:scale-90">
+                                <i class="fa-solid fa-plus text-xl"></i>
+                            </button>
+                        </div>
+                    </div>`;
             });
         }
-        render();
 
         function sendOrder() {
-            let msg = `🛠 *Klimatech Sipariş (${userMode})*\n\n`;
-            cart.forEach(x => { msg += `• *${x.name}* (${x.q} Adet)\n`; });
-            msg += `\n💰 *TOPLAM: ${document.getElementById('total-price').innerText}*`;
+            let msg = `🛠 *KLİMATECH B2B SİPARİŞ (${userMode})*\n\n`;
+            cart.forEach(x => { msg += `✅ *${x.name}* - ${x.q} Adet\n`; });
+            msg += `\n💰 *TOPLAM: ${document.getElementById('total-price').innerText}*\n\n_Bu sipariş dijital katalog üzerinden oluşturuldu._`;
             window.open(`https://wa.me/905326809080?text=${encodeURIComponent(msg)}`);
         }
+        render();
     </script>
 </body>
 </html>
