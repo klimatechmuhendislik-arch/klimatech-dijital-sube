@@ -59,47 +59,21 @@
     <script>
         const rates = { "$": 33.65, "€": 36.50, "TL": 1.0 };
         const products = [
-    // --- TOTCHEM GAZ GRUBU (TAM LİSTE) ---
-    { id: 10, cat: "GAZ", name: "TOTCHEM R410A Soğutucu Gaz (11.3 KG)", p: 138.00, cur: "$", spec: "Orijinal Tüp" },
-    { id: 11, cat: "GAZ", name: "TOTCHEM R32 Soğutucu Gaz (9 KG)", p: 138.78, cur: "$", spec: "Orijinal Tüp" },
-    { id: 12, cat: "GAZ", name: "TOTCHEM R404A Soğutucu Gaz (10.9 KG)", p: 94.06, cur: "$", spec: "Orijinal Tüp" },
-    { id: 13, cat: "GAZ", name: "TOTCHEM R407C Soğutucu Gaz (11.3 KG)", p: 138.00, cur: "$", spec: "Orijinal Tüp" },
-    { id: 14, cat: "GAZ", name: "TOTCHEM R134A Soğutucu Gaz (13.6 KG)", p: 113.38, cur: "$", spec: "Orijinal Tüp" },
-
-    // --- WIPCOOL SERİSİ (EKSIKSIZ ANALİZ) ---
-    { id: 100, cat: "WIPCOOL", name: "P18 Drenaj Pompası", p: 53.82, cur: "$", spec: "Sessiz Tip" },
-    { id: 101, cat: "WIPCOOL", name: "P36 Drenaj Pompası", p: 61.30, cur: "$", spec: "Yüksek Kapasite" },
-    { id: 102, cat: "WIPCOOL", name: "P120S Drenaj Pompası", p: 237.11, cur: "$", spec: "Endüstriyel Tip" },
-    { id: 103, cat: "WIPCOOL", name: "S1 Vakum Pompası (1 CFM)", p: 67.76, cur: "$", spec: "Hafif Servis" },
-    { id: 104, cat: "WIPCOOL", name: "S1.5 Vakum Pompası (1.5 CFM)", p: 95.93, cur: "$", spec: "Orta Segment" },
-    { id: 105, cat: "WIPCOOL", name: "S2 Vakum Pompası (2 CFM)", p: 123.93, cur: "$", spec: "Hızlı Vakum" },
-    { id: 106, cat: "WIPCOOL", name: "C10B Akülü Temizleme Makinası", p: 174.11, cur: "$", spec: "Kablosuz" },
-    { id: 107, cat: "WIPCOOL", name: "C30S Buharlı Temizleme", p: 393.22, cur: "$", spec: "Profesyonel" },
-    { id: 108, cat: "WIPCOOL", name: "EF-2 Havşa Takımı", p: 66.48, cur: "$", spec: "Hassas" },
-    { id: 109, cat: "WIPCOOL", name: "EF-2LR Cırcırlı Havşa", p: 93.19, cur: "$", spec: "Matkap Uyumlu" },
-    { id: 110, cat: "WIPCOOL", name: "MDG1 Tekli Dijital Manifold", p: 126.40, cur: "$", spec: "Bluetooth" },
-    { id: 111, cat: "WIPCOOL", name: "HTW-80 Dijital Tork Anahtarı", p: 216.83, cur: "$", spec: "Cırcırlı" },
-    { id: 112, cat: "WIPCOOL", name: "HE-11 Boru Şişirme Aparatı", p: 355.75, cur: "$", spec: "Full Set" },
-    { id: 113, cat: "WIPCOOL", name: "MRS120 Gaz Terazisi", p: 256.26, cur: "$", spec: "Solenoid Vanalı" },
-    { id: 114, cat: "WIPCOOL", name: "MRM55 Gaz Geri Toplama", p: 666.27, cur: "$", spec: "Recovery" },
-
-    // --- PANASONIC & DANFOSS KOMPRESÖRLER ---
-    { id: 200, cat: "PANASONIC", name: "C-SCN673H8K R407C Scroll", p: 702.00, cur: "€", spec: "Panasonic" },
-    { id: 201, cat: "PANASONIC", name: "C-SCN603
-        H8K R407C Scroll", p: 702.00, cur: "€", spec: "Panasonic" },
-    { id: 202, cat: "PANASONIC", name: "2K22S225A Rotari (12k BTU)", p: 145.00, cur: "$", spec: "R22" },
-    { id: 203, cat: "PANASONIC", name: "2V32S225A Rotari (18k BTU)", p: 195.00, cur: "$", spec: "R22" },
-    { id: 204, cat: "DANFOSS", name: "MTZ 032-4VI Kompresör", p: 592.88, cur: "€", spec: "Maneurop" },
-    { id: 205, cat: "DANFOSS", name: "MTZ 040-4VI Kompresör", p: 669.77, cur: "€", spec: "Maneurop" },
-    { id: 206, cat: "DANFOSS", name: "KP15 Presostat Kombine", p: 64.50, cur: "€", spec: "Otomatik" },
-    { id: 207, cat: "DANFOSS", name: "KP5 Presostat", p: 41.50, cur: "€", spec: "Y.B. Manuel" },
-
-    // --- SARKUYSAN BAKIR GRUBU ---
-    { id: 300, cat: "SARKUYSAN", name: "1/4\"-0,80mmx50m İzo.Boru", p: 3.32, cur: "$", spec: "Metre" },
-    { id: 301, cat: "SARKUYSAN", name: "3/8\"-0,80mmx50m İzo.Boru", p: 4.81, cur: "$", spec: "Metre" },
-    { id: 302, cat: "SARKUYSAN", name: "1/2\"-0,90mmx50m İzo.Boru", p: 6.75, cur: "$", spec: "Metre" },
-    { id: 303, cat: "KAYNAK", name: "ASA 3110 Bakır Kaynak Teli", p: 35.48, cur: "$", spec: "3mm" }
-];
+            // --- SARKUYSAN VE GAZLAR ---
+            { id: 1, cat: "SARKUYSAN", name: "1/4\"-0,80mmx50m İzo.Boru", p: 3.32, cur: "$", spec: "METRE" },
+            { id: 2, cat: "SARKUYSAN", name: "3/8\"-0,80mmx50m İzo.Boru", p: 4.81, cur: "$", spec: "METRE" },
+            { id: 3, cat: "GAZ", name: "TOTCHEM R410A (11.3 KG)", p: 138.00, cur: "$", spec: "Orijinal Tüp" },
+            { id: 4, cat: "GAZ", name: "TOTCHEM R32 (9 KG)", p: 138.78, cur: "$", spec: "Orijinal Tüp" },
+            // --- WIPCOOL (TAM LİSTE) ---
+            { id: 100, cat: "WIPCOOL", name: "P18 Drenaj Pompası", p: 53.82, cur: "$", spec: "Sessiz" },
+            { id: 101, cat: "WIPCOOL", name: "S1.5 Vakum Pompası", p: 95.93, cur: "$", spec: "1.5 CFM" },
+            { id: 102, cat: "WIPCOOL", name: "C10B Akülü Temizleme", p: 174.11, cur: "$", spec: "Akülü" },
+            { id: 103, cat: "WIPCOOL", name: "EF-2 Havşa Takımı", p: 66.48, cur: "$", spec: "Hassas" },
+            // --- PANASONIC & DANFOSS ---
+            { id: 200, cat: "PANASONIC", name: "C-SCN673H8K R407C Scroll", p: 702.00, cur: "€", spec: "Kompresör" },
+            { id: 201, cat: "DANFOSS", name: "MTZ 040-4VI Kompresör", p: 669.77, cur: "€", spec: "Maneurop" },
+            { id: 202, cat: "DANFOSS", name: "KP15 Presostat Kombine", p: 64.50, cur: "€", spec: "Oto. Reset" }
+        ];
 
         let cart = [];
         let discount = 0;
