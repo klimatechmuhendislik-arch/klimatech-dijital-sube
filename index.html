@@ -3,48 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klimatech & vrfdepon | B2B Katalog</title>
+    
+    <title>Klimatech & vrfdepon | HVAC Teknik Malzeme B2B Katalog</title>
+    <meta name="description" content="Mustafa Fatih Başpehlivan güvencesiyle Bursa'dan Türkiye'ye HVAC yedek parça, Wipcool el aletleri, VRF sistemleri ve Totchem gaz tedariği.">
+    <meta name="keywords" content="HVAC, VRF, Wipcool, Klimatech, vrfdepon, klima yedek parça, soğutma gazı, Mustafa Fatih Başpehlivan">
+    <meta name="author" content="Mustafa Fatih Başpehlivan">
+
+    <meta property="og:title" content="Klimatech & vrfdepon B2B Katalog">
+    <meta property="og:description" content="51.000+ Usta ile HVAC dünyasının dijital ambarı. En güncel fiyatlar ve teknik malzemeler.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?auto=format&fit=crop&q=80">
+    <meta property="og:url" content="https://vrfdepon.com">
+    <meta name="twitter:card" content="summary_large_image">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .hero-bg { background: linear-gradient(rgba(0,31,63,0.85), rgba(0,31,63,0.85)), url('https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?auto=format&fit=crop&q=80'); background-size: cover; background-position: center; }
         .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        html { scroll-behavior: smooth; }
     </style>
 </head>
 <body class="bg-gray-100 font-sans text-gray-900 pb-32">
 
-    <nav class="bg-[#001f3f] text-white py-3 px-4 sticky top-0 z-50 border-b-2 border-yellow-500 shadow-xl">
+    <nav class="bg-[#001f3f] text-white py-3 px-4 sticky top-0 z-50 border-b-2 border-yellow-500 shadow-xl" role="navigation">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <span class="bg-white text-[#001f3f] px-2 py-1 rounded font-black italic text-lg shadow-sm">KLM</span>
                 <span class="font-bold tracking-tighter uppercase text-sm hidden sm:block">Klimatech & vrfdepon</span>
             </div>
-            <div class="bg-yellow-500 text-[#001f3f] px-5 py-2 rounded-full font-black text-xs flex items-center gap-2 shadow-lg scale-105 transition-transform">
+            <div class="bg-yellow-500 text-[#001f3f] px-5 py-2 rounded-full font-black text-xs flex items-center gap-2 shadow-lg scale-105">
                 <i class="fa-solid fa-cart-shopping"></i> <span id="cart-count">0</span>
             </div>
         </div>
     </nav>
 
-    <section class="hero-bg text-white py-16 px-4 text-center border-b-8 border-yellow-500">
+    <header class="hero-bg text-white py-16 px-4 text-center border-b-8 border-yellow-500">
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-black mb-4 italic tracking-tight uppercase text-shadow">Ustanın Dijital Ambarı</h2>
+            <h1 class="text-4xl md:text-5xl font-black mb-4 italic tracking-tight uppercase text-shadow">Ustanın Dijital Ambarı</h1>
             <p class="text-yellow-400 font-bold mb-8 tracking-widest uppercase text-sm italic">Mustafa Fatih Başpehlivan Güvencesiyle</p>
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="https://www.facebook.com/groups/497253503765511" target="_blank" class="bg-blue-600 hover:bg-blue-700 px-6 py-4 rounded-2xl font-bold text-sm flex items-center gap-2 transition-all shadow-xl active:scale-95">
-                    <i class="fa-brands fa-"book text-xl"></i> 51.000+ USTA GRUBU
+                    <i class="fa-brands fa-facebook text-xl"></i> 51.000+ USTA GRUBU
                 </a>
                 <a href="tel:+905326809080" class="bg-white text-[#001f3f] px-6 py-4 rounded-2xl font-bold text-sm flex items-center gap-2 transition-all shadow-xl hover:bg-yellow-500 active:scale-95">
                     <i class="fa-solid fa-phone"></i> +90 532 680 90 80 ARA
                 </a>
             </div>
         </div>
-    </section>
+    </header>
 
     <main class="max-w-6xl mx-auto px-4 -mt-10">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             <div class="glass p-4 rounded-3xl shadow-2xl flex gap-2 border border-blue-100">
-                <button onclick="updateMode(0, 'Standart')" id="btn-std" class="flex-1 py-4 rounded-2xl font-black text-xs transition-all border-2 border-blue-900 bg-blue-50 text-blue-900 shadow-inner">STANDART</button>
+                <button onclick="updateMode(0, 'Standart')" id="btn-std" class="flex-1 py-4 rounded-2xl font-black text-xs transition-all border-2 border-blue-900 bg-blue-50 text-blue-900 shadow-inner scale-105">STANDART</button>
                 <button onclick="updateMode(4, 'Mustafa Usta')" id="btn-usta" class="flex-1 py-4 rounded-2xl font-black text-xs transition-all border-2 border-transparent text-gray-400 italic uppercase">MUSTAFA USTA (-%4)</button>
             </div>
             <div class="glass p-4 rounded-3xl shadow-2xl flex items-center justify-around border-l-8 border-blue-900">
@@ -54,6 +66,7 @@
         </div>
 
         <div class="mb-10 relative">
+            <label for="search" class="hidden">Ürün Ara</label>
             <input type="text" id="search" onkeyup="render()" placeholder="Ürün, Marka veya Ölçü Ara (Wipcool, Gaz, 1/4)..." class="w-full p-6 rounded-[2rem] border-none shadow-2xl bg-white font-bold text-gray-700 text-lg focus:ring-4 focus:ring-yellow-500/20 transition-all">
             <i class="fa-solid fa-magnifying-glass absolute right-8 top-6 text-gray-300 text-xl"></i>
         </div>
@@ -82,8 +95,8 @@
             <div>
                 <h4 class="font-black text-2xl mb-4 italic text-yellow-500 uppercase tracking-tighter">BİZİ TAKİP ET</h4>
                 <div class="flex justify-center md:justify-start gap-6">
-                    <a href="https://www.instagram.com/vrfdepon" class="text-4xl hover:text-yellow-500 transition-all active:scale-90"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/groups/497253503765511" class="text-4xl hover:text-yellow-500 transition-all active:scale-90"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/vrfdepon" class="text-4xl hover:text-yellow-500 transition-all"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/groups/497253503765511" class="text-4xl hover:text-yellow-500 transition-all"><i class="fa-brands fa-facebook"></i></a>
                 </div>
             </div>
         </div>
@@ -92,7 +105,7 @@
     <div id="order-bar" class="fixed bottom-0 left-0 right-0 glass border-t-2 border-blue-900 p-6 shadow-[0_-15px_40px_rgba(0,0,0,0.2)] z-[60] hidden">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
             <div>
-                <p class="text-[10px] font-black text-gray-400 uppercase italic leading-none mb-1">Toplam Sipariş</p>
+                <p class="text-[10px] font-black text-gray-400 uppercase italic mb-1">Toplam Tutar</p>
                 <p id="total-price" class="text-3xl font-black text-blue-900 italic">0.00 TL</p>
             </div>
             <button onclick="sendOrder()" class="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-2xl font-black text-sm uppercase flex items-center gap-3 shadow-xl active:scale-95 transition-all">
@@ -115,45 +128,25 @@
                 document.getElementById('eur-rate').innerText = "₺" + rates["€"].toFixed(2);
                 render();
             } catch (e) {
-                console.error("Kur hatası, sabit fiyatlar devrede.");
-                document.getElementById('usd-rate').innerText = "₺33.65";
-                document.getElementById('eur-rate').innerText = "₺36.50";
+                console.error("Kur hatası.");
                 render();
             }
         }
 
-        // --- DEV ÜRÜN LİSTESİ ---
         const products = [
-            // GAZLAR
             { id: 1, cat: "GAZ", name: "TOTCHEM R410A (11.3 KG)", p: 138.00, cur: "$", spec: "Orijinal Tüp" },
             { id: 2, cat: "GAZ", name: "TOTCHEM R32 (9 KG)", p: 138.78, cur: "$", spec: "Orijinal Tüp" },
             { id: 3, cat: "GAZ", name: "TOTCHEM R404A (10.9 KG)", p: 94.06, cur: "$", spec: "Orijinal Tüp" },
             { id: 4, cat: "GAZ", name: "TOTCHEM R407C (11.3 KG)", p: 138.00, cur: "$", spec: "Orijinal Tüp" },
             { id: 5, cat: "GAZ", name: "TOTCHEM R134A (13.6 KG)", p: 113.38, cur: "$", spec: "Orijinal Tüp" },
-            // WIPCOOL
             { id: 100, cat: "WIPCOOL", name: "P18 Drenaj Pompası", p: 53.82, cur: "$", spec: "Sessiz Tip" },
             { id: 101, cat: "WIPCOOL", name: "P36 Drenaj Pompası", p: 61.30, cur: "$", spec: "Yüksek Kapasite" },
-            { id: 102, cat: "WIPCOOL", name: "P120S Drenaj Pompası", p: 237.11, cur: "$", spec: "Endüstriyel" },
             { id: 103, cat: "WIPCOOL", name: "S1.5 Vakum Pompası", p: 95.93, cur: "$", spec: "1.5 CFM" },
-            { id: 104, cat: "WIPCOOL", name: "S2 Vakum Pompası", p: 123.93, cur: "$", spec: "2 CFM" },
-            { id: 105, cat: "WIPCOOL", name: "C10B Akülü Temizleme", p: 174.11, cur: "$", spec: "Kablosuz" },
-            { id: 106, cat: "WIPCOOL", name: "C30S Buharlı Temizleme", p: 393.22, cur: "$", spec: "Profesyonel" },
             { id: 107, cat: "WIPCOOL", name: "EF-2 Havşa Takımı", p: 66.48, cur: "$", spec: "Hassas İşçilik" },
-            { id: 108, cat: "WIPCOOL", name: "EF-2LR Cırcırlı Havşa", p: 93.19, cur: "$", spec: "Matkap Uyumlu" },
             { id: 109, cat: "WIPCOOL", name: "HTW-80 Dijital Tork Anahtarı", p: 216.83, cur: "$", spec: "Cırcırlı" },
-            { id: 110, cat: "WIPCOOL", name: "HE-11 Boru Şişirme Aparatı", p: 355.75, cur: "$", spec: "Full Set" },
-            // KOMPRESÖRLER
             { id: 200, cat: "PANASONIC", name: "C-SCN673H8K R407C Scroll", p: 702.00, cur: "€", spec: "Panasonic" },
-            { id: 201, cat: "PANASONIC", name: "C-SCN603H8K R407C Scroll", p: 702.00, cur: "€", spec: "Panasonic" },
-            { id: 202, cat: "PANASONIC", name: "2K22S225A Rotari (12k)", p: 145.00, cur: "$", spec: "R22" },
-            { id: 203, cat: "DANFOSS", name: "MTZ 040-4VI Kompresör", p: 669.77, cur: "€", spec: "Maneurop" },
-            { id: 204, cat: "DANFOSS", name: "KP15 Presostat Kombine", p: 64.50, cur: "€", spec: "Oto. Reset" },
-            // BAKIR VE SARF
             { id: 300, cat: "SARKUYSAN", name: "1/4\"-0,80mmx50m İzo.Boru", p: 3.32, cur: "$", spec: "Metre Fiyatı" },
-            { id: 301, cat: "SARKUYSAN", name: "3/8\"-0,80mmx50m İzo.Boru", p: 4.81, cur: "$", spec: "Metre Fiyatı" },
-            { id: 302, cat: "SARKUYSAN", name: "1/2\"-0,90mmx50m İzo.Boru", p: 6.75, cur: "$", spec: "Metre Fiyatı" },
-            { id: 303, cat: "KAYNAK", name: "ASA 3110 Bakır Kaynak Teli", p: 35.48, cur: "$", spec: "3mm Kalınlık" },
-            { id: 304, cat: "TESTO", name: "550S Dijital Manifold", p: 682.65, cur: "$", spec: "Akıllı Set" }
+            { id: 301, cat: "SARKUYSAN", name: "3/8\"-0,80mmx50m İzo.Boru", p: 4.81, cur: "$", spec: "Metre Fiyatı" }
         ];
 
         let cart = [];
@@ -190,31 +183,31 @@
             products.filter(p => p.name.toLowerCase().includes(term) || p.cat.toLowerCase().includes(term)).forEach(p => {
                 const finalP = (p.p * (rates[p.cur] || 1)) * (1 - (discount/100));
                 catalog.innerHTML += `
-                    <div class="bg-white p-6 rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all border border-gray-100 flex flex-col group overflow-hidden">
+                    <article class="bg-white p-6 rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all border border-gray-100 flex flex-col group">
                         <div class="flex justify-between items-start mb-4">
                             <span class="bg-[#001f3f] text-white text-[10px] font-black px-4 py-1 rounded-full uppercase italic tracking-widest">${p.cat}</span>
-                            <span class="text-gray-300 text-[10px] font-bold tracking-tighter">${p.cur}${p.p}</span>
+                            <span class="text-gray-300 text-[10px] font-bold">${p.cur}${p.p}</span>
                         </div>
-                        <h3 class="font-black text-gray-800 mb-2 leading-tight h-12 overflow-hidden text-lg group-hover:text-blue-900 transition-colors uppercase">${p.name}</h3>
-                        <p class="text-[11px] text-blue-400 font-black mb-6 uppercase tracking-widest italic">${p.spec}</p>
+                        <h2 class="font-black text-gray-800 mb-2 leading-tight h-12 overflow-hidden text-lg uppercase">${p.name}</h2>
+                        <p class="text-[11px] text-blue-400 font-black mb-6 uppercase italic">${p.spec}</p>
                         <div class="mt-auto flex items-center justify-between pt-6 border-t border-gray-50">
-                            <span class="text-2xl font-black text-[#001f3f] italic leading-none">${finalP.toLocaleString('tr-TR', {maximumFractionDigits: 2})} TL</span>
-                            <button onclick="addToCart(${p.id})" class="bg-[#001f3f] group-hover:bg-yellow-500 group-hover:text-[#001f3f] text-white w-14 h-14 rounded-2xl flex items-center justify-center transition-all shadow-lg active:scale-90 scale-110">
+                            <span class="text-2xl font-black text-[#001f3f] italic">${finalP.toLocaleString('tr-TR', {maximumFractionDigits: 2})} TL</span>
+                            <button onclick="addToCart(${p.id})" aria-label="Sepete Ekle" class="bg-[#001f3f] hover:bg-yellow-500 hover:text-[#001f3f] text-white w-14 h-14 rounded-2xl flex items-center justify-center transition-all shadow-lg active:scale-90 scale-110">
                                 <i class="fa-solid fa-plus text-xl"></i>
                             </button>
                         </div>
-                    </div>`;
+                    </article>`;
             });
         }
 
         function sendOrder() {
             let msg = `🛠 *KLİMATECH B2B SİPARİŞ (${userMode})*\n\n`;
             cart.forEach(x => { msg += `✅ *${x.name}* - ${x.q} Adet\n`; });
-            msg += `\n💰 *TOPLAM: ${document.getElementById('total-price').innerText}*\n\n_Bu sipariş Klimatech B2B Katalog üzerinden otomatik oluşturuldu._`;
+            msg += `\n💰 *TOPLAM: ${document.getElementById('total-price').innerText}*\n\n_Bu sipariş vrfdepon.com üzerinden oluşturuldu._`;
             window.open(`https://wa.me/905326809080?text=${encodeURIComponent(msg)}`);
         }
 
-        fetchRates(); // Açılışta kurları çek ve kataloğu kur
+        fetchRates();
     </script>
 </body>
 </html>
