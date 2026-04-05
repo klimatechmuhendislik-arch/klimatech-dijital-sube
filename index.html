@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Klimatech Dijital Şube | Yönetim Paneli</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div id="app" class="max-w-4xl mx-auto p-6">
+        <header class="flex justify-between items-center bg-blue-900 text-white p-4 rounded-t-lg">
+            <h1 class="text-xl font-bold">KLIMATECH DIJITAL ŞUBE</h1>
+            <div id="user-status" class="text-sm bg-blue-800 px-3 py-1 rounded">Giriş Yapılmadı</div>
+        </header>
+
+        <div class="bg-white p-6 shadow-md mb-6">
+            <h2 class="text-lg font-bold mb-4">Giriş Paneli (Simülasyon)</h2>
+            <div class="flex gap-2">
+                <button onclick="login('ziyaretci')" class="bg-gray-500 text-white px-4 py-2 rounded">Düz Vatandaş</button>
+                <button onclick="login('mustafa-usta')" class="bg-green-600 text-white px-4 py-2 rounded">Mustafa Usta (%4 İndirimli)</button>
+            </div>
+        </div>
+
+        <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            </div>
+    </div>
+
+    <script>
+        // Senin Ürünlerin ve Dolar Fiyatların
+        const products = [
+            { id: 1, name: "1/4\" Bakır Boru (50m)", priceUSD: 100, stock: 50 },
+            { id: 2, name: "R410A Gaz 11.3 KG", priceUSD: 120, stock: 20 }
+        ];
+
+        let currentUser = { type: 'ziyaretci', discount: 0 };
+        const exchangeRate = 33.50; // Bu ilerde otomatik gelecek
+
+        function login(userType) {
+            if(userType === 'mustafa-usta') {
+                currentUser = { type: 'Mustafa Usta', discount: 4 };
+                document.getElementById('user-status').innerText = "Hoş geldin Mustafa Usta (%4 Tanımlı)";
+            } else {
+                currentUser = { type: 'Ziyaretçi', discount: 0 };
+                document.getElementById('user-status').innerText = "Ziyaretçi Modu (Liste Fiyatı)";
+            }
+            render();
+        }
+
+        function render() {
+            const list = document.getElementById('product-list');
+            list.innerHTML = '';
+            products.forEach(p => {
+                const basePriceTL = p.priceUSD * exchangeRate;
+                const finalPrice = basePriceTL * (1 - (currentUser.discount / 100));
+                
+                list.innerHTML += `
+                    <div class="bg-white p-4 border rounded shadow">
+                        <h3 class="font-bold">${p.name}</h3>
+                        <p class="text-sm text-gray-500">Liste Fiyatı: $${p.priceUSD}</p>
+                        <p class="text-xl font-bold text-blue-600">${finalPrice.toLocaleString('tr-TR')} TL</p>
+                        ${currentUser.discount > 0 ? `<p class="text-xs text-green-600 font-bold">İndiriminiz Uygulandı!</p>` : ''}
+                        <button class="mt-2 w-full bg-blue-900 text-white py-1 rounded">Sepete Ekle</button>
+                    </div>
+                `;
+            });
+        }
+        render();
+    </script>
+</body>
+</html>
