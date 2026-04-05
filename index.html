@@ -3,101 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klimatech & vrfdepon | Profesyonel Katalog</title>
+    <title>Klimatech & vrfdepon | Dijital Şube V5</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .product-card:hover img { transform: scale(1.1); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        .product-card:hover { transform: translateY(-8px); shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
     </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-900 pb-28">
+<body class="bg-slate-50 font-sans text-slate-900 pb-32">
 
-    <header class="sticky top-0 z-50 bg-[#001f3f] text-white shadow-xl border-b-2 border-yellow-500">
+    <header class="sticky top-0 z-50 bg-[#001f3f] text-white shadow-2xl border-b-2 border-yellow-500">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="bg-white p-2 rounded-xl"><span class="text-[#001f3f] font-black text-2xl italic uppercase">KLM</span></div>
+                <div class="bg-white p-2 rounded-xl shadow-inner"><span class="text-[#001f3f] font-black text-2xl italic">KLM</span></div>
                 <div>
                     <h1 class="text-xl font-bold leading-none italic uppercase">Klimatech</h1>
-                    <p class="text-[10px] text-yellow-400 font-black tracking-[0.2em] uppercase">@vrfdepon</p>
+                    <p class="text-[10px] text-yellow-400 font-black tracking-widest uppercase">@vrfdepon</p>
                 </div>
             </div>
-            <div id="cart-btn" class="bg-yellow-500 text-[#001f3f] px-5 py-2.5 rounded-full font-black text-sm flex items-center gap-2 shadow-lg animate-pulse">
-                <i class="fa-solid fa-basket-shopping"></i> <span id="cart-count">0</span>
+            <div id="cart-counter" class="bg-yellow-500 text-[#001f3f] px-5 py-2 rounded-full font-black text-sm flex items-center gap-2 shadow-lg">
+                <i class="fa-solid fa-cart-flatbed-suitcases"></i> <span id="cart-count">0</span>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 mt-6">
+    <main class="max-w-7xl mx-auto px-4 py-6">
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div class="md:col-span-2 bg-white p-4 rounded-3xl shadow-sm border border-slate-200 flex items-center justify-around gap-4">
-                <button onclick="updatePrice(0, 'Standart')" id="btn-std" class="flex-1 py-4 rounded-2xl font-black text-xs uppercase border-2 border-slate-100 transition-all active:scale-95">Standart</button>
-                <button onclick="updatePrice(4, 'Mustafa Usta')" id="btn-usta" class="flex-1 py-4 rounded-2xl font-black text-xs uppercase bg-green-50 border-2 border-green-200 text-green-700 italic shadow-sm transition-all active:scale-95">Mustafa Usta (-%4)</button>
+        <div class="bg-white rounded-[2rem] shadow-sm border border-slate-200 p-4 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div class="flex gap-2 w-full md:w-auto">
+                <button onclick="updatePrice(0, 'Standart')" id="btn-std" class="flex-1 md:flex-none px-6 py-4 rounded-2xl font-black text-xs uppercase border-2 border-slate-100 transition-all active:scale-95">STANDART</button>
+                <button onclick="updatePrice(4, 'Mustafa Usta')" id="btn-usta" class="flex-1 md:flex-none px-6 py-4 rounded-2xl font-black text-xs uppercase bg-green-50 border-2 border-green-300 text-green-800 italic transition-all active:scale-95">MUSTAFA USTA (-%4)</button>
             </div>
-            <div class="bg-[#001f3f] p-4 rounded-3xl text-center text-white flex flex-col justify-center border-b-4 border-yellow-600">
-                <span class="text-[9px] font-black uppercase text-yellow-400 tracking-widest">Canlı Dolar Kuru</span>
-                <span class="text-2xl font-black italic">₺33,65</span>
+            <div class="flex items-center gap-6">
+                <div class="text-right">
+                    <p class="text-[9px] font-black text-slate-400 uppercase">Güncel Kur</p>
+                    <p class="text-xl font-black text-blue-900">₺33,65</p>
+                </div>
             </div>
         </div>
 
-        <div class="relative mb-10 max-w-2xl mx-auto">
-            <input type="text" id="searchInput" onkeyup="render()" placeholder="Ürün, marka veya ölçü ara (Örn: 1/2, Wipcool, Gaz)" class="w-full pl-14 pr-6 py-5 rounded-[2rem] border-none shadow-2xl bg-white text-sm font-bold focus:ring-4 focus:ring-yellow-500/20">
-            <i class="fa-solid fa-magnifying-glass absolute left-6 top-5.5 text-slate-300 text-xl"></i>
+        <div class="sticky top-[84px] z-40 bg-slate-50/90 backdrop-blur-md py-4">
+            <div class="relative mb-4">
+                <input type="text" id="searchInput" onkeyup="render()" placeholder="Malzeme adı veya marka ara..." class="w-full pl-14 pr-6 py-5 rounded-3xl border-none shadow-xl bg-white text-sm font-bold focus:ring-4 focus:ring-yellow-500/20 transition-all">
+                <i class="fa-solid fa-magnifying-glass absolute left-6 top-5.5 text-slate-300 text-xl"></i>
+            </div>
         </div>
 
-        <div id="catalog" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+        <div id="catalog" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
     </main>
 
-    <div id="order-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 p-5 shadow-[0_-20px_40px_rgba(0,0,0,0.1)] z-50 transform translate-y-full transition-transform duration-500">
+    <div id="order-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-slate-100 p-6 shadow-[0_-15px_40px_rgba(0,0,0,0.15)] z-50 transform translate-y-full transition-transform duration-500">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div>
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Toplam Sipariş Tutarı</p>
-                <p id="total-price" class="text-3xl font-black text-[#001f3f]">0.00 TL</p>
+                <p class="text-[11px] font-black text-slate-400 uppercase italic">Seçilen Malzemeler Toplamı</p>
+                <p id="total-price" class="text-3xl font-black text-blue-900">0.00 TL</p>
             </div>
-            <button onclick="sendWhatsAppOrder()" class="bg-green-600 text-white px-10 py-4 rounded-2xl font-black text-sm uppercase flex items-center gap-3 shadow-xl hover:bg-green-700 transition-all active:scale-90">
+            <button onclick="sendWhatsAppOrder()" class="bg-green-600 text-white px-8 py-4 rounded-[1.5rem] font-black text-sm uppercase flex items-center gap-3 shadow-xl hover:bg-green-700 transition-all active:scale-90">
                 <i class="fa-brands fa-whatsapp text-2xl"></i> SİPARİŞİ TAMAMLA
             </button>
         </div>
     </div>
 
     <script>
-        // ÜRÜNLER (Senin Listene Göre Optimize Edildi)
         const products = [
-            { id: 1, cat: "WIPCOOL", name: "F-1 Mini Şarjlı Vakum Pompası", usd: 165.00, spec: "1.5 CFM, 18V Lityum", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400" },
-            { id: 2, cat: "WIPCOOL", name: "C10 Klima Temizleme Makinesi", usd: 195.00, spec: "3-10 Bar, Şarjlı Kablosuz", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400" },
-            { id: 3, cat: "BAKIR BORU", name: "1/4\" Sarkuysan İzolasyonlu Boru", usd: 2.53, spec: "0.80mm Et Kalınlığı (50m)", img: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?w=400" },
-            { id: 4, cat: "BAKIR BORU", name: "3/8\" Sarkuysan İzolasyonlu Boru", usd: 3.82, spec: "0.80mm Et Kalınlığı (50m)", img: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?w=400" },
-            { id: 5, cat: "GAZ", name: "TOTCHEM R410A GAZ 11.3 KG", usd: 118.00, spec: "Saf Orijinal Çelik Tüp", img: "https://images.unsplash.com/photo-1599408162489-0606eee609e0?w=400" },
-            { id: 6, cat: "GAZ", name: "TOTCHEM R407C GAZ 10 KG", usd: 126.00, spec: "Yüksek Verimli Soğutucu", img: "https://images.unsplash.com/photo-1599408162489-0606eee609e0?w=400" },
-            { id: 7, cat: "DANFOSS", name: "KP15 Presostat Oto. Reset", usd: 39.78, spec: "Alçak/Yüksek Basınç Korumalı", img: "https://images.unsplash.com/photo-1590959651373-a3db0f38a961?w=400" },
-            { id: 8, cat: "TESTO", name: "TESTO 550S Dijital Manifold", usd: 445.00, spec: "Bluetooth + Akıllı Uygulama", img: "https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=400" },
-            { id: 9, cat: "SARF", name: "WIPCOOL Karbon Kaynak Battaniyesi", usd: 35.00, spec: "Yüksek Isıya Dayanıklı", img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400" }
+            // SARKUYSAN BAKIR GRUBU
+            { id: 1, cat: "BAKIR BORU", name: "1/4\"-6,35x0,80mmx50m İzo.Boru", usd: 3.32, spec: "Sarkuysan, 13mm Kauçuk İzolasyon", img: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?w=400" },
+            { id: 2, cat: "BAKIR BORU", name: "3/8\"-9,52x0,80mmx50m İzo.Boru", usd: 4.81, spec: "Sarkuysan, 13mm Kauçuk İzolasyon", img: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?w=400" },
+            { id: 3, cat: "BAKIR BORU", name: "1/2\"-12,7x0,90mmx50m İzo.Boru", usd: 6.75, spec: "Sarkuysan, 13mm Kauçuk İzolasyon", img: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?w=400" },
+            { id: 4, cat: "BAKIR BORU", name: "5/8\"-15,87x1,0mmx50m İzo.Boru", usd: 10.30, spec: "Sarkuysan, 13mm Kauçuk İzolasyon", img: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?w=400" },
+            
+            // GAZLAR
+            { id: 20, cat: "SOĞUTUCU GAZ", name: "TOTCHEM R410A GAZ 11.3 KG", usd: 138.00, spec: "Saf Çelik Tüp, Orijinal", img: "https://images.unsplash.com/photo-1599408162489-0606eee609e0?w=400" },
+            { id: 21, cat: "SOĞUTUCU GAZ", name: "REFRIGERANT R32 GAZ 7 KG", usd: 138.78, spec: "Yüksek Verimli Yeni Nesil Gaz", img: "https://images.unsplash.com/photo-1599408162489-0606eee609e0?w=400" },
+
+            // WIPCOOL EKİPMANLAR
+            { id: 30, cat: "WIPCOOL", name: "F-1 Mini Şarjlı Vakum Pompası", usd: 165.00, spec: "1.5 CFM, 18V Lityum Pil", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400" },
+            { id: 31, cat: "WIPCOOL", name: "C10B Kablosuz Temizleme Makinesi", usd: 174.11, spec: "3-10 Bar Basınç, Şarjlı", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400" },
+            { id: 32, cat: "WIPCOOL", name: "P12 Drenaj Pompası", usd: 52.80, spec: "Sessiz ve Yüksek Performans", img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400" },
+
+            // TESTO & ÖLÇÜM
+            { id: 40, cat: "TESTO", name: "TESTO 550S Dijital Manifold Seti", usd: 682.65, spec: "Bluetooth, Akıllı Çanta Dahil", img: "https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=400" },
+            { id: 41, cat: "TESTO", name: "TESTO 552i Kablosuz Vakum Prob", usd: 254.37, spec: "App Kontrollü Hassas Vakum", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400" },
+
+            // DANFOSS
+            { id: 50, cat: "DANFOSS", name: "MTZ040-4VI Kompresör", usd: 669.77, spec: "Orijinal Danfoss Maneurop", img: "https://images.unsplash.com/photo-1590959651373-a3db0f38a961?w=400" },
+            { id: 51, cat: "DANFOSS", name: "KP15 Presostat Kombine", usd: 64.50, spec: "Otomatik Reset, Hassas Kontrol", img: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=400" }
         ];
 
         let cart = [];
         let discount = 0;
-        let userMode = "Standart";
-        const rate = 33.65;
+        let mode = "Standart";
+        const exchangeRate = 33.65;
 
         function updatePrice(d, m) {
-            discount = d; userMode = m;
-            render(); updateCart();
+            discount = d; mode = m;
+            render(); updateCartUI();
         }
 
         function addToCart(pid) {
             const p = products.find(x => x.id === pid);
             const inCart = cart.find(x => x.id === pid);
-            if(inCart) inCart.q++; else cart.push({...p, q: 1});
-            updateCart();
+            if(inCart) inCart.qty++; else cart.push({...p, qty: 1});
+            updateCartUI();
         }
 
-        function updateCart() {
-            const count = cart.reduce((a, b) => a + b.q, 0);
+        function updateCartUI() {
+            const count = cart.reduce((a, b) => a + b.qty, 0);
             document.getElementById('cart-count').innerText = count;
             
             let total = 0;
-            cart.forEach(x => total += (x.usd * rate) * (1 - (discount/100)) * x.q);
+            cart.forEach(x => total += (x.usd * exchangeRate) * (1 - (discount/100)) * x.qty);
             document.getElementById('total-price').innerText = total.toLocaleString('tr-TR', {minimumFractionDigits: 2}) + " TL";
             
             const bar = document.getElementById('order-bar');
@@ -105,40 +121,40 @@
         }
 
         function sendWhatsAppOrder() {
-            let msg = `Selamun Aleyküm Mustafa Fatih Bey,\n\n📋 *Yeni Sipariş Listesi (${userMode}):*\n---------------------------\n`;
+            let msg = `Selamun Aleyküm Mustafa Fatih Bey,\n\n🛠 *Sipariş Listesi (${mode}):*\n---------------------------\n`;
             cart.forEach(x => {
-                const p = (x.usd * rate) * (1 - (discount/100));
-                msg += `🔹 *${x.name}*\n${x.q} Adet x ${p.toFixed(2)} TL\n\n`;
+                const unitPrice = (x.usd * exchangeRate) * (1 - (discount/100));
+                msg += `📦 *${x.name}*\nAdet: ${x.qty} | Toplam: ${(unitPrice * x.qty).toLocaleString('tr-TR')} TL\n\n`;
             });
-            msg += `---------------------------\n💰 *GENEL TOPLAM: ${document.getElementById('total-price').innerText}*\n\nHayırlı işler usta.`;
+            msg += `---------------------------\n💰 *GENEL TOPLAM: ${document.getElementById('total-price').innerText}*\n\nHayırlı işler.`;
             window.open(`https://wa.me/905326809080?text=${encodeURIComponent(msg)}`);
         }
 
         function render() {
-            const cat = document.getElementById('catalog');
+            const catalog = document.getElementById('catalog');
             const search = document.getElementById('searchInput').value.toLowerCase();
-            cat.innerHTML = '';
+            catalog.innerHTML = '';
 
             products.filter(p => p.name.toLowerCase().includes(search) || p.cat.toLowerCase().includes(search)).forEach(p => {
-                const price = (p.usd * rate) * (1 - (discount/100));
-                cat.innerHTML += `
-                    <div class="product-card bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl border border-slate-100 flex flex-col transition-all duration-500 group">
-                        <div class="h-56 relative overflow-hidden bg-slate-50">
-                            <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-700 opacity-90 group-hover:opacity-100">
-                            <div class="absolute top-5 left-5 bg-[#001f3f] px-4 py-1.5 rounded-full shadow-lg">
+                const finalPrice = (p.usd * exchangeRate) * (1 - (discount/100));
+                catalog.innerHTML += `
+                    <div class="product-card bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100 flex flex-col transition-all duration-500 group bg-gradient-to-b from-white to-slate-50/30">
+                        <div class="h-52 relative overflow-hidden">
+                            <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute top-4 left-4 bg-[#001f3f] px-4 py-1.5 rounded-full shadow-lg">
                                 <span class="text-[8px] font-black text-yellow-400 uppercase tracking-widest">${p.cat}</span>
                             </div>
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-[15px] font-black text-slate-800 leading-tight mb-2">${p.name}</h3>
-                            <p class="text-[11px] text-slate-400 font-bold mb-5 italic">${p.spec}</p>
-                            <div class="mt-auto flex items-center justify-between border-t border-slate-50 pt-5">
+                            <h3 class="text-md font-black text-slate-800 leading-tight mb-2">${p.name}</h3>
+                            <p class="text-[11px] text-slate-400 font-bold mb-6 italic leading-relaxed">${p.spec}</p>
+                            <div class="mt-auto flex items-center justify-between border-t border-slate-100 pt-5">
                                 <div>
-                                    <span class="text-2xl font-black text-[#001f3f] leading-none block">${price.toLocaleString('tr-TR', {maximumFractionDigits:2})} TL</span>
-                                    <span class="text-[10px] text-slate-300 font-bold uppercase tracking-tighter">$${p.usd} LİSTE</span>
+                                    <span class="text-2xl font-black text-[#001f3f] leading-none block">${finalPrice.toLocaleString('tr-TR', {maximumFractionDigits:2})} TL</span>
+                                    <span class="text-[10px] text-slate-300 font-bold uppercase mt-1 inline-block">$${p.usd} LİSTE</span>
                                 </div>
                                 <button onclick="addToCart(${p.id})" class="bg-[#001f3f] text-yellow-500 w-14 h-14 rounded-3xl flex items-center justify-center shadow-xl active:scale-90 hover:bg-blue-900 transition-all">
-                                    <i class="fa-solid fa-plus text-2xl"></i>
+                                    <i class="fa-solid fa-cart-plus text-2xl"></i>
                                 </button>
                             </div>
                         </div>
