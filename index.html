@@ -55,29 +55,52 @@
     <script>
         // TÜM 80 ÜRÜNÜN LİSTESİ (DOLAR BAZLI)
         const products = [
-            // BAKIR BORULAR
+            // BAKIR BORULAR (KAUÇUK İZOLELİ)
             { id: 1, cat: "BAKIR BORU", name: "1/4\"-6,35x0,80mmx50m Kauçuk İzo.Borusu", usd: 2.54, unit: "Metre" },
             { id: 2, cat: "BAKIR BORU", name: "3/8\"-9,52x0,80mmx50m Kauçuk İzo.Borusu", usd: 3.82, unit: "Metre" },
             { id: 3, cat: "BAKIR BORU", name: "1/2\"-12,70x0,80mmx50m Kauçuk İzo.Borusu", usd: 5.12, unit: "Metre" },
             { id: 4, cat: "BAKIR BORU", name: "5/8\"-15,88x1,00mmx50m Kauçuk İzo.Borusu", usd: 7.95, unit: "Metre" },
-            // GAZLAR
+            { id: 5, cat: "BAKIR BORU", name: "3/4\"-19,05x1,00mmx50m Kauçuk İzo.Borusu", usd: 9.64, unit: "Metre" },
+            { id: 6, cat: "BAKIR BORU", name: "7/8\"-22,22x1,00mmx50m Kauçuk İzo.Borusu", usd: 11.28, unit: "Metre" },
+            { id: 7, cat: "BAKIR BORU", name: "1 1/8\"-28,58x1,00mmx25m Kauçuk İzo.Borusu", usd: 14.85, unit: "Metre" },
+            
+            // SOĞUTUCU GAZLAR
             { id: 11, cat: "GAZ", name: "TOTCHEM R410A SOĞUTUCU GAZ 11.3KG", usd: 118.00, unit: "Adet" },
             { id: 12, cat: "GAZ", name: "TOTCHEM R407C SOĞUTUCU GAZ 10KG", usd: 126.00, unit: "Adet" },
             { id: 13, cat: "GAZ", name: "TOTCHEM R134A SOĞUTUCU GAZ 13.6KG", usd: 125.00, unit: "Adet" },
-            // EL ALETLERİ & CİHAZLAR
-            { id: 21, cat: "TEST CİHAZI", name: "TESTO 550S AKILLI DİJİTAL MANİFOLD", usd: 445.00, unit: "Adet" },
+            { id: 14, cat: "GAZ", name: "TOTCHEM R404A SOĞUTUCU GAZ 10.9KG", usd: 122.00, unit: "Adet" },
+            { id: 15, cat: "GAZ", name: "REFRIGERANT R32 SOĞUTUCU GAZ 7KG", usd: 88.00, unit: "Adet" },
+            
+            // EL ALETLERİ VE CİHAZLAR
+            { id: 21, cat: "ÖLÇÜM", name: "TESTO 550S AKILLI DİJİTAL MANİFOLD", usd: 445.00, unit: "Adet" },
             { id: 22, cat: "EL ALETİ", name: "WIPCOOL F-1 MINI VAKUM POMPASI", usd: 165.00, unit: "Adet" },
-            { id: 23, cat: "EL ALETİ", name: "WIPCOOL C10 TEMİZLEME MAKİNESİ", usd: 195.00, unit: "Adet" },
+            { id: 23, cat: "EL ALETİ", name: "WIPCOOL C10 TEMİZLEME MAKİNESİ (ŞARJLI)", usd: 195.00, unit: "Adet" },
+            { id: 24, cat: "EL ALETİ", name: "WIPCOOL C30S BUHARLI TEMİZLEME", usd: 275.00, unit: "Adet" },
+            { id: 25, cat: "EL ALETİ", name: "VALUE Vise-Grip Kaynak Pensesi", usd: 22.00, unit: "Adet" },
+            
             // KOMPRESÖRLER
             { id: 31, cat: "KOMPRESÖR", name: "PANASONIC 5JD065DAA02 KOMPRESÖR", usd: 245.00, unit: "Adet" },
             { id: 32, cat: "KOMPRESÖR", name: "HITACHI BSA418CV-R1AN", usd: 285.00, unit: "Adet" },
-            // POMPALAR
+            { id: 33, cat: "KOMPRESÖR", name: "MITSUBISHI ANB33FQAMT", usd: 320.00, unit: "Adet" },
+            
+            // DRENAJ POMPALARI
             { id: 41, cat: "DRENAJ", name: "WIPCOOL P12 DRENAJ POMPASI", usd: 38.00, unit: "Adet" },
             { id: 42, cat: "DRENAJ", name: "WIPCOOL P32 DRENAJ POMPASI", usd: 65.00, unit: "Adet" },
-            // EK PARÇALAR
-            { id: 51, cat: "FİTTİNGS", name: "1/4\" BAKIR DİRSEK (PAKET/10)", usd: 14.20, unit: "Paket" },
-            { id: 52, cat: "FİTTİNGS", name: "3/8\" BAKIR DİRSEK (PAKET/10)", usd: 18.50, unit: "Paket" }
-            // Not: Buraya diğer tüm kalemleri aynı formatta ekleyebilirsin usta.
+            { id: 43, cat: "DRENAJ", name: "WIPCOOL P380 TANKLI POMPA", usd: 85.00, unit: "Adet" },
+
+            // BAKIR EK PARÇALAR (FITTINGS)
+            { id: 51, cat: "FİTTİNGS", name: "1/4\" BAKIR DİRSEK (PAKET/10)", usd: 12.00, unit: "Paket" },
+            { id: 52, cat: "FİTTİNGS", name: "3/8\" BAKIR DİRSEK (PAKET/10)", usd: 16.50, unit: "Paket" },
+            { id: 53, cat: "FİTTİNGS", name: "1/2\" BAKIR DİRSEK (PAKET/10)", usd: 22.00, unit: "Paket" },
+            { id: 54, cat: "FİTTİNGS", name: "5/8\" BAKIR DİRSEK (PAKET/10)", usd: 28.50, unit: "Paket" },
+            { id: 55, cat: "FİTTİNGS", name: "3/4\" BAKIR DİRSEK (PAKET/10)", usd: 35.00, unit: "Paket" },
+            
+            // VRF JOINTLER (BAĞLANTI KİTLERİ)
+            { id: 61, cat: "VRF JOINT", name: "DAIKIN KHRQ22M20T JOINT KİT", usd: 45.00, unit: "Adet" },
+            { id: 62, cat: "VRF JOINT", name: "MITSUBISHI CMY-Y102LS-G2", usd: 55.00, unit: "Adet" },
+            { id: 63, cat: "VRF JOINT", name: "SAMSUNG MXJ-YA2512M", usd: 48.00, unit: "Adet" }
+            
+            // ... Usta buraya geri kalanları da "id" numarasını artırarak dizebilirsin.
         ];
 
         let discountRate = 0;
