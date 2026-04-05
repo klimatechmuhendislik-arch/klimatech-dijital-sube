@@ -126,12 +126,41 @@
     <script>
         // Ürün listesi ve kur motoru (SEO için metin içerikleri zenginleştirildi)
         let rates = { "$": 33.65, "€": 36.50, "TL": 1.0 }; 
+        // --- GENİŞLETİLMİŞ ÜRÜN LİSTESİ ---
         const products = [
+            // GAZLAR
             { id: 1, cat: "SOĞUTMA GAZI", name: "TOTCHEM R410A (11.3 KG)", p: 138.00, cur: "$", spec: "Yüksek Saflıkta Klima Gazı" },
             { id: 2, cat: "SOĞUTMA GAZI", name: "TOTCHEM R32 (9 KG)", p: 138.78, cur: "$", spec: "Yeni Nesil Çevreci Gaz" },
-            { id: 100, cat: "WIPCOOL", name: "P18 Drenaj Pompası", p: 53.82, cur: "$", spec: "Sessiz Tip Klima Tahliye" },
-            { id: 107, cat: "WIPCOOL", name: "EF-2 Havşa Takımı", p: 66.48, cur: "$", spec: "Hassas Boru Şişirme Seti" },
-            { id: 200, cat: "PANASONIC", name: "C-SCN673H8K Scroll Kompresör", p: 702.00, cur: "€", spec: "Endüstriyel Soğutma Çözümü" }
+            { id: 3, cat: "SOĞUTMA GAZI", name: "TOTCHEM R404A (10.9 KG)", p: 94.06, cur: "$", spec: "Endüstriyel Soğutma Gazı" },
+            { id: 4, cat: "SOĞUTMA GAZI", name: "TOTCHEM R134A (13.6 KG)", p: 113.38, cur: "$", spec: "Otomobil & Buzdolabı Gazı" },
+            
+            // WIPCOOL EL ALETLERİ
+            { id: 100, cat: "WIPCOOL", name: "P18 Drenaj Pompası", p: 53.82, cur: "$", spec: "Sessiz Tip 18L/h Kapasite" },
+            { id: 101, cat: "WIPCOOL", name: "P36 Drenaj Pompası", p: 61.30, cur: "$", spec: "Yüksek Kapasite 36L/h" },
+            { id: 103, cat: "WIPCOOL", name: "S1.5 Vakum Pompası", p: 95.93, cur: "$", spec: "Hafif ve Güçlü 1.5 CFM" },
+            { id: 104, cat: "WIPCOOL", name: "S2 Vakum Pompası", p: 123.93, cur: "$", spec: "Profesyonel Seri 2 CFM" },
+            { id: 105, cat: "WIPCOOL", name: "C10B Akülü Temizleme", p: 174.11, cur: "$", spec: "Basınçlı Yıkama (Kablosuz)" },
+            { id: 107, cat: "WIPCOOL", name: "EF-2 Havşa Takımı", p: 66.48, cur: "$", spec: "Eksantrik Hassas İşçilik" },
+            { id: 108, cat: "WIPCOOL", name: "EF-2LR Cırcırlı Havşa", p: 93.19, cur: "$", spec: "Matkap Uyumlu Hızlı Havşa" },
+            { id: 109, cat: "WIPCOOL", name: "HTW-80 Dijital Tork Anahtarı", p: 216.83, cur: "$", spec: "Hassas Sıkma Ayarı" },
+            { id: 110, cat: "WIPCOOL", name: "WCS-50 Dijital Terazi", p: 145.50, cur: "$", spec: "Hassas Gaz Tartımı (50kg)" },
+            
+            // TESTO & ÖLÇÜM CİHAZLARI
+            { id: 304, cat: "TESTO", name: "550S Dijital Manifold", p: 682.65, cur: "$", spec: "Bluetoothlu Akıllı Manifold" },
+            { id: 305, cat: "TESTO", name: "557S Vakum Problu Set", p: 895.00, cur: "$", spec: "Full Set Profesyonel Cihaz" },
+            { id: 306, cat: "TESTO", name: "830-T1 Lazer Termometre", p: 110.00, cur: "$", spec: "Hızlı Sıcaklık Ölçümü" },
+
+            // KOMPRESÖRLER
+            { id: 200, cat: "PANASONIC", name: "C-SCN673H8K Scroll", p: 702.00, cur: "€", spec: "R407C Endüstriyel Kompresör" },
+            { id: 201, cat: "DANFOSS", name: "MTZ 040-4VI Maneurop", p: 669.77, cur: "€", spec: "Soğuk Hava Deposu Tipi" },
+            { id: 202, cat: "PANASONIC", name: "2K22S225A Rotari", p: 145.00, cur: "$", spec: "12.000 BTU Klima Tipi" },
+            
+            // BAKIR BORU & SARF
+            { id: 300, cat: "SARKUYSAN", name: "1/4\"-0,80mm İzo.Boru (50m)", p: 166.00, cur: "$", spec: "Sarkuysan Saf Bakır" },
+            { id: 301, cat: "SARKUYSAN", name: "3/8\"-0,80mm İzo.Boru (50m)", p: 240.50, cur: "$", spec: "Sarkuysan Saf Bakır" },
+            { id: 302, cat: "SARKUYSAN", name: "1/2\"-0,80mm İzo.Boru (50m)", p: 337.50, cur: "$", spec: "Sarkuysan Saf Bakır" },
+            { id: 303, cat: "KAYNAK", name: "ASA 3110 Bakır Kaynak Teli", p: 35.48, cur: "$", spec: "3mm Gümüşlü Kaynak Teli" },
+            { id: 307, cat: "DİĞER", name: "Vakum Yağı (1 Litre)", p: 12.00, cur: "$", spec: "Yüksek Kalite Vakum Yağı" }
         ];
 
         let cart = []; let discount = 0; let userMode = "Standart";
