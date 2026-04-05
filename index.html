@@ -11,123 +11,91 @@
     <header class="sticky top-0 z-50 bg-[#001f3f] text-white shadow-2xl border-b-2 border-yellow-500">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="bg-white p-1.5 rounded-lg shadow-inner">
-                    <span class="text-[#001f3f] font-black text-2xl tracking-tighter">KLM</span>
-                </div>
-                <div>
-                    <h1 class="text-xl font-bold leading-none italic">Klimatech</h1>
-                    <p class="text-[10px] text-yellow-400 font-bold tracking-widest uppercase">@vrfdepon Dijital Şube</p>
-                </div>
+                <div class="bg-white p-1.5 rounded-lg shadow-inner"><span class="text-[#001f3f] font-black text-2xl italic">KLM</span></div>
+                <div><h1 class="text-xl font-bold leading-none italic">Klimatech</h1><p class="text-[10px] text-yellow-400 font-bold uppercase tracking-widest">@vrfdepon Dijital Şube</p></div>
             </div>
-            <div id="user-display" class="hidden md:block text-xs font-bold bg-blue-800/50 px-4 py-2 rounded-full border border-blue-400/30">
-                Giriş: Liste Fiyatı
-            </div>
+            <div id="user-display" class="hidden md:block text-xs font-bold bg-blue-800/50 px-4 py-2 rounded-full border border-blue-400/30">Giriş: Liste Fiyatı</div>
         </div>
     </header>
 
     <main class="max-w-6xl mx-auto px-4 py-8">
-        
         <div class="bg-white rounded-3xl shadow-xl p-6 mb-10 border border-slate-200">
             <div class="text-center mb-6">
                 <h2 class="text-slate-500 text-xs font-black uppercase tracking-[0.2em]">Pazarlık ve İskonto Masası</h2>
-                <p class="text-slate-800 font-bold text-lg">Lütfen kimliğinizi seçin, fiyatlar anında güncellensin.</p>
+                <p class="text-slate-800 font-bold text-lg">Müşteri tipine göre fiyatları güncelle.</p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <button onclick="updatePrice(0, 'Son Müşteri')" class="group relative overflow-hidden bg-slate-100 p-5 rounded-2xl border-2 border-transparent hover:border-slate-300 transition-all">
-                    <div class="flex justify-between items-center relative z-10">
-                        <span class="font-black text-slate-700">STANDART MÜŞTERİ</span>
-                        <span class="text-2xl italic opacity-30">0%</span>
-                    </div>
-                </button>
-                <button onclick="updatePrice(4, 'Mustafa Usta')" class="group relative overflow-hidden bg-green-50 p-5 rounded-2xl border-2 border-green-200 hover:border-green-500 transition-all">
-                    <div class="flex justify-between items-center relative z-10">
-                        <span class="font-black text-green-800 text-lg italic">MUSTAFA USTA</span>
-                        <span class="bg-green-600 text-white text-xs px-2 py-1 rounded-lg">-4% İSKONTO</span>
-                    </div>
-                </button>
+                <button onclick="updatePrice(0, 'Son Müşteri')" class="bg-slate-100 p-5 rounded-2xl border-2 border-transparent hover:border-slate-300 font-black text-slate-700 transition-all text-center uppercase">Standart Müşteri (0%)</button>
+                <button onclick="updatePrice(4, 'Mustafa Usta')" class="bg-green-50 p-5 rounded-2xl border-2 border-green-200 hover:border-green-500 font-black text-green-800 transition-all text-center italic text-lg uppercase">Mustafa Usta (-4%)</button>
             </div>
         </div>
 
-        <div id="catalog" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            </div>
+        <div id="catalog" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </main>
 
     <script>
-        // TÜM 80 ÜRÜNÜN LİSTESİ (DOLAR BAZLI)
+        // EXCEL'DEN ÇEKİLEN TAM ÜRÜN LİSTESİ
         const products = [
-            // BAKIR BORULAR (KAUÇUK İZOLELİ)
-            { id: 1, cat: "BAKIR BORU", name: "1/4\"-6,35x0,80mmx50m Kauçuk İzo.Borusu", usd: 2.54, unit: "Metre" },
-            { id: 2, cat: "BAKIR BORU", name: "3/8\"-9,52x0,80mmx50m Kauçuk İzo.Borusu", usd: 3.82, unit: "Metre" },
-            { id: 3, cat: "BAKIR BORU", name: "1/2\"-12,70x0,80mmx50m Kauçuk İzo.Borusu", usd: 5.12, unit: "Metre" },
-            { id: 4, cat: "BAKIR BORU", name: "5/8\"-15,88x1,00mmx50m Kauçuk İzo.Borusu", usd: 7.95, unit: "Metre" },
-            { id: 5, cat: "BAKIR BORU", name: "3/4\"-19,05x1,00mmx50m Kauçuk İzo.Borusu", usd: 9.64, unit: "Metre" },
-            { id: 6, cat: "BAKIR BORU", name: "7/8\"-22,22x1,00mmx50m Kauçuk İzo.Borusu", usd: 11.28, unit: "Metre" },
-            { id: 7, cat: "BAKIR BORU", name: "1 1/8\"-28,58x1,00mmx25m Kauçuk İzo.Borusu", usd: 14.85, unit: "Metre" },
-            
-            // SOĞUTUCU GAZLAR
-            { id: 11, cat: "GAZ", name: "TOTCHEM R410A SOĞUTUCU GAZ 11.3KG", usd: 118.00, unit: "Adet" },
-            { id: 12, cat: "GAZ", name: "TOTCHEM R407C SOĞUTUCU GAZ 10KG", usd: 126.00, unit: "Adet" },
-            { id: 13, cat: "GAZ", name: "TOTCHEM R134A SOĞUTUCU GAZ 13.6KG", usd: 125.00, unit: "Adet" },
-            { id: 14, cat: "GAZ", name: "TOTCHEM R404A SOĞUTUCU GAZ 10.9KG", usd: 122.00, unit: "Adet" },
-            { id: 15, cat: "GAZ", name: "REFRIGERANT R32 SOĞUTUCU GAZ 7KG", usd: 88.00, unit: "Adet" },
-            
-            // EL ALETLERİ VE CİHAZLAR
-            { id: 21, cat: "ÖLÇÜM", name: "TESTO 550S AKILLI DİJİTAL MANİFOLD", usd: 445.00, unit: "Adet" },
-            { id: 22, cat: "EL ALETİ", name: "WIPCOOL F-1 MINI VAKUM POMPASI", usd: 165.00, unit: "Adet" },
-            { id: 23, cat: "EL ALETİ", name: "WIPCOOL C10 TEMİZLEME MAKİNESİ (ŞARJLI)", usd: 195.00, unit: "Adet" },
-            { id: 24, cat: "EL ALETİ", name: "WIPCOOL C30S BUHARLI TEMİZLEME", usd: 275.00, unit: "Adet" },
-            { id: 25, cat: "EL ALETİ", name: "VALUE Vise-Grip Kaynak Pensesi", usd: 22.00, unit: "Adet" },
-            
-            // KOMPRESÖRLER
-            { id: 31, cat: "KOMPRESÖR", name: "PANASONIC 5JD065DAA02 KOMPRESÖR", usd: 245.00, unit: "Adet" },
-            { id: 32, cat: "KOMPRESÖR", name: "HITACHI BSA418CV-R1AN", usd: 285.00, unit: "Adet" },
-            { id: 33, cat: "KOMPRESÖR", name: "MITSUBISHI ANB33FQAMT", usd: 320.00, unit: "Adet" },
-            
-            // DRENAJ POMPALARI
-            { id: 41, cat: "DRENAJ", name: "WIPCOOL P12 DRENAJ POMPASI", usd: 38.00, unit: "Adet" },
-            { id: 42, cat: "DRENAJ", name: "WIPCOOL P32 DRENAJ POMPASI", usd: 65.00, unit: "Adet" },
-            { id: 43, cat: "DRENAJ", name: "WIPCOOL P380 TANKLI POMPA", usd: 85.00, unit: "Adet" },
-
-            // BAKIR EK PARÇALAR (FITTINGS)
-            { id: 51, cat: "FİTTİNGS", name: "1/4\" BAKIR DİRSEK (PAKET/10)", usd: 12.00, unit: "Paket" },
-            { id: 52, cat: "FİTTİNGS", name: "3/8\" BAKIR DİRSEK (PAKET/10)", usd: 16.50, unit: "Paket" },
-            { id: 53, cat: "FİTTİNGS", name: "1/2\" BAKIR DİRSEK (PAKET/10)", usd: 22.00, unit: "Paket" },
-            { id: 54, cat: "FİTTİNGS", name: "5/8\" BAKIR DİRSEK (PAKET/10)", usd: 28.50, unit: "Paket" },
-            { id: 55, cat: "FİTTİNGS", name: "3/4\" BAKIR DİRSEK (PAKET/10)", usd: 35.00, unit: "Paket" },
-            
-            // VRF JOINTLER (BAĞLANTI KİTLERİ)
-            { id: 61, cat: "VRF JOINT", name: "DAIKIN KHRQ22M20T JOINT KİT", usd: 45.00, unit: "Adet" },
-            { id: 62, cat: "VRF JOINT", name: "MITSUBISHI CMY-Y102LS-G2", usd: 55.00, unit: "Adet" },
-            { id: 63, cat: "VRF JOINT", name: "SAMSUNG MXJ-YA2512M", usd: 48.00, unit: "Adet" }
-            
-            // ... Usta buraya geri kalanları da "id" numarasını artırarak dizebilirsin.
+            { id: 1, cat: "BAKIR BORU", name: "1/4\"-6,35x0,80mmx50m Kauçuk İzo.Borusu", usd: 2.54 },
+            { id: 2, cat: "BAKIR BORU", name: "3/8\"-9,52x0,80mmx50m Kauçuk İzo.Borusu", usd: 3.82 },
+            { id: 3, cat: "BAKIR BORU", name: "1/2\"-12,70x0,80mmx50m Kauçuk İzo.Borusu", usd: 5.12 },
+            { id: 4, cat: "BAKIR BORU", name: "5/8\"-15,88x1,00mmx50m Kauçuk İzo.Borusu", usd: 7.95 },
+            { id: 5, cat: "BAKIR BORU", name: "3/4\"-19,05x1,00mmx50m Kauçuk İzo.Borusu", usd: 9.64 },
+            { id: 6, cat: "BAKIR BORU", name: "7/8\"-22,22x1,00mmx50m Kauçuk İzo.Borusu", usd: 11.28 },
+            { id: 7, cat: "BAKIR BORU", name: "1 1/8\"-28,58x1,00mmx25m Kauçuk İzo.Borusu", usd: 14.85 },
+            { id: 11, cat: "SOĞUTUCU GAZ", name: "TOTCHEM R410A SOĞUTUCU GAZ 11.3KG", usd: 118.00 },
+            { id: 12, cat: "SOĞUTUCU GAZ", name: "TOTCHEM R407C SOĞUTUCU GAZ 10KG", usd: 126.00 },
+            { id: 13, cat: "SOĞUTUCU GAZ", name: "TOTCHEM R134A SOĞUTUCU GAZ 13.6KG", usd: 125.00 },
+            { id: 14, cat: "SOĞUTUCU GAZ", name: "TOTCHEM R404A SOĞUTUCU GAZ 10.9KG", usd: 122.00 },
+            { id: 15, cat: "SOĞUTUCU GAZ", name: "REFRIGERANT R32 SOĞUTUCU GAZ 7KG", usd: 88.00 },
+            { id: 21, cat: "CİHAZ", name: "TESTO 550S AKILLI DİJİTAL MANİFOLD", usd: 445.00 },
+            { id: 22, cat: "CİHAZ", name: "TESTO 557S AKILLI DİJİTAL MANİFOLD SETİ", usd: 585.00 },
+            { id: 23, cat: "CİHAZ", name: "TESTO 552 DİJİTAL VAKUMMETRE", usd: 185.00 },
+            { id: 31, cat: "EL ALETİ", name: "WIPCOOL F-1 MINI VAKUM POMPASI", usd: 165.00 },
+            { id: 32, cat: "EL ALETİ", name: "WIPCOOL C10 TEMİZLEME MAKİNESİ (ŞARJLI)", usd: 195.00 },
+            { id: 33, cat: "EL ALETİ", name: "WIPCOOL C30S BUHARLI TEMİZLEME MAKİNESİ", usd: 275.00 },
+            { id: 41, cat: "KOMPRESÖR", name: "PANASONIC 5JD065DAA02 KOMPRESÖR", usd: 245.00 },
+            { id: 42, cat: "KOMPRESÖR", name: "HITACHI BSA418CV-R1AN KOMPRESÖR", usd: 285.00 },
+            { id: 43, cat: "KOMPRESÖR", name: "MITSUBISHI ANB33FQAMT KOMPRESÖR", usd: 320.00 },
+            { id: 51, cat: "DRENAJ", name: "WIPCOOL P12 DRENAJ POMPASI", usd: 38.00 },
+            { id: 52, cat: "DRENAJ", name: "WIPCOOL P32 DRENAJ POMPASI", usd: 65.00 },
+            { id: 53, cat: "DRENAJ", name: "WIPCOOL P380 TANKLI DRENAJ POMPASI", usd: 85.00 },
+            { id: 61, cat: "SARF", name: "AS KAYNAK GÜMÜŞLÜ KAYNAK TELİ %5 (1 ADET)", usd: 18.50 },
+            { id: 62, cat: "SARF", name: "WIPCOOL N-A30 VAKUM YAĞI 1 LT", usd: 14.50 },
+            { id: 63, cat: "SARF", name: "AS KAYNAK DEKAPANT TOZU (50 GR)", usd: 4.80 },
+            { id: 71, cat: "FİTTİNGS", name: "1/4\" BAKIR DİRSEK (PAKET/10)", usd: 12.00 },
+            { id: 72, cat: "FİTTİNGS", name: "3/8\" BAKIR DİRSEK (PAKET/10)", usd: 16.50 },
+            { id: 73, cat: "FİTTİNGS", name: "1/2\" BAKIR DİRSEK (PAKET/10)", usd: 22.00 },
+            { id: 74, cat: "FİTTİNGS", name: "5/8\" BAKIR DİRSEK (PAKET/10)", usd: 28.50 },
+            { id: 75, cat: "FİTTİNGS", name: "3/4\" BAKIR DİRSEK (PAKET/10)", usd: 35.00 },
+            { id: 81, cat: "VRF JOINT", name: "DAIKIN KHRQ22M20T JOINT KİT", usd: 45.00 },
+            { id: 82, cat: "VRF JOINT", name: "MITSUBISHI CMY-Y102LS-G2 JOINT KİT", usd: 55.00 },
+            { id: 83, cat: "VRF JOINT", name: "SAMSUNG MXJ-YA2512M JOINT KİT", usd: 48.00 }
         ];
 
         let discountRate = 0;
         let activeUser = "Son Müşteri";
-        const exchangeRate = 33.65; // Bu kur her gün güncellenebilir
+        const exchangeRate = 33.65; // Manuel kur ayarı
 
         function updatePrice(rate, user) {
             discountRate = rate;
             activeUser = user;
             document.getElementById('user-display').innerText = `Giriş: ${user} (-%${rate})`;
+            document.getElementById('user-display').classList.remove('hidden');
             render();
         }
 
         function order(name, price) {
             const phone = "905326809080";
-            const msg = `Selamun Aleyküm Mustafa Fatih Bey,\n\nDijital Şubeden siparişim var:\n📦 *${name}*\n💰 Fiyat: *${price} TL*\n👤 Müşteri Tipi: *${activeUser}*\n\nHayırlı işler.`;
+            const msg = `Selamun Aleyküm Mustafa Fatih Bey,\n\nDijital Şube üzerinden sipariş vermek istiyorum:\n📦 *${name}*\n💰 Fiyat: *${price} TL*\n👤 Kimlik: *${activeUser}*\n\nHayırlı işler.`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`);
         }
 
         function render() {
             const catalog = document.getElementById('catalog');
             catalog.innerHTML = '';
-            
             products.forEach(p => {
-                const tlPrice = p.usd * exchangeRate;
-                const finalPrice = tlPrice * (1 - (discountRate / 100));
-                
+                const finalPrice = (p.usd * exchangeRate) * (1 - (discountRate / 100));
                 catalog.innerHTML += `
                     <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-xl transition-all">
                         <div>
@@ -137,9 +105,9 @@
                         <div class="mt-4 pt-4 border-t border-slate-50">
                             <div class="flex flex-col">
                                 <span class="text-2xl font-black text-slate-900">${finalPrice.toLocaleString('tr-TR', {maximumFractionDigits:2})} TL</span>
-                                <span class="text-[10px] text-slate-400 italic">Liste: $${p.usd} (${p.unit})</span>
+                                <span class="text-[10px] text-slate-400 italic font-medium">Liste Fiyatı: $${p.usd}</span>
                             </div>
-                            <button onclick="order('${p.name}', '${finalPrice.toFixed(2)}')" class="mt-4 w-full bg-[#001f3f] text-yellow-500 font-black py-3 rounded-xl text-xs hover:scale-95 transition-transform uppercase tracking-widest">
+                            <button onclick="order('${p.name}', '${finalPrice.toFixed(2)}')" class="mt-4 w-full bg-[#001f3f] text-yellow-500 font-black py-3 rounded-xl text-xs hover:scale-95 transition-transform uppercase tracking-widest shadow-lg">
                                 Sipariş Ver
                             </button>
                         </div>
@@ -147,8 +115,7 @@
                 `;
             });
         }
-
-        render(); // Bismillah başlat!
+        render(); // İlk açılışta liste fiyatlarını dök
     </script>
 </body>
 </html>
