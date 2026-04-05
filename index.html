@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klimatech & vrfdepon | Sipariş Paneli</title>
+    <title>Klimatech & vrfdepon | Teklif Sistemi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,85 +12,84 @@
         @media print { .no-print { display: none !important; } #quotation-modal { position: static; display: block; background: white; } }
     </style>
 </head>
-<body class="bg-gray-100 font-sans text-gray-900 pb-40">
+<body class="bg-gray-100 font-sans text-gray-900 pb-32">
 
-    <nav class="bg-[#001f3f] text-white py-4 px-4 sticky top-0 z-50 border-b-2 border-yellow-500 no-print">
+    <nav class="bg-[#001f3f] text-white py-3 px-4 sticky top-0 z-50 border-b-2 border-yellow-500 no-print">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <span class="bg-white text-[#001f3f] px-2 py-1 rounded font-black italic text-lg">KLM</span>
-                <p class="font-bold uppercase text-xs">Klimatech & vrfdepon</p>
+                <span class="bg-white text-[#001f3f] px-2 py-0.5 rounded font-black italic text-base">KLM</span>
+                <p class="font-bold uppercase text-[10px]">Klimatech & vrfdepon</p>
             </div>
-            <div class="bg-yellow-500 text-[#001f3f] px-4 py-1 rounded-full font-black text-sm">
+            <div class="bg-yellow-500 text-[#001f3f] px-3 py-1 rounded-full font-black text-xs shadow-lg">
                 <i class="fa-solid fa-cart-shopping"></i> <span id="cart-count">0</span>
             </div>
         </div>
     </nav>
 
-    <header class="hero-bg text-white py-12 px-4 text-center no-print">
-        <h1 class="text-3xl font-black mb-2 italic uppercase">TEKLİF HAZIRLAMA SİSTEMİ</h1>
-        <p class="text-yellow-400 font-bold uppercase text-[10px] tracking-widest italic">Mustafa Fatih Başpehlivan | 0532 680 90 80</p>
+    <header class="hero-bg text-white py-10 px-4 text-center no-print">
+        <h1 class="text-2xl font-black mb-1 italic uppercase tracking-tighter">TEKLİF HAZIRLAMA</h1>
+        <p class="text-yellow-400 font-bold uppercase text-[9px] italic">Mustafa Fatih Başpehlivan | Bursa</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 -mt-6 no-print">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <div class="glass p-3 rounded-xl shadow-lg flex gap-2 border">
-                <button onclick="updateMode(0, 'Standart')" id="btn-std" class="flex-1 py-3 rounded-lg font-black text-[10px] border-2 border-blue-900 bg-blue-50 text-blue-900 uppercase">LİSTE FİYATI</button>
-                <button onclick="updateMode(4, 'Usta İndirimi')" id="btn-usta" class="flex-1 py-3 rounded-lg font-black text-[10px] border-2 border-transparent text-gray-400 uppercase">USTA ÖZEL (-%4)</button>
+    <main class="max-w-7xl mx-auto px-4 -mt-5 no-print">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+            <div class="glass p-2 rounded-xl shadow-lg flex gap-2 border">
+                <button onclick="updateMode(0, 'Standart')" id="btn-std" class="flex-1 py-2.5 rounded-lg font-black text-[9px] border-2 border-blue-900 bg-blue-50 text-blue-900 uppercase">LİSTE FİYATI</button>
+                <button onclick="updateMode(4, 'Usta İndirimi')" id="btn-usta" class="flex-1 py-2.5 rounded-lg font-black text-[9px] border-2 border-transparent text-gray-400 uppercase">USTA ÖZEL (-%4)</button>
             </div>
-            <div class="glass p-3 rounded-xl shadow-lg flex items-center justify-around border-l-4 border-blue-900">
-                <div class="text-center"><span class="block text-[9px] font-bold text-gray-400 uppercase">Dolar</span><span id="usd-rate" class="text-lg font-black text-blue-900 italic">₺34.15</span></div>
-                <div class="text-center"><span class="block text-[9px] font-bold text-gray-400 uppercase">Euro</span><span id="eur-rate" class="text-lg font-black text-blue-900 italic">₺36.80</span></div>
+            <div class="glass p-2 rounded-xl shadow-lg flex items-center justify-around border-l-4 border-blue-900 bg-white">
+                <div class="text-center"><span class="block text-[8px] font-bold text-gray-400 uppercase">Dolar</span><span id="usd-rate" class="text-base font-black text-blue-900 italic">₺34.15</span></div>
+                <div class="text-center"><span class="block text-[8px] font-bold text-gray-400 uppercase">Euro</span><span id="eur-rate" class="text-base font-black text-blue-900 italic">₺36.80</span></div>
             </div>
         </div>
 
-        <div class="mb-8">
-            <input type="text" id="search" onkeyup="render()" placeholder="Ürün veya kod ara..." class="w-full p-4 rounded-xl border-none shadow-lg bg-white font-bold text-sm">
+        <div class="mb-6">
+            <input type="text" id="search" onkeyup="render()" placeholder="Ürün veya kod ara..." class="w-full p-3.5 rounded-xl border-none shadow-md bg-white font-bold text-xs focus:ring-2 focus:ring-blue-900">
         </div>
 
-        <div id="catalog" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
+        <div id="catalog" class="grid grid-cols-2 lg:grid-cols-4 gap-3"></div>
     </main>
 
-    <div id="quotation-modal" class="fixed inset-0 bg-black/90 z-[100] hidden flex items-center justify-center p-2">
-        <div class="bg-white w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl">
+    <div id="quotation-modal" class="fixed inset-0 bg-black/80 z-[100] hidden flex items-center justify-center p-2">
+        <div class="bg-white w-full max-w-xl rounded-2xl overflow-hidden shadow-2xl">
             <div class="bg-[#001f3f] p-4 text-white flex justify-between items-center no-print">
-                <h2 class="text-sm font-black italic uppercase">TEKLİF AYRINTILARI</h2>
-                <button onclick="closeQuotation()" class="text-2xl font-bold">&times;</button>
+                <h2 class="text-xs font-black italic uppercase">TEKLİF DETAYI</h2>
+                <button onclick="closeQuotation()" class="text-2xl">&times;</button>
             </div>
-            <div id="quotation-content" class="p-6 max-h-[50vh] overflow-y-auto text-sm"></div>
-            
-            <div class="p-4 bg-gray-50 border-t grid grid-cols-2 gap-3 no-print">
+            <div id="quotation-content" class="p-5 max-h-[50vh] overflow-y-auto text-xs"></div>
+            <div class="p-4 bg-gray-50 border-t flex flex-col gap-2 no-print">
                 <button onclick="sendOrder()" class="bg-green-600 text-white py-3 rounded-lg font-black text-xs flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp"></i> WHATSAPP
+                    <i class="fa-brands fa-whatsapp"></i> WHATSAPP İLE ONAYLA
                 </button>
                 <button onclick="sendEmail()" class="bg-blue-600 text-white py-3 rounded-lg font-black text-xs flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-envelope"></i> E-POSTA
+                    <i class="fa-solid fa-envelope"></i> E-POSTA İLE GÖNDER
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="order-bar" class="fixed bottom-0 left-0 right-0 glass border-t-2 border-blue-900 p-4 shadow-2xl z-[60] hidden no-print">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center gap-4 justify-between">
-            <div class="text-center sm:text-left">
-                <span class="text-[9px] font-black text-gray-400 uppercase">TOPLAM TUTAR</span>
-                <span id="total-price" class="block text-2xl font-black text-blue-900 italic leading-none">0.00 TL</span>
+    <div id="order-bar" class="fixed bottom-0 left-0 right-0 glass border-t-2 border-blue-900 p-3 shadow-2xl z-[60] hidden no-print">
+        <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
+            <div class="flex flex-col">
+                <span class="text-[8px] font-black text-gray-400 uppercase">TOPLAM</span>
+                <span id="total-price" class="text-xl font-black text-blue-900 italic leading-none">0.00 TL</span>
             </div>
-            <div class="flex gap-2 w-full sm:w-auto">
-                <button onclick="showQuotation()" class="flex-1 sm:flex-none bg-[#001f3f] text-white px-4 py-3 rounded-lg font-black text-[10px] uppercase">
-                    TEKLİFİ GÖR
+            <div class="flex gap-1.5">
+                <button onclick="sendOrder()" class="bg-green-600 text-white px-3 py-2.5 rounded-lg font-black text-[10px] flex items-center gap-1 shadow-md">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> WHATSAPP
                 </button>
-                <button onclick="sendEmail()" class="flex-1 sm:flex-none bg-blue-600 text-white px-4 py-3 rounded-lg font-black text-[10px] uppercase flex items-center justify-center gap-1">
-                    <i class="fa-solid fa-envelope"></i> MAİL GÖNDER
+                <button onclick="sendEmail()" class="bg-blue-600 text-white px-3 py-2.5 rounded-lg font-black text-[10px] flex items-center gap-1 shadow-md">
+                    <i class="fa-solid fa-envelope text-sm"></i> MAİL
+                </button>
+                <button onclick="showQuotation()" class="bg-[#001f3f] text-white px-3 py-2.5 rounded-lg font-black text-[10px] uppercase shadow-md">
+                    DETAY
                 </button>
             </div>
         </div>
     </div>
 
     <script>
-       # Klimatech HVAC Ürün Kataloğu - Şubat 2026
-# Not: Fiyatlar USD ($) bazındadır. KDV ve Nakliye hariçtir. [cite: 1, 8]
-
-hvac_products = {
+        hvac_products = {
     # İzolasyonlu Borular ve Bakır Borular [cite: 3, 5, 7, 10]
     "7130040007": {"ad": "1/4\"-6,35x0,80mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 3.32},
     "7130040008": {"ad": "3/8\"-9,52x0,80mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 4.81},
@@ -217,16 +216,16 @@ hvac_products = {
             products.filter(p => p.name.toLowerCase().includes(term) || p.id.includes(term)).forEach(p => {
                 const finalP = (p.p * rates[p.cur]) * (1 - (discount/100));
                 catalog.innerHTML += `
-                    <div class="bg-white p-3 rounded-xl shadow border flex flex-col justify-between">
+                    <div class="bg-white p-3 rounded-xl shadow-sm border flex flex-col justify-between">
                         <div>
-                            <span class="text-[8px] font-black text-blue-900 bg-blue-50 px-1 py-0.5 rounded uppercase">${p.cat}</span>
-                            <h2 class="font-bold text-gray-800 my-1 text-[11px] leading-tight h-8 overflow-hidden uppercase">${p.name}</h2>
-                            <p class="text-[9px] text-gray-400">${p.id}</p>
+                            <span class="text-[7px] font-black text-blue-900 bg-blue-50 px-1 py-0.5 rounded uppercase">${p.cat}</span>
+                            <h2 class="font-bold text-gray-800 my-1 text-[10px] leading-tight h-8 overflow-hidden uppercase">${p.name}</h2>
+                            <p class="text-[8px] text-gray-400">${p.id}</p>
                         </div>
                         <div class="mt-2 flex items-center justify-between">
-                            <span class="text-sm font-black text-[#001f3f]">${finalP.toLocaleString('tr-TR', {maximumFractionDigits: 2})} TL</span>
-                            <button onclick="addToCart('${p.id}')" class="bg-[#001f3f] text-white w-8 h-8 rounded-lg flex items-center justify-center shadow-md">
-                                <i class="fa-solid fa-plus text-xs"></i>
+                            <span class="text-xs font-black text-[#001f3f]">${finalP.toLocaleString('tr-TR', {maximumFractionDigits: 2})} TL</span>
+                            <button onclick="addToCart('${p.id}')" class="bg-[#001f3f] text-white w-7 h-7 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-plus text-[10px]"></i>
                             </button>
                         </div>
                     </div>`;
@@ -239,38 +238,33 @@ hvac_products = {
             let itemsHtml = '';
             cart.forEach(x => {
                 const itemPrice = (x.p * rates[x.cur]) * (1 - (discount/100));
-                itemsHtml += `<div class="flex justify-between border-b py-2 text-[11px]">
+                itemsHtml += `<div class="flex justify-between border-b py-2 text-[10px]">
                     <div><b>${x.name}</b></div>
                     <div class="text-right"><b>${x.q} ADET</b><br>${(itemPrice * x.q).toLocaleString('tr-TR')} TL</div>
                 </div>`;
             });
-            content.innerHTML = `<h3 class="text-center font-black mb-4 border-b pb-2 uppercase italic">TEKLİF FORMU</h3>${itemsHtml}<div class="mt-4 text-right font-black text-lg">TOPLAM: ${document.getElementById('total-price').innerText}</div>`;
+            content.innerHTML = `<h3 class="text-center font-black mb-3 border-b pb-2 uppercase italic text-xs">TEKLİF ÖZETİ</h3>${itemsHtml}<div class="mt-3 text-right font-black text-base">TOPLAM: ${document.getElementById('total-price').innerText}</div>`;
             modal.classList.remove('hidden');
         }
 
         function closeQuotation() { document.getElementById('quotation-modal').classList.add('hidden'); }
 
         function sendOrder() {
-            let msg = `🛠 *KLİMATECH TEKLİF*\n\n`;
+            let msg = `🛠 *KLİMATECH SİPARİŞ*\n\n`;
             cart.forEach(x => { msg += `✅ *${x.name}* (${x.q} Adet)\n`; });
             msg += `\n💰 *TOPLAM: ${document.getElementById('total-price').innerText}*`;
             window.open(`https://wa.me/905326809080?text=${encodeURIComponent(msg)}`);
         }
 
-        // MAİL GÖNDERME FONKSİYONU
         function sendEmail() {
-            if(cart.length === 0) return alert("Usta önce ürün ekle!");
-            let subject = encodeURIComponent("Teklif: Klimatech & vrfdepon Güncel Fiyat Listesi");
-            let bodyText = "Sayın İlgili,\n\nİstediğiniz ürünlere ait fiyat teklifi aşağıdadır:\n\n";
-            bodyText += "--------------------------------------------------\n";
+            if(cart.length === 0) return;
+            let subject = encodeURIComponent("Teklif: Klimatech & vrfdepon Ürün Listesi");
+            let bodyText = "Sayın İlgili,\n\nTalep ettiğiniz ürünlerin fiyatları aşağıdadır:\n\n";
             cart.forEach(x => {
                 const itemPrice = (x.p * rates[x.cur]) * (1 - (discount/100));
-                bodyText += `📦 ${x.name}\n`;
-                bodyText += `   Adet: ${x.q} | Toplam: ${(itemPrice * x.q).toLocaleString('tr-TR')} TL\n`;
-                bodyText += "--------------------------------------------------\n";
+                bodyText += `- ${x.name} (${x.q} Adet): ${(itemPrice * x.q).toLocaleString('tr-TR')} TL\n`;
             });
-            bodyText += `\n💰 GENEL TOPLAM: ${document.getElementById('total-price').innerText}\n\n`;
-            bodyText += "Saygılarımla,\nMustafa Fatih Başpehlivan\n0532 680 90 80\nvrfdepon.com";
+            bodyText += `\nTOPLAM: ${document.getElementById('total-price').innerText}\n\nMustafa Fatih Başpehlivan\n0532 680 90 80`;
             window.location.href = `mailto:?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
         }
 
