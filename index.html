@@ -2,68 +2,110 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Klimatech Dijital Şube | Yönetim Paneli</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klimatech & vrfdepon | Dijital Şube</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans">
-    <div id="app" class="max-w-4xl mx-auto p-6">
-        <header class="flex justify-between items-center bg-blue-900 text-white p-4 rounded-t-lg">
-            <h1 class="text-xl font-bold">KLIMATECH DIJITAL ŞUBE</h1>
-            <div id="user-status" class="text-sm bg-blue-800 px-3 py-1 rounded">Giriş Yapılmadı</div>
-        </header>
+<body class="bg-gray-50 font-sans text-gray-900">
 
-        <div class="bg-white p-6 shadow-md mb-6">
-            <h2 class="text-lg font-bold mb-4">Giriş Paneli (Simülasyon)</h2>
-            <div class="flex gap-2">
-                <button onclick="login('ziyaretci')" class="bg-gray-500 text-white px-4 py-2 rounded">Düz Vatandaş</button>
-                <button onclick="login('mustafa-usta')" class="bg-green-600 text-white px-4 py-2 rounded">Mustafa Usta (%4 İndirimli)</button>
+    <header class="sticky top-0 z-50 bg-blue-900 text-white shadow-xl">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-white p-1 rounded">
+                    <span class="text-blue-900 font-black text-xl">KLM</span>
+                </div>
+                <h1 class="text-lg font-bold tracking-tight">Klimatech <span class="text-blue-300 text-sm">Dijital Şube</span></h1>
+            </div>
+            <div id="user-info" class="text-xs bg-blue-800 px-3 py-1.5 rounded-full border border-blue-700">
+                Giriş Modu: Liste Fiyatı
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-6">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 mb-8">
+            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 text-center">Müşteri Kimliğinizi Seçin</h2>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="applyUser('standard', 0)" class="flex flex-col items-center p-3 border-2 border-gray-100 rounded-lg hover:border-blue-500 transition-all focus:ring-2 focus:ring-blue-500">
+                    <span class="text-lg">👤</span>
+                    <span class="font-bold text-sm">Son Müşteri</span>
+                </button>
+                <button onclick="applyUser('mustafa-usta', 4)" class="flex flex-col items-center p-3 border-2 border-gray-100 rounded-lg hover:border-green-500 transition-all focus:ring-2 focus:ring-green-500">
+                    <span class="text-lg">🛠️</span>
+                    <span class="font-bold text-sm text-green-700">Mustafa Usta (%4)</span>
+                </button>
             </div>
         </div>
 
-        <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             </div>
-    </div>
+    </main>
 
     <script>
-        // Senin Ürünlerin ve Dolar Fiyatların
+        // GERÇEK ÜRÜN LİSTESİ (80 ÜRÜNÜN TEMELİ)
         const products = [
-            { id: 1, name: "1/4\" Bakır Boru (50m)", priceUSD: 100, stock: 50 },
-            { id: 2, name: "R410A Gaz 11.3 KG", priceUSD: 120, stock: 20 }
+            { id: 1, category: "Bakır Boru", name: "1/4\"-6,35x0,80mmx50m Kauçuk İzoleli", priceUSD: 105.00 },
+            { id: 2, category: "Bakır Boru", name: "1/2\"-12,70x0,80mmx50m Kauçuk İzoleli", priceUSD: 215.00 },
+            { id: 11, category: "Soğutucu Gaz", name: "TOTCHEM R410A Gaz 11.3 KG", priceUSD: 118.00 },
+            { id: 12, category: "Soğutucu Gaz", name: "TOTCHEM R134A Gaz 13.6 KG", priceUSD: 125.00 },
+            { id: 21, category: "El Aletleri", name: "WIPCOOL F-1 MINI VAKUM POMPASI", priceUSD: 165.00 },
+            { id: 31, category: "Kompresör", name: "PANASONIC 5JD065DAA02", priceUSD: 245.00 },
+            { id: 41, category: "Drenaj Pompası", name: "WIPCOOL P12 DRENAJ POMPASI", priceUSD: 38.00 },
+            { id: 51, category: "Bakır Ek Parçalar", name: "1/4\" Bakır Dirsek (Paket/10)", priceUSD: 12.50 }
+            // Buraya diğer 80 ürün de aynı formatta eklenebilir
         ];
 
-        let currentUser = { type: 'ziyaretci', discount: 0 };
-        const exchangeRate = 33.50; // Bu ilerde otomatik gelecek
+        let currentDiscount = 0;
+        const exchangeRate = 33.65; // Merkez Bankası Kuru (Temsili)
 
-        function login(userType) {
-            if(userType === 'mustafa-usta') {
-                currentUser = { type: 'Mustafa Usta', discount: 4 };
-                document.getElementById('user-status').innerText = "Hoş geldin Mustafa Usta (%4 Tanımlı)";
+        function applyUser(type, discount) {
+            currentDiscount = discount;
+            const infoBox = document.getElementById('user-info');
+            if(type === 'mustafa-usta') {
+                infoBox.className = "text-xs bg-green-100 text-green-800 px-3 py-1.5 rounded-full border border-green-200 font-bold";
+                infoBox.innerText = "SİSTEM: Mustafa Usta (%4 İskonto Uygulandı)";
             } else {
-                currentUser = { type: 'Ziyaretçi', discount: 0 };
-                document.getElementById('user-status').innerText = "Ziyaretçi Modu (Liste Fiyatı)";
+                infoBox.className = "text-xs bg-blue-800 text-white px-3 py-1.5 rounded-full border border-blue-700";
+                infoBox.innerText = "Giriş Modu: Liste Fiyatı";
             }
             render();
         }
 
+        function sendWhatsApp(productName, price) {
+            const phone = "905326809080";
+            const text = encodeURIComponent(`Selamun Aleyküm Mustafa Fatih Bey,\n\nDijital Şube üzerinden şu ürünü almak istiyorum:\n📦 *${productName}*\n💰 Fiyat: *${price} TL*\n\nHayırlı işler dilerim.`);
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        }
+
         function render() {
-            const list = document.getElementById('product-list');
-            list.innerHTML = '';
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            
             products.forEach(p => {
-                const basePriceTL = p.priceUSD * exchangeRate;
-                const finalPrice = basePriceTL * (1 - (currentUser.discount / 100));
+                const tlPrice = p.priceUSD * exchangeRate;
+                const finalPrice = tlPrice * (1 - (currentDiscount / 100));
                 
-                list.innerHTML += `
-                    <div class="bg-white p-4 border rounded shadow">
-                        <h3 class="font-bold">${p.name}</h3>
-                        <p class="text-sm text-gray-500">Liste Fiyatı: $${p.priceUSD}</p>
-                        <p class="text-xl font-bold text-blue-600">${finalPrice.toLocaleString('tr-TR')} TL</p>
-                        ${currentUser.discount > 0 ? `<p class="text-xs text-green-600 font-bold">İndiriminiz Uygulandı!</p>` : ''}
-                        <button class="mt-2 w-full bg-blue-900 text-white py-1 rounded">Sepete Ekle</button>
+                grid.innerHTML += `
+                    <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold bg-gray-100 text-gray-500 px-2 py-1 rounded uppercase tracking-widest">${p.category}</span>
+                            <h3 class="mt-2 font-bold text-gray-800 leading-tight">${p.name}</h3>
+                        </div>
+                        <div class="mt-6">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-2xl font-black text-blue-900">${finalPrice.toLocaleString('tr-TR', {maximumFractionDigits:2})} TL</span>
+                            </div>
+                            ${currentDiscount > 0 ? `<p class="text-xs text-green-600 font-bold mt-1">İskontolu Fiyat</p>` : `<p class="text-xs text-gray-400 mt-1">Liste Fiyatı ($${p.priceUSD})</p>`}
+                            <button onclick="sendWhatsApp('${p.name}', '${finalPrice.toFixed(2)}')" class="mt-4 w-full bg-blue-900 text-white font-bold py-3 rounded-xl hover:bg-blue-800 transition-colors flex justify-center items-center gap-2">
+                                <span>🛒 Sipariş Ver</span>
+                            </button>
+                        </div>
                     </div>
                 `;
             });
         }
-        render();
+
+        render(); // İlk açılışta ürünleri göster
     </script>
 </body>
 </html>
