@@ -85,28 +85,39 @@
     </main>
 
     <footer class="bg-[#001f3f] text-white mt-20 py-20 px-4 border-t-4 border-yellow-500">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
             <div>
                 <h2 class="font-black text-2xl mb-4 italic text-yellow-500 uppercase">KLİMATECH & vrfdepon</h2>
-                <p class="text-gray-400 text-sm font-bold leading-relaxed">Mustafa Fatih Başpehlivan tarafından kurulan, HVAC sektöründeki ustalara teknik malzeme ve VRF çözümleri sunan profesyonel tedarik platformudur.</p>
+                <p class="text-gray-400 text-sm font-bold leading-relaxed">Mustafa Fatih Başpehlivan yönetiminde, HVAC sektöründeki ustalara teknik malzeme ve VRF çözümleri sunan profesyonel tedarik platformudur.</p>
             </div>
             <div>
-                <h3 class="font-black text-2xl mb-4 italic text-yellow-500 uppercase">TEKNİK DESTEK</h3>
+                <h3 class="font-black text-2xl mb-4 italic text-yellow-500 uppercase">İLETİŞİM VE DESTEK</h3>
                 <p class="text-sm font-bold mb-3 italic"><i class="fa-solid fa-location-dot text-yellow-500 mr-2"></i> Bursa, Türkiye</p>
                 <p class="text-sm font-bold mb-3 italic">
                     <i class="fa-solid fa-phone text-yellow-500 mr-2"></i> 
-                    <a href="tel:+905326809080" class="hover:text-yellow-500 transition-colors">+90 532 680 90 80</a>
+                    <a href="tel:+905326809080" class="hover:text-yellow-500 transition-colors tracking-widest">+90 532 680 90 80</a>
                 </p>
-                <p class="text-sm font-bold italic">
+                <p class="text-sm font-bold italic border-b border-gray-700 pb-2 mb-4">
                     <i class="fa-solid fa-envelope text-yellow-500 mr-2"></i> 
-                    <a href="mailto:info@vrfdepon.com" class="hover:text-yellow-500">info@vrfdepon.com</a>
+                    <a href="mailto:info@vrfdepon.com" class="hover:text-yellow-500 transition-colors">info@vrfdepon.com</a>
                 </p>
             </div>
-            <div class="text-center md:text-left">
-                <h3 class="font-black text-2xl mb-4 italic text-yellow-500 uppercase">USTA TOPLULUĞU</h3>
-                <a href="https://www.facebook.com/groups/497253503765511" target="_blank" class="inline-block bg-blue-600 p-4 rounded-xl hover:bg-blue-700 transition-all">
-                    <i class="fa-brands fa-facebook text-2xl mr-2"></i> 51.000+ Üye
-                </a>
+            <div>
+                <h3 class="font-black text-2xl mb-6 italic text-yellow-500 uppercase">SOSYAL MEDYA</h3>
+                <div class="flex flex-col gap-4">
+                    <a href="https://www.facebook.com/groups/497253503765511" target="_blank" class="flex items-center gap-3 bg-blue-600/20 p-3 rounded-xl hover:bg-blue-600 transition-all border border-blue-600/30 group">
+                        <i class="fa-brands fa-facebook text-2xl text-blue-500 group-hover:text-white"></i>
+                        <span class="font-black text-xs italic tracking-tighter">51.000+ ÜYELİ USTA GRUBU</span>
+                    </a>
+                    <div class="flex gap-4">
+                        <a href="https://www.instagram.com/vrfdepon" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-pink-600/20 p-3 rounded-xl hover:bg-pink-600 transition-all border border-pink-600/30 group" title="Instagram">
+                            <i class="fa-brands fa-instagram text-2xl text-pink-500 group-hover:text-white"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@MustafaFatihBaspehlivan" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-red-600/20 p-3 rounded-xl hover:bg-red-600 transition-all border border-red-600/30 group" title="YouTube">
+                            <i class="fa-brands fa-youtube text-2xl text-red-500 group-hover:text-white"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
@@ -124,43 +135,23 @@
     </div>
 
     <script>
-        // Ürün listesi ve kur motoru (SEO için metin içerikleri zenginleştirildi)
         let rates = { "$": 33.65, "€": 36.50, "TL": 1.0 }; 
-        // --- GENİŞLETİLMİŞ ÜRÜN LİSTESİ ---
         const products = [
             // GAZLAR
             { id: 1, cat: "SOĞUTMA GAZI", name: "TOTCHEM R410A (11.3 KG)", p: 138.00, cur: "$", spec: "Yüksek Saflıkta Klima Gazı" },
             { id: 2, cat: "SOĞUTMA GAZI", name: "TOTCHEM R32 (9 KG)", p: 138.78, cur: "$", spec: "Yeni Nesil Çevreci Gaz" },
             { id: 3, cat: "SOĞUTMA GAZI", name: "TOTCHEM R404A (10.9 KG)", p: 94.06, cur: "$", spec: "Endüstriyel Soğutma Gazı" },
             { id: 4, cat: "SOĞUTMA GAZI", name: "TOTCHEM R134A (13.6 KG)", p: 113.38, cur: "$", spec: "Otomobil & Buzdolabı Gazı" },
-            
-            // WIPCOOL EL ALETLERİ
+            // WIPCOOL
             { id: 100, cat: "WIPCOOL", name: "P18 Drenaj Pompası", p: 53.82, cur: "$", spec: "Sessiz Tip 18L/h Kapasite" },
-            { id: 101, cat: "WIPCOOL", name: "P36 Drenaj Pompası", p: 61.30, cur: "$", spec: "Yüksek Kapasite 36L/h" },
-            { id: 103, cat: "WIPCOOL", name: "S1.5 Vakum Pompası", p: 95.93, cur: "$", spec: "Hafif ve Güçlü 1.5 CFM" },
             { id: 104, cat: "WIPCOOL", name: "S2 Vakum Pompası", p: 123.93, cur: "$", spec: "Profesyonel Seri 2 CFM" },
-            { id: 105, cat: "WIPCOOL", name: "C10B Akülü Temizleme", p: 174.11, cur: "$", spec: "Basınçlı Yıkama (Kablosuz)" },
             { id: 107, cat: "WIPCOOL", name: "EF-2 Havşa Takımı", p: 66.48, cur: "$", spec: "Eksantrik Hassas İşçilik" },
-            { id: 108, cat: "WIPCOOL", name: "EF-2LR Cırcırlı Havşa", p: 93.19, cur: "$", spec: "Matkap Uyumlu Hızlı Havşa" },
-            { id: 109, cat: "WIPCOOL", name: "HTW-80 Dijital Tork Anahtarı", p: 216.83, cur: "$", spec: "Hassas Sıkma Ayarı" },
-            { id: 110, cat: "WIPCOOL", name: "WCS-50 Dijital Terazi", p: 145.50, cur: "$", spec: "Hassas Gaz Tartımı (50kg)" },
-            
-            // TESTO & ÖLÇÜM CİHAZLARI
+            // TESTO
             { id: 304, cat: "TESTO", name: "550S Dijital Manifold", p: 682.65, cur: "$", spec: "Bluetoothlu Akıllı Manifold" },
-            { id: 305, cat: "TESTO", name: "557S Vakum Problu Set", p: 895.00, cur: "$", spec: "Full Set Profesyonel Cihaz" },
-            { id: 306, cat: "TESTO", name: "830-T1 Lazer Termometre", p: 110.00, cur: "$", spec: "Hızlı Sıcaklık Ölçümü" },
-
-            // KOMPRESÖRLER
+            // PANASONIC
             { id: 200, cat: "PANASONIC", name: "C-SCN673H8K Scroll", p: 702.00, cur: "€", spec: "R407C Endüstriyel Kompresör" },
-            { id: 201, cat: "DANFOSS", name: "MTZ 040-4VI Maneurop", p: 669.77, cur: "€", spec: "Soğuk Hava Deposu Tipi" },
-            { id: 202, cat: "PANASONIC", name: "2K22S225A Rotari", p: 145.00, cur: "$", spec: "12.000 BTU Klima Tipi" },
-            
-            // BAKIR BORU & SARF
-            { id: 300, cat: "SARKUYSAN", name: "1/4\"-0,80mm İzo.Boru (50m)", p: 166.00, cur: "$", spec: "Sarkuysan Saf Bakır" },
-            { id: 301, cat: "SARKUYSAN", name: "3/8\"-0,80mm İzo.Boru (50m)", p: 240.50, cur: "$", spec: "Sarkuysan Saf Bakır" },
-            { id: 302, cat: "SARKUYSAN", name: "1/2\"-0,80mm İzo.Boru (50m)", p: 337.50, cur: "$", spec: "Sarkuysan Saf Bakır" },
-            { id: 303, cat: "KAYNAK", name: "ASA 3110 Bakır Kaynak Teli", p: 35.48, cur: "$", spec: "3mm Gümüşlü Kaynak Teli" },
-            { id: 307, cat: "DİĞER", name: "Vakum Yağı (1 Litre)", p: 12.00, cur: "$", spec: "Yüksek Kalite Vakum Yağı" }
+            // BORU
+            { id: 300, cat: "SARKUYSAN", name: "1/4\"-0,80mm İzo.Boru (50m)", p: 166.00, cur: "$", spec: "Sarkuysan Saf Bakır" }
         ];
 
         let cart = []; let discount = 0; let userMode = "Standart";
