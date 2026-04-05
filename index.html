@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klimatech & vrfdepon | Profesyonel Teklif Sistemi</title>
+    <title>Klimatech & vrfdepon | Profesyonel Ürün & Teklif Paneli</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -35,7 +35,7 @@
                     <i class="fa-solid fa-phone"></i> 0532 680 90 80
                 </a>
                 <a href="https://www.facebook.com/groups/497253503765511" target="_blank" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold text-sm inline-flex items-center gap-2 shadow-xl hover:bg-blue-700 transition-all">
-                    <i class="fa-brands fa-facebook"></i> 51.000+ USTA GRUBU
+                    <i class="fa-brands fa-facebook text-xl"></i> 51.000+ USTA GRUBU
                 </a>
             </div>
         </div>
@@ -48,13 +48,13 @@
                 <button onclick="updateMode(4, 'Usta İndirimi')" id="btn-usta" class="flex-1 py-5 rounded-2xl font-black text-xs border-2 border-transparent text-gray-400 italic uppercase tracking-tighter">USTA ÖZEL (-%4)</button>
             </div>
             <div class="glass p-5 rounded-[2rem] shadow-2xl flex items-center justify-around border-l-8 border-blue-900">
-                <div class="text-center"><span class="block text-[10px] font-black text-gray-400 uppercase italic mb-1">Dolar ($)</span><span id="usd-rate" class="text-2xl font-black text-blue-900 italic">₺33.65</span></div>
-                <div class="text-center"><span class="block text-[10px] font-black text-gray-400 uppercase italic mb-1">Euro (€)</span><span id="eur-rate" class="text-2xl font-black text-blue-900 italic">₺36.50</span></div>
+                <div class="text-center"><span class="block text-[10px] font-black text-gray-400 uppercase italic mb-1">Dolar ($)</span><span id="usd-rate" class="text-2xl font-black text-blue-900 italic">₺--.--</span></div>
+                <div class="text-center"><span class="block text-[10px] font-black text-gray-400 uppercase italic mb-1">Euro (€)</span><span id="eur-rate" class="text-2xl font-black text-blue-900 italic">₺--.--</span></div>
             </div>
         </div>
 
         <div class="mb-12 relative max-w-3xl mx-auto">
-            <input type="text" id="search" onkeyup="render()" placeholder="Ürün adı, kod veya kategori yazın..." class="w-full p-7 rounded-[2.5rem] border-none shadow-2xl bg-white font-bold text-gray-700 text-lg focus:ring-4 focus:ring-yellow-500/30">
+            <input type="text" id="search" onkeyup="render()" placeholder="Ürün adı, kod veya kategori..." class="w-full p-7 rounded-[2.5rem] border-none shadow-2xl bg-white font-bold text-gray-700 text-lg focus:ring-4 focus:ring-yellow-500/30">
             <i class="fa-solid fa-magnifying-glass absolute right-10 top-7 text-gray-300 text-2xl"></i>
         </div>
 
@@ -70,11 +70,9 @@
                 </div>
                 <button onclick="closeQuotation()" class="text-4xl hover:text-red-500">&times;</button>
             </div>
-            
             <div id="quotation-content" class="p-10 max-h-[70vh] overflow-y-auto bg-white"></div>
-
             <div class="p-8 bg-gray-50 border-t flex flex-col sm:flex-row gap-4 no-print">
-                <button onclick="sendOrder()" class="flex-1 bg-green-600 text-white py-5 rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-green-700 shadow-lg active:scale-95 transition-all">
+                <button onclick="sendOrder()" class="flex-1 bg-green-600 text-white py-5 rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-green-700 shadow-lg transition-all">
                     <i class="fa-brands fa-whatsapp text-2xl"></i> WHATSAPP İLE ONAYLA
                 </button>
                 <button onclick="window.print()" class="sm:w-1/3 bg-blue-900 text-white py-5 rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-blue-800 transition-all">
@@ -90,14 +88,14 @@
                 <span class="text-[11px] font-black text-gray-400 uppercase tracking-widest italic">Toplam Tahmini Tutar</span>
                 <span id="total-price" class="text-4xl font-black text-blue-900 italic tracking-tighter">0.00 TL</span>
             </div>
-            <button onclick="showQuotation()" class="bg-[#001f3f] hover:bg-yellow-500 hover:text-[#001f3f] text-white px-12 py-5 rounded-2xl font-black text-sm flex items-center gap-4 shadow-2xl transition-all active:scale-95">
+            <button onclick="showQuotation()" class="bg-[#001f3f] hover:bg-yellow-500 hover:text-[#001f3f] text-white px-12 py-5 rounded-2xl font-black text-sm flex items-center gap-4 shadow-2xl transition-all">
                 <i class="fa-solid fa-file-invoice-dollar text-2xl"></i> TEKLİFİ GÖRÜNTÜLE
             </button>
         </div>
     </div>
 
     <script>
-        # Klimatech HVAC Ürün Kataloğu - Şubat 2026
+       # Klimatech HVAC Ürün Kataloğu - Şubat 2026
 # Not: Fiyatlar USD ($) bazındadır. KDV ve Nakliye hariçtir. [cite: 1, 8]
 
 hvac_products = {
@@ -193,8 +191,25 @@ hvac_products = {
     "75508400020": {"ad": "Wipcool - R4 - Elektrikli Yağ Ekleme Pompası", "fiyat": 299.88},
     "75508400021": {"ad": "Wipcool - R6 - Elektrikli Yağ Ekleme Pompası", "fiyat": 421.22},
 }
-        let rates = { "$": 33.65, "€": 36.50, "TL": 1.0 };
+
+        let rates = { "$": 34.15, "€": 36.80, "TL": 1.0 };
         let cart = []; let discount = 0; let userMode = "Standart";
+
+        async function fetchRates() {
+            try {
+                const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+                const data = await res.json();
+                rates["$"] = data.rates.TRY;
+                rates["€"] = data.rates.TRY / data.rates.EUR;
+                document.getElementById('usd-rate').innerText = "₺" + rates["$"].toFixed(2);
+                document.getElementById('eur-rate').innerText = "₺" + rates["€"].toFixed(2);
+                render();
+            } catch (e) { 
+                document.getElementById('usd-rate').innerText = "₺34.15";
+                document.getElementById('eur-rate').innerText = "₺36.80";
+                render(); 
+            }
+        }
 
         function updateMode(d, m) {
             discount = d; userMode = m;
@@ -223,15 +238,13 @@ hvac_products = {
             const catalog = document.getElementById('catalog');
             const term = document.getElementById('search').value.toLowerCase();
             catalog.innerHTML = '';
-            products.filter(p => p.name.toLowerCase().includes(term) || p.cat.toLowerCase().includes(term)).forEach(p => {
+            products.filter(p => p.name.toLowerCase().includes(term) || p.cat.toLowerCase().includes(term) || p.id.includes(term)).forEach(p => {
                 const finalP = (p.p * rates[p.cur]) * (1 - (discount/100));
                 catalog.innerHTML += `
                     <div class="bg-white p-7 rounded-[2rem] shadow-lg hover:shadow-2xl transition-all border border-gray-100 flex flex-col group relative">
-                        <span class="absolute top-4 right-4 text-[9px] font-bold text-gray-300 tracking-tighter">${p.id}</span>
-                        <div class="mb-4">
-                            <span class="bg-[#001f3f] text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase italic tracking-widest">${p.cat}</span>
-                        </div>
-                        <h2 class="font-black text-gray-800 mb-2 leading-tight h-14 overflow-hidden text-base group-hover:text-blue-900 uppercase">${p.name}</h2>
+                        <span class="absolute top-4 right-4 text-[9px] font-bold text-gray-300 italic">${p.id}</span>
+                        <div class="mb-4"><span class="bg-[#001f3f] text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase italic tracking-widest">${p.cat}</span></div>
+                        <h2 class="font-black text-gray-800 mb-2 leading-tight h-14 overflow-hidden text-base uppercase">${p.name}</h2>
                         <p class="text-[10px] text-blue-400 font-bold mb-6 italic uppercase tracking-widest">${p.spec}</p>
                         <div class="mt-auto flex items-center justify-between pt-6 border-t border-gray-50">
                             <div class="flex flex-col">
@@ -253,11 +266,11 @@ hvac_products = {
             const total = document.getElementById('total-price').innerText;
             
             let itemsHtml = '';
-            cart.forEach((x, i) => {
+            cart.forEach((x) => {
                 const itemPrice = (x.p * rates[x.cur]) * (1 - (discount/100));
                 itemsHtml += `
                 <div class="flex justify-between border-b border-gray-100 py-4 text-sm">
-                    <div class="flex-1"><span class="font-black text-blue-900">${x.name}</span><br><span class="text-[10px] text-gray-400 font-bold uppercase italic">${x.id} / ${x.cat}</span></div>
+                    <div class="flex-1"><span class="font-black text-blue-900">${x.name}</span><br><span class="text-[10px] text-gray-400 font-bold italic">${x.id}</span></div>
                     <div class="text-right ml-6 font-black">${x.q} ADET<br><span class="text-blue-600">${(itemPrice * x.q).toLocaleString('tr-TR')} TL</span></div>
                 </div>`;
             });
@@ -272,14 +285,9 @@ hvac_products = {
                     <span>TEKLİF NO: KLM-${Math.floor(10000 + Math.random() * 90000)}</span>
                 </div>
                 <div class="mb-10">${itemsHtml}</div>
-                <div class="bg-[#001f3f] text-white p-8 rounded-3xl flex justify-between items-center mb-10 shadow-2xl">
+                <div class="bg-[#001f3f] text-white p-8 rounded-3xl flex justify-between items-center shadow-2xl">
                     <div class="flex flex-col"><span class="font-black text-xs italic text-yellow-500 uppercase">Toplam Teklif Bedeli</span><span class="text-[10px] italic">(KDV Hariçtir)</span></div>
                     <span class="text-4xl font-black italic tracking-tighter">${total}</span>
-                </div>
-                <div class="text-[10px] text-gray-400 italic leading-relaxed space-y-2 border-t pt-6">
-                    <p>• Bu teklif kur dalgalanmaları nedeniyle 7 gün geçerlidir.</p>
-                    <p>• Ödeme günündeki Merkez Bankası efektif satış kuru esas alınacaktır.</p>
-                    <p>• Nakliye ve ambar ücretleri alıcıya aittir. Depo teslim fiyatlardır.</p>
                 </div>`;
             modal.classList.remove('hidden');
         }
@@ -289,11 +297,11 @@ hvac_products = {
         function sendOrder() {
             let msg = `🛠 *RESMİ TEKLİF ONAYI (${userMode})*\n\n`;
             cart.forEach(x => { msg += `✅ *${x.name}*\n📦 Adet: ${x.q}\n\n`; });
-            msg += `💰 *GENEL TOPLAM: ${document.getElementById('total-price').innerText}*\n\n_vrfdepon.com | Profesyonel Sistem_`;
+            msg += `💰 *GENEL TOPLAM: ${document.getElementById('total-price').innerText}*\n\n_vrfdepon.com üzerinden hazırlandı._`;
             window.open(`https://wa.me/905326809080?text=${encodeURIComponent(msg)}`);
         }
 
-        render();
+        fetchRates();
     </script>
 </body>
 </html>
