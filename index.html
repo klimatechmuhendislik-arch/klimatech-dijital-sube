@@ -3,209 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klimatech & vrfdepon | Profesyonel Katalog</title>
+    <title>Klimatech & vrfdepon | Profesyonel Usta Paneli</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @media print { 
-            .no-print { display: none !important; } 
-            body { background: white !important; padding: 0 !important; }
-            .a4 { margin: 0 !important; border: none !important; box-shadow: none !important; width: 100% !important; }
-        }
+        @media print { .no-print { display: none !important; } body { background: white !important; padding: 0 !important; } .a4 { margin: 0 !important; border: none !important; box-shadow: none !important; width: 100% !important; } }
         .a4 { width: 210mm; min-height: 297mm; padding: 15mm; margin: 10mm auto; background: white; border: 1px solid #eee; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
         .glass { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
-        .product-card { transition: all 0.2s; border-radius: 20px; border: 1px solid #f1f5f9; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-color: #001f3f; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-thumb { background: #001f3f; border-radius: 10px; }
+        .product-card { transition: all 0.2s; border-radius: 15px; border: 1px solid #f1f5f9; background: white; display: flex; flex-direction: column; justify-content: space-between; height: 160px; padding: 1rem; }
+        .product-card:hover { border-color: #001f3f; transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
     </style>
 </head>
-<body class="bg-slate-100 pb-44">
+<body class="bg-slate-50 pb-44 font-sans">
 
     <header class="bg-[#001f3f] text-white p-4 sticky top-0 z-[100] shadow-xl no-print">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div>
-                <h1 class="text-xl font-black italic tracking-tighter">KLM <span class="text-xs font-light tracking-widest ml-2 uppercase opacity-70">Klimatech & vrfdepon</span></h1>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <h1 class="text-xl font-black italic tracking-tighter">KLM <span class="text-[10px] font-light tracking-[0.3em] uppercase opacity-60">VRFDEPON</span></h1>
             </div>
-            <div class="relative w-1/3">
-                <input type="text" id="search" onkeyup="filterProducts()" placeholder="Ürün veya kod ara usta..." class="w-full p-2 pl-10 rounded-xl text-black text-xs font-bold outline-none focus:ring-2 focus:ring-yellow-500">
-                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400 text-xs"></i>
+            <div class="relative w-full md:w-1/2">
+                <input type="text" id="search" onkeyup="filterProducts()" placeholder="Ürün adı veya kod yaz usta..." class="w-full p-2 pl-10 rounded-xl text-black text-sm font-bold outline-none border-none">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
             </div>
-            <div class="bg-yellow-500 text-[#001f3f] px-4 py-1 rounded-full font-black text-sm">
-                🛒 <span id="cart-count">0</span>
+            <div class="bg-yellow-500 text-[#001f3f] px-6 py-1 rounded-full font-black text-sm">
+                SİPARİŞ: <span id="cart-count">0</span>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 no-print" id="catalog">
+    <main class="max-w-7xl mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 no-print" id="catalog">
         </main>
 
-    <div class="a4 relative hidden md:block" id="printable-area">
-        <div class="border-b-4 border-[#001f3f] pb-6 mb-8 flex justify-between items-start">
+    <div class="a4" id="printable-area">
+        <div class="border-b-4 border-[#001f3f] pb-6 mb-6 flex justify-between items-end">
             <div>
-                <h1 class="text-5xl font-black text-[#001f3f] italic tracking-tighter">KLİMETECH</h1>
-                <p class="text-[10px] font-bold text-blue-900 tracking-[0.4em] uppercase mt-2">HVAC & VRF SİSTEMLERİ TEDARİK</p>
+                <h1 class="text-4xl font-black text-[#001f3f] italic tracking-tighter">KLİMETECH</h1>
+                <p class="text-[9px] font-bold text-blue-900 tracking-[0.5em] uppercase mt-1">HVAC & VRF TEDARİK MERKEZİ</p>
             </div>
-            <div class="text-right text-[11px] font-bold text-gray-500 space-y-1">
-                <p class="text-black font-black">Mustafa Fatih BAŞPEHLİVAN</p>
-                <p>0532 680 90 80 | Bursa</p>
-                <p class="text-[#001f3f] pt-2">TARİH: 06.04.2026</p>
-                <p class="text-[#001f3f]">TEKLİF NO: #<span id="q-no">2026-01</span></p>
+            <div class="text-right text-[10px] font-bold text-gray-500 uppercase leading-relaxed">
+                <p class="text-black font-black">Hazırlayan: Mustafa Fatih Başpehlivan</p>
+                <p>İletişim: 0532 680 90 80</p>
+                <p>Tarih: 06.04.2026</p>
             </div>
         </div>
 
-        <h2 class="text-center font-black text-2xl underline mb-8 uppercase italic tracking-widest">FİYAT TEKLİF FORMU</h2>
-        
-        <table class="w-full text-left text-[12px] mb-12">
+        <h2 class="text-center font-black text-xl underline mb-6 uppercase tracking-widest italic">FİYAT TEKLİF FORMU</h2>
+
+        <table class="w-full text-left text-[11px]">
             <thead>
-                <tr class="bg-slate-100 border-y-2 border-black font-black uppercase">
-                    <th class="p-3">KOD</th>
-                    <th class="p-3">ÜRÜN AÇIKLAMASI</th>
-                    <th class="p-3 text-center">ADET</th>
-                    <th class="p-3 text-right">BİRİM ($)</th>
-                    <th class="p-3 text-right">TOPLAM ($)</th>
+                <tr class="bg-slate-100 border-y-2 border-black font-black">
+                    <th class="p-2">KOD</th>
+                    <th class="p-2">ÜRÜN AÇIKLAMASI</th>
+                    <th class="p-2 text-center">ADET</th>
+                    <th class="p-2 text-right">BİRİM ($)</th>
+                    <th class="p-2 text-right">TOPLAM ($)</th>
                 </tr>
             </thead>
-            <tbody id="invoice-body">
-                </tbody>
+            <tbody id="invoice-body"></tbody>
         </table>
 
-        <div class="flex justify-end border-t-2 pt-6">
-            <div class="text-right space-y-2">
-                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest">ARA TOPLAM: <span id="subtotal" class="text-black">0.00</span> $</p>
-                <p class="text-sm font-bold text-green-600 uppercase tracking-widest">USTA İNDİRİMİ (%4): <span id="discount">0.00</span> $</p>
-                <p class="text-3xl font-black text-blue-900 italic border-t-4 pt-2 uppercase">GENEL TOPLAM: <span id="total">0.00</span> $</p>
+        <div class="flex justify-end border-t-2 mt-8 pt-4">
+            <div class="text-right space-y-1">
+                <p class="text-[10px] font-bold text-gray-400 uppercase">ARA TOPLAM: <span id="subtotal" class="text-black">0.00</span> $</p>
+                <p class="text-[10px] font-bold text-green-600 uppercase">GRUP İNDİRİMİ (%4): <span id="discount">0.00</span> $</p>
+                <p class="text-2xl font-black text-blue-900 italic border-t-2 pt-2">TOPLAM: <span id="total">0.00</span> $</p>
             </div>
         </div>
 
-        <div class="mt-16 bg-blue-50 p-6 rounded-2xl border-l-[12px] border-blue-900 shadow-inner">
-            <p class="font-black text-blue-900 text-sm italic">"USTA NOTU: Kaliteli malzeme, ustalığın imzasıdır. Bu özel fiyatlar sadece Facebook grubumuzdaki meslektaşlarımız içindir."</p>
-            <div class="flex justify-between items-end mt-4">
-                <p class="text-[10px] text-gray-500 font-bold uppercase leading-tight">* KDV ve Nakliye Hariçtir.<br>* Ödeme günü TCMB Efektif Satış Kuru esastır.</p>
-                <p class="text-[10px] font-black italic text-blue-900 opacity-30 uppercase">vrfdepon.com | 51.000+ Üye</p>
-            </div>
+        <div class="mt-12 p-4 bg-slate-50 rounded-xl border-l-8 border-[#001f3f]">
+            <p class="text-[10px] font-bold text-blue-900 italic">"Bu teklif Facebook HVAC Master grubumuza özel hazırlanmıştır. Kaliteli malzeme, profesyonel işçilik."</p>
+            <p class="text-[8px] text-gray-400 mt-4 uppercase">* Fiyatlara KDV Dahil Değildir. Nakliye Alıcıya Aittir.</p>
         </div>
     </div>
 
-    <footer class="fixed bottom-0 left-0 right-0 glass border-t-4 border-[#001f3f] p-6 shadow-[0_-15px_40px_rgba(0,0,0,0.15)] z-[200] no-print">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            
-            <button onclick="window.print()" class="w-full md:w-auto bg-green-700 hover:bg-green-800 text-white px-10 py-5 rounded-2xl font-black text-sm flex items-center justify-center gap-3 shadow-xl transition-all active:scale-95">
-                <i class="fa-solid fa-file-pdf text-xl"></i> PDF OLARAK KAYDET
+    <footer class="fixed bottom-0 left-0 right-0 glass border-t-4 border-[#001f3f] p-4 shadow-2xl z-[200] no-print">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <button onclick="window.print()" class="w-full md:w-auto bg-green-700 text-white px-10 py-4 rounded-xl font-black text-xs uppercase shadow-lg hover:bg-green-800 transition-all active:scale-95">
+                <i class="fa-solid fa-file-pdf mr-2"></i> PDF KAYDET
             </button>
-
-            <div class="text-center bg-slate-50 px-10 py-2 rounded-2xl border border-slate-200">
-                <span class="text-[10px] font-black text-slate-400 uppercase block tracking-widest mb-1">GÜNCEL TEKLİF TUTARI</span>
-                <span id="bar-total" class="text-4xl font-black text-[#001f3f] italic leading-none">0.00 $</span>
+            <div class="text-center">
+                <span class="text-[9px] font-black text-slate-400 block uppercase mb-1">GÜNCEL TUTAR</span>
+                <span id="bar-total" class="text-3xl font-black text-[#001f3f] italic">0.00 $</span>
             </div>
-
-            <button onclick="sendWhatsApp()" class="w-full md:w-auto bg-[#25D366] hover:bg-[#128C7E] text-white px-10 py-5 rounded-2xl font-black text-sm flex items-center justify-center gap-3 shadow-xl transition-all active:scale-95">
-                SİPARİŞİ TAMAMLA <i class="fa-brands fa-whatsapp text-xl"></i>
+            <button onclick="sendWhatsApp()" class="w-full md:w-auto bg-[#25D366] text-white px-10 py-4 rounded-xl font-black text-xs uppercase shadow-lg hover:bg-[#128C7E] transition-all active:scale-95">
+                SİPARİŞİ BİTİR <i class="fa-brands fa-whatsapp ml-2"></i>
             </button>
-
         </div>
     </footer>
 
     <script>
-        # Klimatech HVAC Ürün Kataloğu - Şubat 2026
-# Not: Fiyatlar USD ($) bazındadır. KDV ve Nakliye hariçtir. [cite: 1, 8]
-
-hvac_products = {
-    # İzolasyonlu Borular ve Bakır Borular [cite: 3, 5, 7, 10]
-    "7130040007": {"ad": "1/4\"-6,35x0,80mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 3.32},
-    "7130040008": {"ad": "3/8\"-9,52x0,80mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 4.81},
-    "7130040009": {"ad": "1/2\"-12,7x0,90mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 6.75},
-    "7130040011": {"ad": "5/8\"-15.87x1,0mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 10.30},
-    "7130040012": {"ad": "3/4\"-19,05x1,0mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 12.36},
-    "7130020166": {"ad": "22 MM (22X1.0 MM) BAKIR BORU (DUZ)", "fiyat": 13.50},
-    "7130020177": {"ad": "28 MM (28X1.0 MM) BAKIR BORU (DUZ)", "fiyat": 17.51},
-    "7130020180": {"ad": "28 MM (28X1.20 MM) BAKIR BORU (DUZ)", "fiyat": 20.83},
-    "7130020189": {"ad": "35 MM (35X1.0 MM) BAKIR BORU (DUZ)", "fiyat": 27.12},
-    "7130020198": {"ad": "42 MM (42X1.4 MM) BAKIR BORU (DUZ)", "fiyat": 37.77},
-    "7130040100": {"ad": "1/4 x 3/8 - 6,35 x 0,65 - 9,52 x 0,65 mm 9mm PE SPLIT BAKIR", "fiyat": 6.00},
-    "7130040101": {"ad": "1/4 x 1/2 - 6,35x0,65 - 12,70 x 0,65 mm 9 mm PE SPLIT BAKIR", "fiyat": 7.00},
-    "7130040102": {"ad": "3/8 x 5/8 - 9,52x0,65 - 15,87 x 0,80 mm 9 mm PE SPLIT BAKIR", "fiyat": 11.50},
-    "7130040150": {"ad": "1/4 x 3/8 - 9mm PE 6,35 x 0,50 - 9,52 x 0,60 mm 9 MM PE ECO", "fiyat": 5.08},
-
-    # Kaynak ve Montaj Ekipmanları [cite: 10, 12]
-    "7230020018": {"ad": "ASA 3110 BAKIR KAYNAK TELI 3MM", "fiyat": 35.48},
-    "7110990002": {"ad": "50 CM KLIMA KONSOLU (CIVATALI)", "fiyat": 7.78},
-    "7110990006": {"ad": "60 CM KLIMA KONSOLU (KAYNAKLI)", "fiyat": 11.90},
-
-    # Soğutma Gazları [cite: 14, 17]
-    "7280010147": {"ad": "TOTCHEM R407C SOG.GAZ 10KG", "fiyat": 138.00},
-    "7280010143": {"ad": "TOTCHEM R410A SOG.GAZ 10KG", "fiyat": 138.00},
-    "7280010145": {"ad": "TOTCHEM R404A SOG.GAZ 10 KG-G", "fiyat": 94.06},
-    "7280010149": {"ad": "TOTCHEM R32 SOG.GAZ 9 KG-G", "fiyat": 138.78},
-
-    # El Aletleri ve Vakum Setleri [cite: 19, 47, 49, 52, 57, 63]
-    "7250050323": {"ad": "CASTEL EASYBEND4 BORU KIV.SET(4 CAP)", "fiyat": 49.31},
-    "7250050324": {"ad": "CASTEL EASYBEND34 BORU KIV.SET (3/4)", "fiyat": 23.15},
-    "7250050418": {"ad": "VENTE-FV1005 HIZLI VAKUM KITI", "fiyat": 44.79},
-    "75508400022": {"ad": "Wipcool - MRH-1 - 3'lü R410 için (5/16) şarj hortum seti", "fiyat": 29.46},
-    "75508400023": {"ad": "Wipcool - HC-19 - Boru makası 3-19mm", "fiyat": 12.98},
-    "75508400024": {"ad": "Wipcool - HC-32 - Boru makası 3-32mm", "fiyat": 25.89},
-    "75508400036": {"ad": "Wipcool - HC-54 - Boru makası 6-54mm", "fiyat": 38.81},
-    "75508400025": {"ad": "Wipcool - EF-2 - Havşa takımı", "fiyat": 66.48},
-    "75508400026": {"ad": "Wipcool - EF-2L - Havşa takımı, matkap uyumlu", "fiyat": 87.33},
-    "75508400027": {"ad": "Wipcool - EF-2LK - Havşa takımı set", "fiyat": 149.10},
-    "75508400028": {"ad": "Wipcool - HD-1 - Çapak alma aparatı", "fiyat": 14.31},
-    "75508400030": {"ad": "Wipcool - MG-2K - Analog manifold", "fiyat": 98.91},
-    "75508400035": {"ad": "Wipcool - MDG1 - Tekli Dijital Manifold", "fiyat": 126.40},
-    "75508400037": {"ad": "Wipcool - MG-1H - Tekli analog manifold", "fiyat": 33.72},
-    "75508400038": {"ad": "Wipcool - MG-1L - Tekli analog manifold", "fiyat": 33.72},
-    "75508400039": {"ad": "Wipcool - HW-1 - Cırcır anahtar (1/4-5/16)", "fiyat": 10.31},
-    "75508400040": {"ad": "Wipcool - HW-2 - Cırcır anahtar (1/4-9/16)", "fiyat": 11.73},
-    "75508400041": {"ad": "Wipcool - HE-11 - Boru şişirme aleti", "fiyat": 355.75},
-    "75508400043": {"ad": "Wipcool - HE-7 - Boru şişirme aleti", "fiyat": 215.33},
-    "75508400031": {"ad": "Wipcool - MH-1 - Yedek conta", "fiyat": 0.35},
-    "75508400032": {"ad": "Wipcool - HC-19 - Yedek bıçak", "fiyat": 3.07},
-
-    # Drenaj Pompaları [cite: 21, 24, 26, 28, 31, 33]
-    "7550830021": {"ad": "Wipcool - P18 - Drenaj Pompası", "fiyat": 53.82},
-    "7550830022": {"ad": "Wipcool - P36 - Drenaj Pompası", "fiyat": 61.30},
-    "7550830023": {"ad": "Wipcool - P16 - Drenaj Pompası", "fiyat": 54.99},
-    "7550830024": {"ad": "Wipcool - P32 - Drenaj Pompası", "fiyat": 67.25},
-    "7550830025": {"ad": "Wipcool - P12 - Drenaj Pompası", "fiyat": 52.80},
-    "7550830026": {"ad": "Wipcool - P12C - Drenaj Pompası", "fiyat": 54.99},
-    "7550830027": {"ad": "Wipcool - P180 - Drenaj Pompası", "fiyat": 52.80},
-    "7550830028": {"ad": "Wipcool - P380 - Drenaj pompası", "fiyat": 72.88},
-    "7550830032": {"ad": "Wipcool - P120S - Drenaj pompası", "fiyat": 237.11},
-    "7550830033": {"ad": "Wipcool - P360S - Drenaj pompası", "fiyat": 339.23},
-    "7550830034": {"ad": "Wipcool - P40 - Drenaj Pompası", "fiyat": 65.57},
-    "7550830035": {"ad": "Wipcool - P20 - Drenaj Pompası", "fiyat": 43.76},
-    "7550830036": {"ad": "Wipcool - P38 - Drenaj Pompası", "fiyat": 57.52},
-    "7550830037": {"ad": "Wipcool - P110 - Drenaj Pompası", "fiyat": 79.58},
-    "7550830038": {"ad": "Wipcool - P12CT - Drenaj Pompası", "fiyat": 76.09},
-    "7550830039": {"ad": "Wipcool - P22i - Drenaj Pompası", "fiyat": 61.50},
-    "75508400034": {"ad": "Wipcool - P15J - kondenzasyon suyu atomizörü", "fiyat": 112.19},
-
-    # Vakum Pompaları ve Temizleme Makinaları [cite: 33, 35, 38, 40, 42, 55, 63]
-    "7550840001": {"ad": "Wipcool - S1 - Vakum Pompası", "fiyat": 67.76},
-    "7550840002": {"ad": "Wipcool - S1.5 - Vakum Pompası", "fiyat": 95.93},
-    "7550840003": {"ad": "Wipcool - S2 - Vakum Pompası", "fiyat": 123.93},
-    "7550840004": {"ad": "Wipcool - 2F1.5R - Vakum Pompası", "fiyat": 237.59},
-    "7550840005": {"ad": "Wipcool - 2F2R - Vakum Pompası", "fiyat": 262.43},
-    "7550840006": {"ad": "Wipcool - 2F3R - Vakum Pompası", "fiyat": 297.32},
-    "7550840007": {"ad": "Wipcool - 2F4R - Vakum Pompası", "fiyat": 324.21},
-    "7550840008": {"ad": "Wipcool - 2F5R - Vakum Pompası", "fiyat": 355.00},
-    "7550840010": {"ad": "Wipcool - F2BRK - Vakum Pompası", "fiyat": 528.90},
-    "7550840011": {"ad": "Wipcool - 2F2BRK-Bataryasiz - Vakum Pompası", "fiyat": 443.87},
-    "7550840012": {"ad": "Wipcool - C10 - Kablolu Temizleme Makinası", "fiyat": 179.76},
-    "7550840013": {"ad": "Wipcool - C10B - Kablosuz Temizleme Makinası", "fiyat": 174.11},
-    "7550840017": {"ad": "Wipcool - C30S - Kablolu Buharlı Temizleme Makinası", "fiyat": 393.22},
-    "75508400033": {"ad": "Wipcool - C40T - Temizleme makinası kablolu", "fiyat": 247.12},
-    "75508400042": {"ad": "Wipcool - CT370 - Chiller temizleme makinası", "fiyat": 1713.15},
-
-    # Yağ Ekleme Pompaları [cite: 42, 45]
-    "7550840018": {"ad": "Wipcool - R1 - Manuel Yağ Ekleme Pompası", "fiyat": 67.42},
-    "7550840019": {"ad": "Wipcool - R2 - Manuel Yağ Ekleme Pompası", "fiyat": 134.80},
-    "75508400020": {"ad": "Wipcool - R4 - Elektrikli Yağ Ekleme Pompası", "fiyat": 299.88},
-    "75508400021": {"ad": "Wipcool - R6 - Elektrikli Yağ Ekleme Pompası", "fiyat": 421.22},
-}
-        let sepet = [];
-
-
+        const hvac_products = {
+            "7130040007": {"ad": "1/4-6,35x0,80mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 3.32},
+            "7130040008": {"ad": "3/8-9,52x0,80mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 4.81},
+            "7130040009": {"ad": "1/2-12,7x0,90mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 6.75},
+            "7130040011": {"ad": "5/8-15.87x1,0mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 10.30},
+            "7130040012": {"ad": "3/4-19,05x1,0mmx50m 13 mm Kauçuk İzo.Borusu", "fiyat": 12.36},
+            "7130020166": {"ad": "22 MM (22X1.0 MM) BAKIR BORU (DUZ)", "fiyat": 13.50},
+            "7130020177": {"ad": "28 MM (28X1.0 MM) BAKIR BORU (DUZ)", "fiyat": 17.51},
+            "7130020180": {"ad": "28 MM (28X1.20 MM) BAKIR BORU (DUZ)", "fiyat": 20.83},
+            "7130020189": {"ad": "35 MM (35X1.0 MM) BAKIR BORU (DUZ)", "fiyat": 27.12},
+            "7130020198": {"ad": "42 MM (42X1.4 MM) BAKIR BORU (DUZ)", "fiyat": 37.77},
+            "7130040100": {"ad": "1/4 x 3/8 PE SPLIT BAKIR 9mm", "fiyat": 6.00},
+            "7130040101": {"ad": "1/4 x 1/2 PE SPLIT BAKIR 9mm", "fiyat": 7.00},
+            "7130040102": {"ad": "3/8 x 5/8 PE SPLIT BAKIR 9mm", "fiyat": 11.50},
+            "7130040150": {"ad": "1/4 x 3/8 PE ECO 9mm", "fiyat": 5.08},
+            "7230020018": {"ad": "ASA 3110 BAKIR KAYNAK TELI 3MM", "fiyat": 35.48},
+            "7110990002": {"ad": "50 CM KLIMA KONSOLU (CIVATALI)", "fiyat": 7.78},
+            "7110990006": {"ad": "60 CM KLIMA KONSOLU (KAYNAKLI)", "fiyat": 11.90},
+            "7280010147": {"ad": "TOTCHEM R407C SOG.GAZ 10KG", "fiyat": 138.00},
+            "7280010143": {"ad": "TOTCHEM R410A SOG.GAZ 10KG", "fiyat": 138.00},
+            "7280010145": {"ad": "TOTCHEM R404A SOG.GAZ 10 KG", "fiyat": 94.06},
+            "7280010149": {"ad": "TOTCHEM R32 SOG.GAZ 9 KG", "fiyat": 138.78},
+            "7250050323": {"ad": "CASTEL EASYBEND4 KIVIRMA SETI", "fiyat": 49.31},
+            "7250050324": {"ad": "CASTEL EASYBEND34 (3/4)", "fiyat": 23.15},
+            "7250050418": {"ad": "VENTE-FV1005 VAKUM KITI", "fiyat": 44.79},
+            "75508400022": {"ad": "Wipcool MRH-1 Hortum Seti", "fiyat": 29.46},
+            "75508400023": {"ad": "Wipcool HC-19 Boru Makası", "fiyat": 12.98},
+            "75508400025": {"ad": "Wipcool EF-2 Havşa Takımı", "fiyat": 66.48},
+            "75508400026": {"ad": "Wipcool EF-2L Havşa (Matkap)", "fiyat": 87.33},
+            "75508400030": {"ad": "Wipcool MG-2K Manifold", "fiyat": 98.91},
+            "75508400035": {"ad": "Wipcool MDG1 Dijital Manifold", "fiyat": 126.40},
+            "7550830021": {"ad": "Wipcool P18 Drenaj Pompası", "fiyat": 53.82},
+            "7550830022": {"ad": "Wipcool P36 Drenaj Pompası", "fiyat": 61.30},
+            "7550840001": {"ad": "Wipcool S1 Vakum Pompası", "fiyat": 67.76},
+            "7550840003": {"ad": "Wipcool S2 Vakum Pompası", "fiyat": 123.93},
+            "7550840012": {"ad": "Wipcool C10 Temizleme Makinası", "fiyat": 179.76},
+            "7550840018": {"ad": "Wipcool R1 Yağ Ekleme Pompası", "fiyat": 67.42},
+            "75508400020": {"ad": "Wipcool R4 Elektrikli Yağ Pompası", "fiyat": 299.88}
+        };
 
         let sepet = [];
 
@@ -215,17 +140,14 @@ hvac_products = {
             for (let code in hvac_products) {
                 const p = hvac_products[code];
                 catalog.innerHTML += `
-                    <div class="product-card bg-white p-6 relative group border border-slate-100 shadow-sm flex flex-col justify-between h-56">
-                        <div>
-                            <span class="text-[9px] font-black text-blue-400 tracking-widest uppercase mb-2 block">${p.kat}</span>
-                            <h3 class="text-sm font-black text-[#001f3f] leading-tight uppercase">${p.ad}</h3>
-                            <p class="text-[10px] text-gray-400 mt-1 font-mono">${code}</p>
+                    <div class="product-card group">
+                        <div class="overflow-hidden">
+                            <h3 class="text-[11px] font-black text-[#001f3f] leading-tight uppercase line-clamp-2">${p.ad}</h3>
+                            <p class="text-[9px] text-gray-400 mt-1 font-mono">${code}</p>
                         </div>
-                        <div class="flex justify-between items-end">
-                            <span class="text-xl font-black text-blue-900 italic">${p.fiyat.toFixed(2)} $</span>
-                            <button onclick="addItem('${code}')" class="bg-[#001f3f] text-white w-12 h-12 rounded-2xl flex items-center justify-center hover:bg-yellow-500 hover:text-[#001f3f] transition-all text-2xl font-bold shadow-lg active:scale-90">
-                                +
-                            </button>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-lg font-black text-blue-900 italic">${p.fiyat.toFixed(2)} $</span>
+                            <button onclick="addItem('${code}')" class="bg-[#001f3f] text-white w-10 h-10 rounded-xl flex items-center justify-center hover:bg-yellow-500 hover:text-[#001f3f] transition-all text-xl font-bold">+</button>
                         </div>
                     </div>`;
             }
@@ -243,15 +165,9 @@ hvac_products = {
             body.innerHTML = "";
             let sub = 0;
             sepet.forEach(x => {
-                let rowTotal = x.fiyat * x.adet;
-                sub += rowTotal;
-                body.innerHTML += `<tr class="border-b border-slate-100">
-                    <td class="p-3 font-mono text-[10px] text-slate-400">${x.code}</td>
-                    <td class="p-3 font-black text-slate-700">${x.ad}</td>
-                    <td class="p-3 text-center font-black text-lg italic text-[#001f3f]">${x.adet}</td>
-                    <td class="p-3 text-right font-bold">${x.fiyat.toFixed(2)} $</td>
-                    <td class="p-3 text-right font-black text-[#001f3f]">${rowTotal.toFixed(2)} $</td>
-                </tr>`;
+                let rowT = x.fiyat * x.adet;
+                sub += rowT;
+                body.innerHTML += `<tr class="border-b"><td class="p-2 text-[10px] text-gray-400 font-mono">${x.code}</td><td class="p-2 font-black text-slate-700 uppercase">${x.ad}</td><td class="p-2 text-center font-black">${x.adet}</td><td class="p-2 text-right">${x.fiyat.toFixed(2)} $</td><td class="p-2 text-right font-black">${rowT.toFixed(2)} $</td></tr>`;
             });
             let disc = sub * 0.04;
             let final = sub - disc;
@@ -263,24 +179,20 @@ hvac_products = {
         }
 
         function filterProducts() {
-            let term = document.getElementById('search').value.toLowerCase();
+            let t = document.getElementById('search').value.toLowerCase();
             const cards = document.getElementsByClassName('product-card');
-            for(let card of cards) {
-                card.style.display = card.innerText.toLowerCase().includes(term) ? "flex" : "none";
-            }
+            for(let c of cards) c.style.display = c.innerText.toLowerCase().includes(t) ? "flex" : "none";
         }
 
         function sendWhatsApp() {
-            if(sepet.length === 0) return alert("Usta önce ürün seçmelisin!");
-            let msg = `🛠 *KLİMETECH SİPARİŞ ONAYI*\n\n`;
-            sepet.forEach(x => { msg += `✅ *${x.ad}* (${x.adet} Adet)\n`; });
-            msg += `\n💰 *GENEL TOPLAM: ${document.getElementById('total').innerText} $*`;
-            window.open(`https://wa.me/905326809080?text=${encodeURIComponent(msg)}`);
+            if(sepet.length === 0) return alert("Usta önce ürün seç!");
+            let m = `🛠 *KLİMETECH SİPARİŞİ*\n\n`;
+            sepet.forEach(x => { m += `✅ *${x.ad}* (${x.adet} Adet)\n`; });
+            m += `\n💰 *TOPLAM: ${document.getElementById('total').innerText} $*`;
+            window.open(`https://wa.me/905326809080?text=${encodeURIComponent(m)}`);
         }
 
         renderCatalog();
     </script>
 </body>
 </html>
-
-      
