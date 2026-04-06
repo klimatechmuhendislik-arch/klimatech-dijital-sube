@@ -1,124 +1,78 @@
-<style>
-    .stock-badge { padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; }
-    .stock-low { background: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
-    .stock-ok { background: #dcfce7; color: #166534; border: 1px solid #4ade80; }
-    .admin-card { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 40px; gap: 10px; align-items: center; background: #fff; padding: 12px; border-radius: 10px; margin-bottom: 8px; border: 1px solid #e2e8f0; }
-    @media (max-width: 768px) { .admin-card { grid-template-columns: 1fr 1fr; } .admin-card div:first-child { grid-column: span 2; } }
-</style>
-
 <script>
-    // Tam kapsamlı ürün ve stok veritabanı
-const complete_hvac_db = {
-    // BAKIR BORU GRUBU (KAUÇUK İZOLASYONLU)
-    "7130040007": { ad: "1/4-6,35x0,80mmx50m 13mm İzo.Boru", fiyat: 3.32, stok: 250, kritik: 50 },
-    "7130040008": { ad: "3/8-9,52x0,80mmx50m 13mm İzo.Boru", fiyat: 4.81, stok: 200, kritik: 40 },
-    "7130040009": { ad: "1/2-12,7x0,90mmx50m 13mm İzo.Boru", fiyat: 6.75, stok: 150, kritik: 30 },
-    "7130040011": { ad: "5/8-15.87x1,0mmx50m 13mm İzo.Boru", fiyat: 10.30, stok: 100, kritik: 20 },
-    "7130040012": { ad: "3/4-19,05x1,0mmx50m 13mm İzo.Boru", fiyat: 12.36, stok: 80, kritik: 15 },
-    
-    // DÜZ BAKIR BORULAR (METRE)
-    "7130020166": { ad: "22 MM (22X1.0 MM) BAKIR BORU (DUZ)", fiyat: 13.50, stok: 120, kritik: 40 },
-    "7130020177": { ad: "28 MM (28X1.0 MM) BAKIR BORU (DUZ)", fiyat: 17.51, stok: 90, kritik: 30 },
-    "7130020189": { ad: "35 MM (35X1.0 MM) BAKIR BORU (DUZ)", fiyat: 27.12, stok: 60, kritik: 20 },
-    "7130020198": { ad: "42 MM (42X1.4 MM) BAKIR BORU (DUZ)", fiyat: 37.77, stok: 45, kritik: 10 },
+    // --- GÜVENLİK VE YETKİ KATMANI ---
+    // Şifre: 1234 (Maskelenmiş: MTIzNA==)
+    const _AUTH_KEY = "MTIzNA=="; 
+    let _IS_AUTHORIZED = sessionStorage.getItem('klimatech_auth') === 'true';
 
-    // SOĞUTUCU GAZLAR
-    "7280010143": { ad: "TOTCHEM R410A SOGUTUCU GAZ 10KG", fiyat: 138.00, stok: 50, kritik: 10 },
-    "7280010147": { ad: "TOTCHEM R407C SOGUTUCU GAZ 10KG", fiyat: 138.00, stok: 25, kritik: 5 },
-    "7280010145": { ad: "TOTCHEM R404A SOGUTUCU GAZ 10 KG", fiyat: 94.06, stok: 30, kritik: 8 },
-    "7280010149": { ad: "TOTCHEM R32 SOGUTUCU GAZ 9 KG", fiyat: 138.78, stok: 40, kritik: 12 },
-
-    // WIPCOOL PROFESYONEL EKİPMANLAR
-    "75508400025": { ad: "Wipcool EF-2 Eksantrik Havşa Takımı", fiyat: 66.48, stok: 12, kritik: 3 },
-    "75508400026": { ad: "Wipcool EF-2L Şarjlı Havşa Takımı", fiyat: 87.33, stok: 5, kritik: 2 },
-    "75508400035": { ad: "Wipcool MDG1 Dijital Manifold", fiyat: 126.40, stok: 10, kritik: 2 },
-    "7550840001": { ad: "Wipcool S1 Fırçasız Vakum Pompası", fiyat: 67.76, stok: 15, kritik: 4 },
-    "7550830021": { ad: "Wipcool P18 İnce Tip Drenaj Pompası", fiyat: 53.82, stok: 40, kritik: 10 },
-    "7550840012": { ad: "Wipcool C10 Şarjlı Temizleme Makinası", fiyat: 179.76, stok: 8, kritik: 2 },
-
-    // MONTAJ SARF MALZEMELERİ
-    "7110990002": { ad: "50 CM KLIMA KONSOLU (CIVATALI)", fiyat: 7.78, stok: 300, kritik: 100 },
-    "7110990006": { ad: "60 CM KLIMA KONSOLU (KAYNAKLI)", fiyat: 11.90, stok: 150, kritik: 50 },
-    "7230020018": { ad: "ASA 3110 GÜMÜŞLÜ KAYNAK TELİ 3MM", fiyat: 35.48, stok: 100, kritik: 20 },
-    "7250050323": { ad: "CASTEL EASYBEND4 KIVIRMA SETİ", fiyat: 49.31, stok: 20, kritik: 5 }
-};
-
-// LocalStorage kontrolü (Eğer boşsa tam listeyi yükle)
-if (!localStorage.getItem('klimatech_stok_db')) {
-    localStorage.setItem('klimatech_stok_db', JSON.stringify(complete_hvac_db));
-}
-
-    let hvac_db = JSON.parse(localStorage.getItem('klimatech_stok_db')) || default_hvac_data;
-
-    function saveDB() {
-        localStorage.setItem('klimatech_stok_db', JSON.stringify(hvac_db));
-    }
-</script>
-
-<div id="adminPanel" class="fixed inset-0 bg-black/80 z-[2000] hidden flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-5xl rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
-        <div class="bg-[#0f1011] p-6 text-white flex justify-between items-center">
-            <div>
-                <h2 class="font-black italic text-xl uppercase tracking-tight">STOK & FİYAT OTOMASYONU</h2>
-                <p class="text-[10px] text-gray-400">Klimatech Mühendislik A.Ş. İç Yönetim</p>
-            </div>
-            <button onclick="closeAdmin()" class="text-3xl hover:text-secondary">&times;</button>
-        </div>
+    // --- TAM ÜRÜN VE STOK VERİTABANI ---
+    const complete_hvac_db = {
+        // BAKIR BORU GRUBU (KAUÇUK İZOLASYONLU)
+        "7130040007": { ad: "1/4-6,35x0,80mmx50m 13mm İzo.Boru", fiyat: 3.32, stok: 250, kritik: 50 },
+        "7130040008": { ad: "3/8-9,52x0,80mmx50m 13mm İzo.Boru", fiyat: 4.81, stok: 200, kritik: 40 },
+        "7130040009": { ad: "1/2-12,7x0,90mmx50m 13mm İzo.Boru", fiyat: 6.75, stok: 150, kritik: 30 },
+        "7130040011": { ad: "5/8-15.87x1,0mmx50m 13mm İzo.Boru", fiyat: 10.30, stok: 100, kritik: 20 },
+        "7130040012": { ad: "3/4-19,05x1,0mmx50m 13mm İzo.Boru", fiyat: 12.36, stok: 80, kritik: 15 },
         
-        <div class="p-6 overflow-y-auto bg-slate-50">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-8 bg-white p-6 rounded-2xl border-2 border-primary/20 shadow-sm">
-                <div class="flex flex-col gap-1">
-                    <label class="text-[10px] font-bold text-gray-500">KOD / MODEL</label>
-                    <input type="text" id="in-kod" class="p-2 border rounded-lg font-bold outline-none focus:border-primary">
-                </div>
-                <div class="flex flex-col gap-1">
-                    <label class="text-[10px] font-bold text-gray-500">ÜRÜN ADI</label>
-                    <input type="text" id="in-ad" class="p-2 border rounded-lg font-bold outline-none focus:border-primary">
-                </div>
-                <div class="flex flex-col gap-1">
-                    <label class="text-[10px] font-bold text-gray-500">FİYAT ($)</label>
-                    <input type="number" id="in-fiyat" class="p-2 border rounded-lg font-bold outline-none focus:border-primary">
-                </div>
-                <div class="flex flex-col gap-1">
-                    <label class="text-[10px] font-bold text-gray-500">STOK ADET</label>
-                    <input type="number" id="in-stok" class="p-2 border rounded-lg font-bold outline-none focus:border-primary">
-                </div>
-                <div class="flex flex-col gap-1">
-                    <label class="text-[10px] font-bold text-gray-500">KRİTİK SINIR</label>
-                    <input type="number" id="in-kritik" class="p-2 border rounded-lg font-bold outline-none focus:border-primary">
-                </div>
-                <button onclick="addProduct()" class="md:col-span-5 bg-primary text-white font-black py-3 rounded-xl hover:bg-secondary hover:text-dark transition-all">SİSTEME KAYDET</button>
-            </div>
+        // DÜZ BAKIR BORULAR (METRE)
+        "7130020166": { ad: "22 MM (22X1.0 MM) BAKIR BORU (DUZ)", fiyat: 13.50, stok: 120, kritik: 40 },
+        "7130020177": { ad: "28 MM (28X1.0 MM) BAKIR BORU (DUZ)", fiyat: 17.51, stok: 90, kritik: 30 },
+        "7130020189": { ad: "35 MM (35X1.0 MM) BAKIR BORU (DUZ)", fiyat: 27.12, stok: 60, kritik: 20 },
+        "7130020198": { ad: "42 MM (42X1.4 MM) BAKIR BORU (DUZ)", fiyat: 37.77, stok: 45, kritik: 10 },
 
-            <div id="admin-stok-list">
-                <div class="admin-card bg-transparent border-none font-black text-[10px] text-gray-400 uppercase">
-                    <div>ÜRÜN TANIMI</div>
-                    <div class="text-center">FİYAT</div>
-                    <div class="text-center">STOK</div>
-                    <div class="text-center">KRİTİK</div>
-                    <div></div>
-                </div>
-                <div id="stok-body"></div>
-            </div>
-        </div>
-    </div>
-</div>
+        // SOĞUTUCU GAZLAR
+        "7280010143": { ad: "TOTCHEM R410A SOGUTUCU GAZ 10KG", fiyat: 138.00, stok: 50, kritik: 10 },
+        "7280010147": { ad: "TOTCHEM R407C SOGUTUCU GAZ 10KG", fiyat: 138.00, stok: 25, kritik: 5 },
+        "7280010145": { ad: "TOTCHEM R404A SOGUTUCU GAZ 10 KG", fiyat: 94.06, stok: 30, kritik: 8 },
+        "7280010149": { ad: "TOTCHEM R32 SOGUTUCU GAZ 9 KG", fiyat: 138.78, stok: 40, kritik: 12 },
 
-<script>
+        // WIPCOOL PROFESYONEL EKİPMANLAR
+        "75508400025": { ad: "Wipcool EF-2 Eksantrik Havşa Takımı", fiyat: 66.48, stok: 12, kritik: 3 },
+        "75508400026": { ad: "Wipcool EF-2L Şarjlı Havşa Takımı", fiyat: 87.33, stok: 5, kritik: 2 },
+        "75508400035": { ad: "Wipcool MDG1 Dijital Manifold", fiyat: 126.40, stok: 10, kritik: 2 },
+        "7550840001": { ad: "Wipcool S1 Fırçasız Vakum Pompası", fiyat: 67.76, stok: 15, kritik: 4 },
+        "7550830021": { ad: "Wipcool P18 İnce Tip Drenaj Pompası", fiyat: 53.82, stok: 40, kritik: 10 },
+        "7550840012": { ad: "Wipcool C10 Şarjlı Temizleme Makinası", fiyat: 179.76, stok: 8, kritik: 2 },
+
+        // MONTAJ SARF MALZEMELERİ
+        "7110990002": { ad: "50 CM KLIMA KONSOLU (CIVATALI)", fiyat: 7.78, stok: 300, kritik: 100 },
+        "7110990006": { ad: "60 CM KLIMA KONSOLU (KAYNAKLI)", fiyat: 11.90, stok: 150, kritik: 50 },
+        "7230020018": { ad: "ASA 3110 GÜMÜŞLÜ KAYNAK TELİ 3MM", fiyat: 35.48, stok: 100, kritik: 20 },
+        "7250050323": { ad: "CASTEL EASYBEND4 KIVIRMA SETİ", fiyat: 49.31, stok: 20, kritik: 5 }
+    };
+
+    // İlk çalıştırmada verileri yerleştir
+    if (!localStorage.getItem('klimatech_stok_db')) {
+        localStorage.setItem('klimatech_stok_db', JSON.stringify(complete_hvac_db));
+    }
+
+    let hvac_db = JSON.parse(localStorage.getItem('klimatech_stok_db'));
+
+    // --- YÖNETİM FONKSİYONLARI ---
     function openAdmin() {
-        const pass = prompt("Yetkili Girişi:");
-        if(pass === "1234") {
+        if (_IS_AUTHORIZED) {
             document.getElementById('adminPanel').classList.remove('hidden');
             renderAdmin();
+            return;
+        }
+
+        const pass = prompt("Güvenlik Doğrulaması:");
+        if (pass && btoa(pass) === _AUTH_KEY) {
+            _IS_AUTHORIZED = true;
+            sessionStorage.setItem('klimatech_auth', 'true');
+            document.getElementById('adminPanel').classList.remove('hidden');
+            renderAdmin();
+        } else {
+            alert("Yetkisiz Erişim! Şifre yanlış.");
         }
     }
 
-    function closeAdmin() {
-        document.getElementById('adminPanel').classList.add('hidden');
-        // Eğer ana sayfada ürün listesi varsa burayı tetikle: renderUrunler();
+    function saveDB() {
+        if (!_IS_AUTHORIZED) return;
+        localStorage.setItem('klimatech_stok_db', JSON.stringify(hvac_db));
     }
 
     function renderAdmin() {
+        if (!_IS_AUTHORIZED) return;
         const body = document.getElementById('stok-body');
         body.innerHTML = "";
         
@@ -127,53 +81,60 @@ if (!localStorage.getItem('klimatech_stok_db')) {
             const isLow = item.stok <= item.kritik;
             
             body.innerHTML += `
-                <div class="admin-card ${isLow ? 'border-red-200 bg-red-50' : ''}">
+                <div class="admin-card ${isLow ? 'border-red-300 bg-red-50' : 'bg-white'}">
                     <div>
                         <span class="block text-[10px] text-gray-400 font-mono">${code}</span>
                         <strong class="text-sm text-dark uppercase">${item.ad}</strong>
+                        ${isLow ? '<span class="text-[9px] font-bold text-red-600 block">!!! KRİTİK SEVİYE !!!</span>' : ''}
                     </div>
                     <div class="text-center">
-                        <input type="number" value="${item.fiyat}" onchange="updateVal('${code}', 'fiyat', this.value)" class="w-20 p-1 border rounded text-center font-bold text-primary">
+                        <input type="number" step="0.01" value="${item.fiyat}" onchange="updateVal('${code}', 'fiyat', this.value)" class="w-20 p-1 border rounded text-center font-bold text-primary">
                     </div>
                     <div class="text-center">
-                        <input type="number" value="${item.stok}" onchange="updateVal('${code}', 'stok', this.value)" class="w-16 p-1 border rounded text-center font-bold ${isLow ? 'text-red-600' : 'text-green-600'}">
+                        <input type="number" value="${item.stok}" onchange="updateVal('${code}', 'stok', this.value)" class="w-16 p-1 border rounded text-center font-bold ${isLow ? 'text-red-600 border-red-400' : 'text-green-600'}">
                     </div>
                     <div class="text-center">
                         <input type="number" value="${item.kritik}" onchange="updateVal('${code}', 'kritik', this.value)" class="w-16 p-1 border rounded text-center text-xs text-gray-500">
                     </div>
-                    <button onclick="deleteProd('${code}')" class="text-red-400 hover:text-red-700"><i class="fas fa-trash"></i></button>
+                    <button onclick="deleteProd('${code}')" class="text-red-400 hover:text-red-700 px-2"><i class="fas fa-trash"></i></button>
                 </div>
             `;
         }
     }
 
     function updateVal(code, field, val) {
-        hvac_db[code][field] = parseFloat(val);
+        if (!_IS_AUTHORIZED) return;
+        hvac_db[code][field] = parseFloat(val) || 0;
         saveDB();
-        renderAdmin(); // Görünümü tazele
+        if(field === 'stok' || field === 'kritik') renderAdmin();
     }
 
     function addProduct() {
+        if (!_IS_AUTHORIZED) return;
         const kod = document.getElementById('in-kod').value;
         const ad = document.getElementById('in-ad').value;
-        const fiyat = parseFloat(document.getElementById('in-fiyat').value);
-        const stok = parseFloat(document.getElementById('in-stok').value);
-        const kritik = parseFloat(document.getElementById('in-kritik').value);
+        const fiyat = parseFloat(document.getElementById('in-fiyat').value) || 0;
+        const stok = parseFloat(document.getElementById('in-stok').value) || 0;
+        const kritik = parseFloat(document.getElementById('in-kritik').value) || 0;
 
-        if(!kod || !ad) return alert("Kod ve Ad boş olamaz!");
+        if(!kod || !ad) return alert("Kod ve Ürün Adı zorunludur!");
 
         hvac_db[kod] = { ad, fiyat, stok, kritik };
         saveDB();
         renderAdmin();
-        // Inputları temizle
-        document.querySelectorAll('#adminPanel input[type="text"], #adminPanel input[type="number"]').forEach(i => i.value = "");
+        document.querySelectorAll('#adminPanel input').forEach(i => i.value = "");
     }
 
     function deleteProd(code) {
-        if(confirm("Bu ürünü sistemden silmek istediğine emin misin usta?")) {
+        if (!_IS_AUTHORIZED) return;
+        if(confirm(code + " kodlu ürünü silmek istediğine emin misin usta?")) {
             delete hvac_db[code];
             saveDB();
             renderAdmin();
         }
+    }
+
+    function closeAdmin() {
+        document.getElementById('adminPanel').classList.add('hidden');
     }
 </script>
