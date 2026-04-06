@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klimatech & vrfdepon Resmi Teklif Paneli</title>
+    <title>Klimatech & vrfdepon | Profesyonel Katalog</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,91 +12,102 @@
             body { background: white !important; padding: 0 !important; }
             .a4 { margin: 0 !important; border: none !important; box-shadow: none !important; width: 100% !important; }
         }
-        .a4 { width: 210mm; min-height: 297mm; padding: 15mm; margin: 10mm auto; background: white; border: 1px solid #ddd; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-        .product-card:hover { background-color: #fef9c3; border-color: #001f3f; }
+        .a4 { width: 210mm; min-height: 297mm; padding: 15mm; margin: 10mm auto; background: white; border: 1px solid #eee; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        .glass { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
+        .product-card { transition: all 0.2s; border-radius: 20px; border: 1px solid #f1f5f9; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-color: #001f3f; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #001f3f; border-radius: 10px; }
     </style>
 </head>
-<body class="bg-gray-800 pb-40">
+<body class="bg-slate-100 pb-44">
 
-    <div class="max-w-6xl mx-auto p-4 no-print">
-        <div class="bg-[#001f3f] text-white p-5 rounded-t-2xl border-b-4 border-yellow-500 flex justify-between items-center">
+    <header class="bg-[#001f3f] text-white p-4 sticky top-0 z-[100] shadow-xl no-print">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div>
-                <h1 class="text-xl font-black italic uppercase">KLİMETECH KATALOG PANELİ</h1>
-                <p class="text-[10px] text-yellow-400">Ürün Ara ve Listeye Ekle</p>
+                <h1 class="text-xl font-black italic tracking-tighter">KLM <span class="text-xs font-light tracking-widest ml-2 uppercase opacity-70">Klimatech & vrfdepon</span></h1>
             </div>
-            <input type="text" id="search" onkeyup="filterProducts()" placeholder="Ürün veya Kod Ara..." class="p-2 rounded-lg text-black text-xs w-64">
+            <div class="relative w-1/3">
+                <input type="text" id="search" onkeyup="filterProducts()" placeholder="Ürün veya kod ara usta..." class="w-full p-2 pl-10 rounded-xl text-black text-xs font-bold outline-none focus:ring-2 focus:ring-yellow-500">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400 text-xs"></i>
+            </div>
+            <div class="bg-yellow-500 text-[#001f3f] px-4 py-1 rounded-full font-black text-sm">
+                🛒 <span id="cart-count">0</span>
+            </div>
         </div>
-        
-        <div id="catalog" class="bg-white p-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 max-h-[400px] overflow-y-auto border-b">
-            </div>
-    </div>
+    </header>
 
-    <div class="a4 relative shadow-2xl" id="teklif-sayfasi">
-        <div class="border-b-4 border-[#001f3f] pb-4 mb-6 flex justify-between items-start">
+    <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 no-print" id="catalog">
+        </main>
+
+    <div class="a4 relative hidden md:block" id="printable-area">
+        <div class="border-b-4 border-[#001f3f] pb-6 mb-8 flex justify-between items-start">
             <div>
-                <h1 class="text-4xl font-black text-[#001f3f] italic tracking-tighter text-5xl">KLİMETECH</h1>
-                <p class="text-[9px] font-bold text-blue-900 tracking-[0.2em] uppercase">HVAC & VRF SİSTEMLERİ TEDARİK</p>
+                <h1 class="text-5xl font-black text-[#001f3f] italic tracking-tighter">KLİMETECH</h1>
+                <p class="text-[10px] font-bold text-blue-900 tracking-[0.4em] uppercase mt-2">HVAC & VRF SİSTEMLERİ TEDARİK</p>
             </div>
-            <div class="text-right text-[10px] font-bold text-gray-500">
-                <p>Mustafa Fatih BAŞPEHLİVAN</p>
+            <div class="text-right text-[11px] font-bold text-gray-500 space-y-1">
+                <p class="text-black font-black">Mustafa Fatih BAŞPEHLİVAN</p>
                 <p>0532 680 90 80 | Bursa</p>
-                <p class="mt-1 text-[#001f3f] font-black">Tarih: 06.04.2026</p>
+                <p class="text-[#001f3f] pt-2">TARİH: 06.04.2026</p>
+                <p class="text-[#001f3f]">TEKLİF NO: #<span id="q-no">2026-01</span></p>
             </div>
         </div>
 
-        <h2 class="text-center font-black text-xl underline mb-6 uppercase italic">FİYAT TEKLİF FORMU</h2>
+        <h2 class="text-center font-black text-2xl underline mb-8 uppercase italic tracking-widest">FİYAT TEKLİF FORMU</h2>
         
-        <table class="w-full text-left text-[11px] mb-8">
+        <table class="w-full text-left text-[12px] mb-12">
             <thead>
-                <tr class="bg-gray-100 border-y-2 border-black font-black uppercase text-[10px]">
-                    <th class="p-2">KOD</th>
-                    <th class="p-2">ÜRÜN AÇIKLAMASI</th>
-                    <th class="p-2 text-center">ADET</th>
-                    <th class="p-2 text-right">BİRİM($)</th>
-                    <th class="p-2 text-right">TOPLAM($)</th>
+                <tr class="bg-slate-100 border-y-2 border-black font-black uppercase">
+                    <th class="p-3">KOD</th>
+                    <th class="p-3">ÜRÜN AÇIKLAMASI</th>
+                    <th class="p-3 text-center">ADET</th>
+                    <th class="p-3 text-right">BİRİM ($)</th>
+                    <th class="p-3 text-right">TOPLAM ($)</th>
                 </tr>
             </thead>
-            <tbody id="liste">
+            <tbody id="invoice-body">
                 </tbody>
         </table>
 
-        <div class="flex justify-end border-t-2 pt-4">
-            <div class="text-right space-y-1">
-                <p class="text-[11px] font-bold text-gray-500 uppercase">ARA TOPLAM: <span id="ara-toplam" class="text-black">0.00</span> $</p>
-                <p class="text-[11px] font-bold text-green-600 uppercase">USTA İNDİRİMİ (%4): <span id="indirim">0.00</span> $</p>
-                <p class="text-2xl font-black text-blue-900 italic border-t-4 pt-1 uppercase">GENEL TOPLAM: <span id="genel-toplam">0.00</span> $</p>
+        <div class="flex justify-end border-t-2 pt-6">
+            <div class="text-right space-y-2">
+                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest">ARA TOPLAM: <span id="subtotal" class="text-black">0.00</span> $</p>
+                <p class="text-sm font-bold text-green-600 uppercase tracking-widest">USTA İNDİRİMİ (%4): <span id="discount">0.00</span> $</p>
+                <p class="text-3xl font-black text-blue-900 italic border-t-4 pt-2 uppercase">GENEL TOPLAM: <span id="total">0.00</span> $</p>
             </div>
         </div>
 
-        <div class="mt-12 bg-blue-50 p-5 rounded-xl border-l-[10px] border-blue-900">
-            <p class="font-black text-blue-900 text-[12px] italic">"USTA NOTU: Kaliteli malzeme, ustalığın imzasıdır. Bu fiyatlar Facebook grubumuza özeldir."</p>
-            <p class="text-[10px] text-gray-500 mt-3 font-bold uppercase">* KDV ve Nakliye Hariçtir. Ödeme günü TCMB Kuru esastır.</p>
+        <div class="mt-16 bg-blue-50 p-6 rounded-2xl border-l-[12px] border-blue-900 shadow-inner">
+            <p class="font-black text-blue-900 text-sm italic">"USTA NOTU: Kaliteli malzeme, ustalığın imzasıdır. Bu özel fiyatlar sadece Facebook grubumuzdaki meslektaşlarımız içindir."</p>
+            <div class="flex justify-between items-end mt-4">
+                <p class="text-[10px] text-gray-500 font-bold uppercase leading-tight">* KDV ve Nakliye Hariçtir.<br>* Ödeme günü TCMB Efektif Satış Kuru esastır.</p>
+                <p class="text-[10px] font-black italic text-blue-900 opacity-30 uppercase">vrfdepon.com | 51.000+ Üye</p>
+            </div>
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 right-0 glass border-t-4 border-blue-900 p-5 shadow-2xl z-[100] no-print">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
+    <footer class="fixed bottom-0 left-0 right-0 glass border-t-4 border-[#001f3f] p-6 shadow-[0_-15px_40px_rgba(0,0,0,0.15)] z-[200] no-print">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
             
-            <button onclick="window.print()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-2xl font-black text-xs flex items-center gap-2 shadow-xl">
+            <button onclick="window.print()" class="w-full md:w-auto bg-green-700 hover:bg-green-800 text-white px-10 py-5 rounded-2xl font-black text-sm flex items-center justify-center gap-3 shadow-xl transition-all active:scale-95">
                 <i class="fa-solid fa-file-pdf text-xl"></i> PDF OLARAK KAYDET
             </button>
 
-            <div class="text-center">
-                <span class="text-[10px] font-black text-gray-400 uppercase block">GÜNCEL TEKLİF TUTARI</span>
-                <span id="bar-total" class="text-3xl font-black text-blue-900 italic leading-none">0.00 $</span>
+            <div class="text-center bg-slate-50 px-10 py-2 rounded-2xl border border-slate-200">
+                <span class="text-[10px] font-black text-slate-400 uppercase block tracking-widest mb-1">GÜNCEL TEKLİF TUTARI</span>
+                <span id="bar-total" class="text-4xl font-black text-[#001f3f] italic leading-none">0.00 $</span>
             </div>
 
-            <button onclick="sendWhatsApp()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-4 rounded-2xl font-black text-xs flex items-center gap-2 shadow-xl">
+            <button onclick="sendWhatsApp()" class="w-full md:w-auto bg-[#25D366] hover:bg-[#128C7E] text-white px-10 py-5 rounded-2xl font-black text-sm flex items-center justify-center gap-3 shadow-xl transition-all active:scale-95">
                 SİPARİŞİ TAMAMLA <i class="fa-brands fa-whatsapp text-xl"></i>
             </button>
-            
+
         </div>
-    </div>
+    </footer>
 
     <script>
-
-      # Klimatech HVAC Ürün Kataloğu - Şubat 2026
+        # Klimatech HVAC Ürün Kataloğu - Şubat 2026
 # Not: Fiyatlar USD ($) bazındadır. KDV ve Nakliye hariçtir. [cite: 1, 8]
 
 hvac_products = {
@@ -194,16 +205,27 @@ hvac_products = {
 }
         let sepet = [];
 
+
+
+        let sepet = [];
+
         function renderCatalog() {
             const catalog = document.getElementById('catalog');
             catalog.innerHTML = "";
             for (let code in hvac_products) {
+                const p = hvac_products[code];
                 catalog.innerHTML += `
-                    <div class="product-card border p-2 rounded text-[10px] flex flex-col justify-between transition-all bg-gray-50">
-                        <p class="font-bold text-gray-700 leading-tight">${hvac_products[code].ad}</p>
-                        <div class="mt-2 flex justify-between items-center">
-                            <span class="font-black text-blue-900">${hvac_products[code].fiyat} $</span>
-                            <button onclick="addItem('${code}')" class="bg-[#001f3f] text-white px-2 py-1 rounded-md font-bold text-[9px] hover:bg-yellow-500 hover:text-black">+ EKLE</button>
+                    <div class="product-card bg-white p-6 relative group border border-slate-100 shadow-sm flex flex-col justify-between h-56">
+                        <div>
+                            <span class="text-[9px] font-black text-blue-400 tracking-widest uppercase mb-2 block">${p.kat}</span>
+                            <h3 class="text-sm font-black text-[#001f3f] leading-tight uppercase">${p.ad}</h3>
+                            <p class="text-[10px] text-gray-400 mt-1 font-mono">${code}</p>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <span class="text-xl font-black text-blue-900 italic">${p.fiyat.toFixed(2)} $</span>
+                            <button onclick="addItem('${code}')" class="bg-[#001f3f] text-white w-12 h-12 rounded-2xl flex items-center justify-center hover:bg-yellow-500 hover:text-[#001f3f] transition-all text-2xl font-bold shadow-lg active:scale-90">
+                                +
+                            </button>
                         </div>
                     </div>`;
             }
@@ -217,26 +239,27 @@ hvac_products = {
         }
 
         function updateTable() {
-            const liste = document.getElementById('liste');
-            liste.innerHTML = "";
+            const body = document.getElementById('invoice-body');
+            body.innerHTML = "";
             let sub = 0;
             sepet.forEach(x => {
                 let rowTotal = x.fiyat * x.adet;
                 sub += rowTotal;
-                liste.innerHTML += `<tr class="border-b">
-                    <td class="p-2 font-mono text-[9px]">${x.code}</td>
-                    <td class="p-2 font-bold">${x.ad}</td>
-                    <td class="p-2 text-center font-black italic">${x.adet}</td>
-                    <td class="p-2 text-right">${x.fiyat.toFixed(2)} $</td>
-                    <td class="p-2 text-right font-black">${rowTotal.toFixed(2)} $</td>
+                body.innerHTML += `<tr class="border-b border-slate-100">
+                    <td class="p-3 font-mono text-[10px] text-slate-400">${x.code}</td>
+                    <td class="p-3 font-black text-slate-700">${x.ad}</td>
+                    <td class="p-3 text-center font-black text-lg italic text-[#001f3f]">${x.adet}</td>
+                    <td class="p-3 text-right font-bold">${x.fiyat.toFixed(2)} $</td>
+                    <td class="p-3 text-right font-black text-[#001f3f]">${rowTotal.toFixed(2)} $</td>
                 </tr>`;
             });
             let disc = sub * 0.04;
             let final = sub - disc;
-            document.getElementById('ara-toplam').innerText = sub.toFixed(2);
-            document.getElementById('indirim').innerText = disc.toFixed(2);
-            document.getElementById('genel-toplam').innerText = final.toFixed(2);
+            document.getElementById('subtotal').innerText = sub.toFixed(2);
+            document.getElementById('discount').innerText = disc.toFixed(2);
+            document.getElementById('total').innerText = final.toFixed(2);
             document.getElementById('bar-total').innerText = final.toFixed(2) + " $";
+            document.getElementById('cart-count').innerText = sepet.reduce((a, b) => a + b.adet, 0);
         }
 
         function filterProducts() {
@@ -248,10 +271,10 @@ hvac_products = {
         }
 
         function sendWhatsApp() {
-            if(sepet.length === 0) return alert("Usta önce ürün ekle!");
-            let msg = `🛠 *KLİMETECH TEKLİF ONAYI*\n\n`;
-            sepet.forEach(x => { msg += `✅ *${x.ad}* - ${x.adet} Adet\n`; });
-            msg += `\n💰 *TOPLAM: ${document.getElementById('genel-toplam').innerText} $*`;
+            if(sepet.length === 0) return alert("Usta önce ürün seçmelisin!");
+            let msg = `🛠 *KLİMETECH SİPARİŞ ONAYI*\n\n`;
+            sepet.forEach(x => { msg += `✅ *${x.ad}* (${x.adet} Adet)\n`; });
+            msg += `\n💰 *GENEL TOPLAM: ${document.getElementById('total').innerText} $*`;
             window.open(`https://wa.me/905326809080?text=${encodeURIComponent(msg)}`);
         }
 
@@ -259,3 +282,5 @@ hvac_products = {
     </script>
 </body>
 </html>
+
+      
