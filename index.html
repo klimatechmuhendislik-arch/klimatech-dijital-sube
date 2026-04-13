@@ -1,140 +1,1030 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>VRFDEPON.AI - B2B HVAC Platform</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{font-family:'Inter',sans-serif;margin:0;padding:0;box-sizing:border-box}
+body{background:#0f172a;color:#e2e8f0;overflow-x:hidden}
+.glass{background:rgba(30,41,59,0.8);backdrop-filter:blur(12px);border:1px solid rgba(71,85,105,0.4);border-radius:16px}
+.neon-green{color:#10b981;text-shadow:0 0 20px rgba(16,185,129,0.5)}
+.btn-main{background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:600;font-size:13px;transition:all 0.3s}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(16,185,129,0.4)}
+.tab-btn{padding:10px 18px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:600;transition:all 0.3s;border:1px solid transparent;background:rgba(30,41,59,0.5);color:#94a3b8}
+.tab-btn:hover{background:rgba(16,185,129,0.1);color:#10b981}
+.tab-btn.active{background:linear-gradient(135deg,#10b981,#059669);color:#fff;border-color:#10b981}
+.prod-card{background:rgba(30,41,59,0.6);border:1px solid rgba(71,85,105,0.3);border-radius:14px;padding:18px;transition:all 0.3s}
+.prod-card:hover{border-color:#10b981;transform:translateY(-3px);box-shadow:0 12px 30px rgba(16,185,129,0.15)}
+.prog-bar{height:8px;background:rgba(51,65,85,0.5);border-radius:4px;overflow:hidden}
+.prog-bar>div{height:100%;border-radius:4px;transition:width 0.8s}
+.sidebar{width:280px;min-height:100vh;background:rgba(15,23,42,0.95);border-right:1px solid rgba(71,85,105,0.3);position:fixed;left:0;top:0;z-index:50;padding:20px 0}
+.main{margin-left:280px;padding:20px}
+.sidebar a{display:flex;align-items:center;gap:10px;padding:11px 24px;color:#94a3b8;text-decoration:none;font-size:13px;font-weight:500;transition:all 0.2s;cursor:pointer}
+.sidebar a:hover,.sidebar a.active{color:#10b981;background:rgba(16,185,129,0.08);border-right:3px solid #10b981}
+.badge{background:#ef4444;color:#fff;font-size:10px;padding:2px 7px;border-radius:50px;font-weight:700}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:999;justify-content:center;align-items:center}
+input,select,textarea{background:rgba(30,41,59,0.8);border:1px solid rgba(71,85,105,0.5);color:#e2e8f0;padding:10px 14px;border-radius:10px;font-size:13px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#10b981}
+.fade-in{animation:fadeIn 0.5s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){.sidebar{display:none}.main{margin-left:0}}
+</style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+<div style="padding:0 24px 24px">
+<h1 class="text-xl font-black neon-green">⚡ VRFDEPON<span class="text-white">.AI</span></h1>
+<p class="text-xs text-slate-500 mt-1">B2B HVAC Platform v3.0</p>
+</div>
+<nav>
+<a class="active" onclick="showTab('dashboard')">📊 Dashboard</a>
+<a onclick="showTab('catalog')">📦 Urun Katalogu</a>
+<a onclick="showTab('cart')">🛒 Sepet <span class="badge" id="cart-count">0</span></a>
+<a onclick="showTab('leads')">👥 Lead Scraper</a>
+<a onclick="showTab('crm')">📋 CRM Pipeline</a>
+<a onclick="showTab('analytics')">📈 Analitik</a>
+<a onclick="showTab('campaigns')">📢 Kampanyalar</a>
+<a onclick="showTab('chat')">🤖 AI Asistan</a>
+<a onclick="showTab('templates')">📝 Sablonlar</a>
+</nav>
+<div style="position:absolute;bottom:20px;left:0;right:0;padding:0 24px">
+<div class="glass" style="padding:14px;text-align:center;border-radius:12px">
+<div class="text-xs text-slate-400">Toplam Urun</div>
+<div class="text-2xl font-black neon-green" id="total-prod">0</div>
+</div>
+</div>
+</div>
+
+<div class="main" id="main">
+
+<!-- DASHBOARD -->
+<div id="tab-dashboard" class="tab-content fade-in">
+<div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+<div><h2 class="text-2xl font-black">📊 Dashboard</h2><p class="text-slate-400 text-sm">VRFDEPON.AI Kontrol Paneli</p></div>
+<div class="flex gap-2"><button class="btn-main" onclick="showTab('catalog')">📦 Katalog</button><button class="btn-main" onclick="showTab('leads')" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">👥 Lead Scraper</button></div>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+<div class="glass p-5 text-center"><div class="text-3xl font-black neon-green" id="d-products">0</div><div class="text-xs text-slate-400 mt-1">Toplam Urun</div></div>
+<div class="glass p-5 text-center"><div class="text-3xl font-black text-blue-400" id="d-brands">7</div><div class="text-xs text-slate-400 mt-1">Marka</div></div>
+<div class="glass p-5 text-center"><div class="text-3xl font-black text-orange-400" id="d-leads">0</div><div class="text-xs text-slate-400 mt-1">Toplam Lead</div></div>
+<div class="glass p-5 text-center"><div class="text-3xl font-black text-purple-400" id="d-hot">0</div><div class="text-xs text-slate-400 mt-1">Sicak Lead</div></div>
+</div>
+<div class="grid lg:grid-cols-2 gap-4">
+<div class="glass p-5"><h3 class="font-bold mb-3">🏷️ Marka Dagilimi</h3><div id="dash-brands"></div></div>
+<div class="glass p-5"><h3 class="font-bold mb-3">🔥 Son Eklenen Leadler</h3><div id="dash-leads" class="text-sm text-slate-400">Lead yok</div></div>
+</div>
+</div>
+
+<!-- CATALOG -->
+<div id="tab-catalog" class="tab-content fade-in" style="display:none">
+<div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+<h2 class="text-2xl font-black">📦 Urun Katalogu</h2>
+<div class="flex gap-2 flex-wrap">
+<input type="text" id="search" placeholder="🔍 Urun ara..." style="width:200px" oninput="renderCatalog()">
+<select id="brand-filter" onchange="renderCatalog()" style="width:150px"><option value="">Tum Markalar</option></select>
+<select id="cat-filter" onchange="renderCatalog()" style="width:150px"><option value="">Tum Kategoriler</option></select>
+</div>
+</div>
+<div id="catalog" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+</div>
+
+<!-- CART -->
+<div id="tab-cart" class="tab-content fade-in" style="display:none">
+<h2 class="text-2xl font-black mb-4">🛒 Sepet</h2>
+<div id="cart-items" class="space-y-3"></div>
+<div class="glass p-5 mt-4" id="cart-summary" style="display:none">
+<div class="flex justify-between text-lg font-bold"><span>Toplam:</span><span id="cart-total" class="neon-green">0.00$</span></div>
+<button class="btn-main w-full mt-3" onclick="alert('Siparis gonderildi!')">📧 Siparis Gonder</button>
+</div>
+</div>
+
+<!-- LEADS -->
+<div id="tab-leads" class="tab-content fade-in" style="display:none">
+<div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+<h2 class="text-2xl font-black">👥 Lead Scraper</h2>
+<div class="flex gap-2">
+<select id="lead-city" style="width:150px"></select>
+<select id="lead-src" style="width:150px"></select>
+<button class="btn-main" onclick="scrapeLeads()">🔍 Leadleri Kazı</button>
+</div>
+</div>
+<div id="scrape-status" style="display:none" class="glass p-4 mb-4 text-center"></div>
+<div class="glass p-4 mb-4 flex gap-4 flex-wrap text-sm">
+<span class="text-slate-400">Toplam: <b class="text-white" id="lead-total">0</b></span>
+<span class="text-slate-400">Sicak: <b class="text-orange-400" id="lead-hot">0</b></span>
+<span class="text-slate-400">Ort Skor: <b class="text-emerald-400" id="lead-avg">0</b></span>
+</div>
+<div id="leads-list" class="space-y-2"></div>
+</div>
+
+<!-- CRM -->
+<div id="tab-crm" class="tab-content fade-in" style="display:none">
+<h2 class="text-2xl font-black mb-4">📋 CRM Pipeline</h2>
+<div class="grid grid-cols-5 gap-3 mb-6">
+<div class="glass p-4 text-center"><div class="text-2xl font-black text-blue-400" id="crm-new">0</div><div class="text-xs text-slate-400">Yeni Lead</div></div>
+<div class="glass p-4 text-center"><div class="text-2xl font-black text-orange-400" id="crm-contact">0</div><div class="text-xs text-slate-400">Iletisim</div></div>
+<div class="glass p-4 text-center"><div class="text-2xl font-black text-purple-400" id="crm-quote">0</div><div class="text-xs text-slate-400">Teklif</div></div>
+<div class="glass p-4 text-center"><div class="text-2xl font-black text-emerald-400" id="crm-won">0</div><div class="text-xs text-slate-400">Kazanildi</div></div>
+<div class="glass p-4 text-center"><div class="text-2xl font-black text-red-400" id="crm-lost">0</div><div class="text-xs text-slate-400">Kaybedildi</div></div>
+</div>
+<div id="funnel-bars" class="glass p-5 space-y-3"></div>
+</div>
+
+<!-- ANALYTICS -->
+<div id="tab-analytics" class="tab-content fade-in" style="display:none">
+<h2 class="text-2xl font-black mb-4">📈 Analitik</h2>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+<div class="glass p-4 text-center"><div class="text-xl font-black text-blue-400" id="met-total">0</div><div class="text-xs text-slate-400">Toplam Lead</div></div>
+<div class="glass p-4 text-center"><div class="text-xl font-black text-orange-400" id="met-crate">0%</div><div class="text-xs text-slate-400">Iletisim %</div></div>
+<div class="glass p-4 text-center"><div class="text-xl font-black text-purple-400" id="met-qrate">0%</div><div class="text-xs text-slate-400">Teklif %</div></div>
+<div class="glass p-4 text-center"><div class="text-xl font-black text-emerald-400" id="met-wrate">0%</div><div class="text-xs text-slate-400">Kazanma %</div></div>
+</div>
+<div class="grid lg:grid-cols-2 gap-4 mb-4">
+<div class="glass p-5"><h3 class="font-bold mb-3">Satis Trendi</h3><canvas id="chart-sales"></canvas></div>
+<div class="glass p-5"><h3 class="font-bold mb-3">Urun Dagilimi</h3><canvas id="chart-products"></canvas></div>
+</div>
+<div class="grid lg:grid-cols-2 gap-4">
+<div class="glass p-5"><h3 class="font-bold mb-3">Lead Kaynaklari</h3><canvas id="chart-sources"></canvas></div>
+<div class="glass p-5"><h3 class="font-bold mb-3">Sehir Dagilimi</h3><canvas id="chart-cities"></canvas></div>
+</div>
+</div>
+
+<!-- CAMPAIGNS -->
+<div id="tab-campaigns" class="tab-content fade-in" style="display:none">
+<h2 class="text-2xl font-black mb-4">📢 Kampanya Olusturucu</h2>
+<div class="glass p-5">
+<select id="camp-type" class="mb-3"><option>Yeni Urun Tanitimi</option><option>Fiyat Indirimi</option><option>Sezon Acilisi</option><option>Stok Eritme</option></select>
+<button class="btn-main" onclick="genCampaign()">🚀 Kampanya Olustur</button>
+<pre id="camp-out" class="mt-4 p-4 bg-slate-900 rounded-xl text-sm text-emerald-300 whitespace-pre-wrap" style="display:none"></pre>
+</div>
+</div>
+
+<!-- CHAT -->
+<div id="tab-chat" class="tab-content fade-in" style="display:none">
+<h2 class="text-2xl font-black mb-4">🤖 AI Satis Asistani</h2>
+<div class="glass p-5">
+<div id="chat-box" style="height:400px;overflow-y:auto" class="space-y-3 mb-4">
+<div class="flex"><div class="bg-emerald-100 text-emerald-800 p-3 rounded-2xl rounded-tl-sm text-sm max-w-[80%]">Merhaba! VRFDEPON AI Asistaniyim. Size nasil yardimci olabilirim?</div></div>
+</div>
+<div class="flex gap-2 mb-3">
+<button class="tab-btn text-xs" onclick="qChat('En cok satan urunler')">🔥 Populer</button>
+<button class="tab-btn text-xs" onclick="qChat('Sicak leadler')">👥 Leadler</button>
+<button class="tab-btn text-xs" onclick="qChat('Montaj teklifi')">📋 Teklif</button>
+<button class="tab-btn text-xs" onclick="qChat('R410A fiyati')">💰 Fiyat</button>
+</div>
+<div class="flex gap-2">
+<input id="chat-in" placeholder="Mesajinizi yazin..." onkeypress="if(event.key==='Enter')sendChat()">
+<button class="btn-main" onclick="sendChat()">Gonder</button>
+</div>
+</div>
+</div>
+
+<!-- TEMPLATES -->
+<div id="tab-templates" class="tab-content fade-in" style="display:none">
+<h2 class="text-2xl font-black mb-4">📝 Mesaj Sablonlari</h2>
+<div class="grid md:grid-cols-3 gap-4">
+<div class="glass p-5 cursor-pointer hover:border-emerald-500" onclick="showTpl('bayi')"><div class="text-3xl mb-2">🤝</div><h3 class="font-bold">Bayi Hosgeldin</h3><p class="text-xs text-slate-400 mt-1">Yeni bayi karsilama mesaji</p></div>
+<div class="glass p-5 cursor-pointer hover:border-emerald-500" onclick="showTpl('fiyat')"><div class="text-3xl mb-2">💰</div><h3 class="font-bold">Fiyat Listesi</h3><p class="text-xs text-slate-400 mt-1">Haftalik fiyat guncelleme</p></div>
+<div class="glass p-5 cursor-pointer hover:border-emerald-500" onclick="showTpl('flash')"><div class="text-3xl mb-2">⚡</div><h3 class="font-bold">Flash Indirim</h3><p class="text-xs text-slate-400 mt-1">Ani indirim duyurusu</p></div>
+</div>
+</div>
+
+<!-- TEMPLATE MODAL -->
+<div class="modal-overlay" id="tpl-modal" onclick="if(event.target===this)this.style.display='none'">
+<div class="glass p-6" style="width:500px;max-width:90vw">
+<h3 class="font-bold text-lg mb-3">📝 Sablon</h3>
+<pre id="tpl-content" class="bg-slate-900 p-4 rounded-xl text-sm text-emerald-300 whitespace-pre-wrap"></pre>
+<div class="flex gap-2 mt-4">
+<button class="btn-main flex-1" onclick="navigator.clipboard.writeText(Z('tpl-content').textContent);alert('Kopyalandi!')">📋 Kopyala</button>
+<button class="tab-btn flex-1" onclick="Z('tpl-modal').style.display='none'">Kapat</button>
+</div>
+</div>
+</div>
+
+</div>
 <script>
-    // --- GÜVENLİK VE YETKİ KATMANI ---
-    // Şifre: 1234 (Maskelenmiş: MTIzNA==)
-    const _AUTH_KEY = "MTIzNA=="; 
-    let _IS_AUTHORIZED = sessionStorage.getItem('klimatech_auth') === 'true';
+var Z=function(id){return document.getElementById(id)};
 
-    // --- TAM ÜRÜN VE STOK VERİTABANI ---
-    const complete_hvac_db = {
-        // BAKIR BORU GRUBU (KAUÇUK İZOLASYONLU)
-        "7130040007": { ad: "1/4-6,35x0,80mmx50m 13mm İzo.Boru", fiyat: 3.32, stok: 250, kritik: 50 },
-        "7130040008": { ad: "3/8-9,52x0,80mmx50m 13mm İzo.Boru", fiyat: 4.81, stok: 200, kritik: 40 },
-        "7130040009": { ad: "1/2-12,7x0,90mmx50m 13mm İzo.Boru", fiyat: 6.75, stok: 150, kritik: 30 },
-        "7130040011": { ad: "5/8-15.87x1,0mmx50m 13mm İzo.Boru", fiyat: 10.30, stok: 100, kritik: 20 },
-        "7130040012": { ad: "3/4-19,05x1,0mmx50m 13mm İzo.Boru", fiyat: 12.36, stok: 80, kritik: 15 },
-        
-        // DÜZ BAKIR BORULAR (METRE)
-        "7130020166": { ad: "22 MM (22X1.0 MM) BAKIR BORU (DUZ)", fiyat: 13.50, stok: 120, kritik: 40 },
-        "7130020177": { ad: "28 MM (28X1.0 MM) BAKIR BORU (DUZ)", fiyat: 17.51, stok: 90, kritik: 30 },
-        "7130020189": { ad: "35 MM (35X1.0 MM) BAKIR BORU (DUZ)", fiyat: 27.12, stok: 60, kritik: 20 },
-        "7130020198": { ad: "42 MM (42X1.4 MM) BAKIR BORU (DUZ)", fiyat: 37.77, stok: 45, kritik: 10 },
+// ===== ÜRÜN VERİTABANI =====
+var P=[];
+var brands=["Sarkuysan","ECO","Totchem","Wipcool","Testo","Danfoss","Panasonic"];
+var cats=["Bakir Boru","Izolasyon","Sogutucu Gaz","Klima Aleti","Olcum Cihazi","Kompresor","VRF Sistem"];
+var brandColors={"Sarkuysan":"#f97316","ECO":"#10b981","Totchem":"#3b82f6","Wipcool":"#8b5cf6","Testo":"#ef4444","Danfoss":"#f59e0b","Panasonic":"#06b6d4"};
 
-        // SOĞUTUCU GAZLAR
-        "7280010143": { ad: "TOTCHEM R410A SOGUTUCU GAZ 10KG", fiyat: 138.00, stok: 50, kritik: 10 },
-        "7280010147": { ad: "TOTCHEM R407C SOGUTUCU GAZ 10KG", fiyat: 138.00, stok: 25, kritik: 5 },
-        "7280010145": { ad: "TOTCHEM R404A SOGUTUCU GAZ 10 KG", fiyat: 94.06, stok: 30, kritik: 8 },
-        "7280010149": { ad: "TOTCHEM R32 SOGUTUCU GAZ 9 KG", fiyat: 138.78, stok: 40, kritik: 12 },
+var prodNames={
+"Sarkuysan":["1/4 Bakir Boru","3/8 Bakir Boru","1/2 Bakir Boru","5/8 Bakir Boru","3/4 Bakir Boru","7/8 Bakir Boru","1-1/8 Bakir Boru","Cift Sarim 1/4+3/8","Cift Sarim 3/8+5/8","Cift Sarim 1/2+7/8","Cift Sarim 1/2+1-1/8","15m Cift Sarim","20m Cift Sarim","25m Cift Sarim","30m Cift Sarim","Bakir Fitings T","Bakir Fitings Dirsek","Bakir Fitings Manson","Bakir Fitings Reduksiyon","Kapiler Boru"],
+"ECO":["6mm Izolasyon","9mm Izolasyon","10mm Izolasyon","13mm Izolasyon","19mm Izolasyon","25mm Izolasyon","6mm Rulo","9mm Rulo","13mm Rulo","19mm Rulo","Izolasyon Bant","Izolasyon Yapistiricisi","Kaucuk Izolasyon 1/4","Kaucuk Izolasyon 3/8","Kaucuk Izolasyon 1/2","Kaucuk Izolasyon 5/8","Kaucuk Izolasyon 3/4","Kaucuk Izolasyon 7/8","Kaucuk Levha 10mm","Kaucuk Levha 19mm"],
+"Totchem":["R410A 11.3kg","R407C 11.3kg","R32 9kg","R134A 12kg","R404A 10.9kg","R22 13.6kg","R290 5kg","R600A 6.5kg","R410A 5kg","R407C 5kg","R32 3kg","Azot Tup 10L","Azot Tup 40L","Oksijen Tup","Kaynak Tup MAP","Flux Pasta","Lehim Cubuk %5","Lehim Cubuk %15","Lehim Cubuk %40","Gaz Kacak Sprey"],
+"Wipcool":["Vakum Pompasi 2CFM","Vakum Pompasi 4CFM","Vakum Pompasi 6CFM","Vakum Pompasi 8CFM","Manifold Set R410A","Manifold Set R407C","Manifold Set Digital","Boru Kesici Mini","Boru Kesici Buyuk","Boru Genisletici Set","Flare Seti Metrik","Flare Seti Inch","Boru Bukucu 1/4","Boru Bukucu 3/8","Boru Bukucu 1/2","Boru Bukucu 5/8","Saatli Vakum","Hortum Set 3lu","Hortum Set 4lu","Servis Cantasi"],
+"Testo":["Testo 550s","Testo 557s","Testo 770-3","Testo 830-T4","Testo 405i","Testo 410i","Testo 510i","Testo 115i","Testo 549i","Testo Smart Probe Set","Multimetre 760-3","Sicaklik Problu 110","Nem Olcer 605i","Hiz Olcer 416","Gaz Dedektoru 316-4","Basinc Olcer 512i","IR Termometre 835","Anemometre 417","Data Logger 174T","Yaglama Test Cihazi"],
+"Danfoss":["Scroll Kompresor 3HP","Scroll Kompresor 5HP","Scroll Kompresor 8HP","Scroll Kompresor 10HP","Scroll Kompresor 15HP","Piston Kompresor 1HP","Piston Kompresor 2HP","Piston Kompresor 3HP","Expansion Valve TXV","Expansion Valve EEV","Solenoid Valf 1/4","Solenoid Valf 3/8","Solenoid Valf 1/2","Basinc Sualteri LP","Basinc Sualteri HP","Filtre Dryer 1/4","Filtre Dryer 3/8","Sight Glass 1/4","Kontaktor 25A","Kontaktor 40A"],
+"Panasonic":["9BTU Duvar Tipi","12BTU Duvar Tipi","18BTU Duvar Tipi","24BTU Duvar Tipi","36BTU Yer Tavan","48BTU Yer Tavan","24BTU Kaset Tipi","36BTU Kaset Tipi","48BTU Kaset Tipi","60BTU Kaset Tipi","VRF 8HP Dis Unite","VRF 10HP Dis Unite","VRF 14HP Dis Unite","VRF 16HP Dis Unite","VRF 20HP Dis Unite","VRF Duvar Ic Unite","VRF Kaset Ic Unite","VRF Kanalli Ic Unite","VRF Yer Tavan Ic Unite","Kumanda Paneli"]
+};
 
-        // WIPCOOL PROFESYONEL EKİPMANLAR
-        "75508400025": { ad: "Wipcool EF-2 Eksantrik Havşa Takımı", fiyat: 66.48, stok: 12, kritik: 3 },
-        "75508400026": { ad: "Wipcool EF-2L Şarjlı Havşa Takımı", fiyat: 87.33, stok: 5, kritik: 2 },
-        "75508400035": { ad: "Wipcool MDG1 Dijital Manifold", fiyat: 126.40, stok: 10, kritik: 2 },
-        "7550840001": { ad: "Wipcool S1 Fırçasız Vakum Pompası", fiyat: 67.76, stok: 15, kritik: 4 },
-        "7550830021": { ad: "Wipcool P18 İnce Tip Drenaj Pompası", fiyat: 53.82, stok: 40, kritik: 10 },
-        "7550840012": { ad: "Wipcool C10 Şarjlı Temizleme Makinası", fiyat: 179.76, stok: 8, kritik: 2 },
+function genPrice(brand,idx){
+var bases={"Sarkuysan":[3.12,4.03,5.18,5.85,7.02,8.14,10.25,12.5,15.3,22.1,28.4,18.6,24.8,31.2,37.5,2.1,1.8,1.5,2.3,0.85],
+"ECO":[1.2,1.8,2.1,2.8,4.2,5.5,15,22,35,48,3.5,8.5,1.4,1.9,2.3,2.8,3.4,4.1,18,28],
+"Totchem":[112,80,68,72,95,45,55,42,65,48,38,28,85,35,12,8,4.5,6.2,12.5,7.5],
+"Wipcool":[85,125,165,210,48,45,185,12,18,65,42,45,15,18,22,25,35,28,38,95],
+"Testo":[580,720,320,185,145,135,155,125,165,890,210,95,175,245,385,165,285,195,145,520],
+"Danfoss":[420,650,980,1250,1850,180,280,380,45,85,22,28,35,18,22,12,15,18,25,38],
+"Panasonic":[285,350,520,680,950,1250,780,1050,1380,1650,3500,4200,5800,6500,8200,450,680,850,520,125]};
+var b=bases[brand]||[];
+var base=b[idx]||50;
+return base;
+}
 
-        // MONTAJ SARF MALZEMELERİ
-        "7110990002": { ad: "50 CM KLIMA KONSOLU (CIVATALI)", fiyat: 7.78, stok: 300, kritik: 100 },
-        "7110990006": { ad: "60 CM KLIMA KONSOLU (KAYNAKLI)", fiyat: 11.90, stok: 150, kritik: 50 },
-        "7230020018": { ad: "ASA 3110 GÜMÜŞLÜ KAYNAK TELİ 3MM", fiyat: 35.48, stok: 100, kritik: 20 },
-        "7250050323": { ad: "CASTEL EASYBEND4 KIVIRMA SETİ", fiyat: 49.31, stok: 20, kritik: 5 }
-    };
+// Ürünleri oluştur
+for(var i=0;i<brands.length;i++){
+var brand=brands[i];
+var names=prodNames[brand];
+var cat=cats[i%cats.length];
+for(var j=0;j<names.length;j++){
+var base=genPrice(brand,j);
+P.push({
+id:P.length+1,
+n:names[j],
+b:base,
+p:Math.round(base*0.85*100)/100,
+c:cats[Math.floor(j/3)%cats.length],
+g:brand.toLowerCase(),
+brand:brand,
+stk:Math.floor(Math.random()*200+10)
+});
+}
+}
 
-    // İlk çalıştırmada verileri yerleştir
-    if (!localStorage.getItem('klimatech_stok_db')) {
-        localStorage.setItem('klimatech_stok_db', JSON.stringify(complete_hvac_db));
-    }
+// ===== LEAD SİSTEMİ =====
+var leads=[];
+var cityList=["Istanbul","Ankara","Izmir","Antalya","Bursa","Adana","Konya","Gaziantep","Kayseri","Mersin","Diyarbakir","Samsun","Denizli","Eskisehir","Trabzon","Malatya","Erzurum","Van","Sanliurfa","Hatay"];
+var srcList=["Google Maps","Instagram","LinkedIn","Referans"];
+var stageList=["Yeni Lead","Iletisim Kuruldu","Teklif Gonderildi","Kazanildi","Kaybedildi"];
+var firstNames=["Mehmet","Ahmet","Ali","Mustafa","Huseyin","Hasan","Ibrahim","Ismail","Osman","Yusuf","Murat","Omer","Emre","Burak","Serkan","Tolga","Cenk","Kemal","Selim","Baris"];
+var lastNames=["Yilmaz","Kaya","Demir","Celik","Sahin","Ozturk","Arslan","Dogan","Kilic","Aslan","Eren","Aksoy","Polat","Ozkan","Aydin","Korkmaz","Bulut","Yildiz","Turan","Koc"];
+var compSuffix=["Sogutma","Klima","Iklimlendirme","Muhendislik","Teknik","Enerji","Mekanik","Isitma Sogutma","VRF Sistemleri","Kombi"];
 
-    let hvac_db = JSON.parse(localStorage.getItem('klimatech_stok_db'));
+// ===== SEPET =====
+var cart=[];
 
-    // --- YÖNETİM FONKSİYONLARI ---
-    function openAdmin() {
-        if (_IS_AUTHORIZED) {
-            document.getElementById('adminPanel').classList.remove('hidden');
-            renderAdmin();
-            return;
-        }
+// Chart instances
+var CI={sales:null,products:null,sources:null,cities:null};
 
-        const pass = prompt("Güvenlik Doğrulaması:");
-        if (pass && btoa(pass) === _AUTH_KEY) {
-            _IS_AUTHORIZED = true;
-            sessionStorage.setItem('klimatech_auth', 'true');
-            document.getElementById('adminPanel').classList.remove('hidden');
-            renderAdmin();
-        } else {
-            alert("Yetkisiz Erişim! Şifre yanlış.");
-        }
-    }
+// ===== SAYFA GEÇİŞ =====
+function showTab(name){
+var tabs=document.querySelectorAll('.tab-content');
+for(var i=0;i<tabs.length;i++) tabs[i].style.display='none';
+Z('tab-'+name).style.display='block';
+var links=document.querySelectorAll('.sidebar a');
+for(var i=0;i<links.length;i++) links[i].classList.remove('active');
+links[['dashboard','catalog','cart','leads','crm','analytics','campaigns','chat','templates'].indexOf(name)].classList.add('active');
+if(name==='analytics') renderAnalytics();
+if(name==='dashboard') renderDashboard();
+if(name==='crm') updateCRM();
+}
 
-    function saveDB() {
-        if (!_IS_AUTHORIZED) return;
-        localStorage.setItem('klimatech_stok_db', JSON.stringify(hvac_db));
-    }
+// ===== DASHBOARD =====
+function renderDashboard(){
+Z('d-products').textContent=P.length;
+Z('d-leads').textContent=leads.length;
+var hot=0;
+for(var i=0;i<leads.length;i++) if(leads[i].score>=80) hot++;
+Z('d-hot').textContent=hot;
 
-    function renderAdmin() {
-        if (!_IS_AUTHORIZED) return;
-        const body = document.getElementById('stok-body');
-        body.innerHTML = "";
-        
-        for (let code in hvac_db) {
-            const item = hvac_db[code];
-            const isLow = item.stok <= item.kritik;
-            
-            body.innerHTML += `
-                <div class="admin-card ${isLow ? 'border-red-300 bg-red-50' : 'bg-white'}">
-                    <div>
-                        <span class="block text-[10px] text-gray-400 font-mono">${code}</span>
-                        <strong class="text-sm text-dark uppercase">${item.ad}</strong>
-                        ${isLow ? '<span class="text-[9px] font-bold text-red-600 block">!!! KRİTİK SEVİYE !!!</span>' : ''}
-                    </div>
-                    <div class="text-center">
-                        <input type="number" step="0.01" value="${item.fiyat}" onchange="updateVal('${code}', 'fiyat', this.value)" class="w-20 p-1 border rounded text-center font-bold text-primary">
-                    </div>
-                    <div class="text-center">
-                        <input type="number" value="${item.stok}" onchange="updateVal('${code}', 'stok', this.value)" class="w-16 p-1 border rounded text-center font-bold ${isLow ? 'text-red-600 border-red-400' : 'text-green-600'}">
-                    </div>
-                    <div class="text-center">
-                        <input type="number" value="${item.kritik}" onchange="updateVal('${code}', 'kritik', this.value)" class="w-16 p-1 border rounded text-center text-xs text-gray-500">
-                    </div>
-                    <button onclick="deleteProd('${code}')" class="text-red-400 hover:text-red-700 px-2"><i class="fas fa-trash"></i></button>
-                </div>
-            `;
-        }
-    }
+var bhtml='';
+for(var i=0;i<brands.length;i++){
+var cnt=0;
+for(var j=0;j<P.length;j++) if(P[j].brand===brands[i]) cnt++;
+var pct=Math.round(cnt/P.length*100);
+bhtml+='<div class="flex items-center gap-3 mb-2"><span class="text-xs w-20">'+brands[i]+'</span><div class="prog-bar flex-1"><div style="width:'+pct+'%;background:'+brandColors[brands[i]]+'"></div></div><span class="text-xs text-slate-400">'+cnt+'</span></div>';
+}
+Z('dash-brands').innerHTML=bhtml;
 
-    function updateVal(code, field, val) {
-        if (!_IS_AUTHORIZED) return;
-        hvac_db[code][field] = parseFloat(val) || 0;
-        saveDB();
-        if(field === 'stok' || field === 'kritik') renderAdmin();
-    }
+if(leads.length>0){
+var lhtml='';
+var show=Math.min(leads.length,5);
+for(var i=leads.length-1;i>=leads.length-show;i--){
+lhtml+='<div class="flex justify-between py-2 border-b border-slate-700"><span>'+leads[i].name+'</span><span class="text-xs text-slate-400">'+leads[i].city+' — Skor:'+leads[i].score+'</span></div>';
+}
+Z('dash-leads').innerHTML=lhtml;
+}
+}
 
-    function addProduct() {
-        if (!_IS_AUTHORIZED) return;
-        const kod = document.getElementById('in-kod').value;
-        const ad = document.getElementById('in-ad').value;
-        const fiyat = parseFloat(document.getElementById('in-fiyat').value) || 0;
-        const stok = parseFloat(document.getElementById('in-stok').value) || 0;
-        const kritik = parseFloat(document.getElementById('in-kritik').value) || 0;
+// ===== KATALOG =====
+function renderCatalog(){
+var s=(Z('search').value||'').toLowerCase();
+var bf=Z('brand-filter').value;
+var cf=Z('cat-filter').value;
+var html='';
+var count=0;
+for(var i=0;i<P.length;i++){
+var p=P[i];
+if(s&&p.n.toLowerCase().indexOf(s)<0&&p.brand.toLowerCase().indexOf(s)<0) continue;
+if(bf&&p.brand!==bf) continue;
+if(cf&&p.c!==cf) continue;
+var clr=brandColors[p.brand]||'#10b981';
+html+='<div class="prod-card"><div class="flex justify-between items-start mb-2"><span class="text-xs px-2 py-1 rounded-full font-bold" style="background:'+clr+'22;color:'+clr+'">'+p.brand+'</span><span class="text-xs text-slate-500">#'+p.id+'</span></div><h3 class="font-bold text-sm mb-1">'+p.n+'</h3><p class="text-xs text-slate-400 mb-3">'+p.c+'</p><div class="grid grid-cols-2 gap-2 mb-3 text-xs"><div class="bg-slate-800 rounded-lg p-2 text-center"><div class="text-slate-400">Bayi</div><div class="font-bold text-orange-400">'+p.b.toFixed(2)+'$</div></div><div class="bg-slate-800 rounded-lg p-2 text-center"><div class="text-slate-400">Proje</div><div class="font-bold text-emerald-400">'+p.p.toFixed(2)+'$</div></div></div><div class="flex justify-between items-center"><span class="text-xs text-slate-400">Stok: '+p.stk+'</span><button class="btn-main text-xs" onclick="addCart('+i+')">🛒 Ekle</button></div></div>';
+count++;
+}
+Z('catalog').innerHTML=html||'<p class="text-slate-400 col-span-4 text-center py-10">Urun bulunamadi</p>';
+Z('total-prod').textContent=P.length;
+Z('d-products').textContent=P.length;
 
-        if(!kod || !ad) return alert("Kod ve Ürün Adı zorunludur!");
+// Filtreleri doldur
+if(!Z('brand-filter').dataset.filled){
+for(var i=0;i<brands.length;i++) Z('brand-filter').innerHTML+='<option>'+brands[i]+'</option>';
+var uc=[];
+for(var i=0;i<P.length;i++) if(uc.indexOf(P[i].c)<0) uc.push(P[i].c);
+for(var i=0;i<uc.length;i++) Z('cat-filter').innerHTML+='<option>'+uc[i]+'</option>';
+Z('brand-filter').dataset.filled='1';
+}
+}
 
-        hvac_db[kod] = { ad, fiyat, stok, kritik };
-        saveDB();
-        renderAdmin();
-        document.querySelectorAll('#adminPanel input').forEach(i => i.value = "");
-    }
+// ===== SEPET =====
+function addCart(idx){
+var p=P[idx];
+var found=false;
+for(var i=0;i<cart.length;i++){
+if(cart[i].id===p.id){cart[i].qty++;found=true;break;}
+}
+if(!found) cart.push({id:p.id,n:p.n,price:p.b,qty:1,brand:p.brand});
+renderCart();
+}
 
-    function deleteProd(code) {
-        if (!_IS_AUTHORIZED) return;
-        if(confirm(code + " kodlu ürünü silmek istediğine emin misin usta?")) {
-            delete hvac_db[code];
-            saveDB();
-            renderAdmin();
-        }
-    }
+function removeCart(idx){cart.splice(idx,1);renderCart();}
 
-    function closeAdmin() {
-        document.getElementById('adminPanel').classList.add('hidden');
-    }
+function renderCart(){
+Z('cart-count').textContent=cart.length;
+if(!cart.length){
+Z('cart-items').innerHTML='<div class="glass p-8 text-center text-slate-400"><div class="text-4xl mb-3">🛒</div>Sepet bos</div>';
+Z('cart-summary').style.display='none';
+return;
+}
+var html='',total=0;
+for(var i=0;i<cart.length;i++){
+var c=cart[i];
+var sub=c.price*c.qty;total+=sub;
+html+='<div class="glass p-4 flex justify-between items-center"><div><div class="font-bold text-sm">'+c.n+'</div><div class="text-xs text-slate-400">'+c.brand+' | '+c.price.toFixed(2)+'$ x '+c.qty+'</div></div><div class="flex items-center gap-3"><span class="font-bold neon-green">'+sub.toFixed(2)+'$</span><button onclick="removeCart('+i+')" class="text-red-400 text-xs hover:text-red-300">✕</button></div></div>';
+}
+Z('cart-items').innerHTML=html;
+Z('cart-total').textContent=total.toFixed(2)+'$';
+Z('cart-summary').style.display='block';
+}
+
+// ===== LEAD SCRAPER =====
+function initLeadSelects(){
+var ch='';for(var i=0;i<cityList.length;i++) ch+='<option>'+cityList[i]+'</option>';
+Z('lead-city').innerHTML='<option value="">Tum Sehirler</option>'+ch;
+var sh='';for(var i=0;i<srcList.length;i++) sh+='<option>'+srcList[i]+'</option>';
+Z('lead-src').innerHTML='<option value="">Tum Kaynaklar</option>'+sh;
+}
+
+function scrapeLeads(){
+var city=Z('lead-city').value;
+var src=Z('lead-src').value;
+var st=Z('scrape-status');
+st.style.display='block';
+st.innerHTML='<div class="text-orange-400 font-bold">⏳ Leadler kaziniyor...</div>';
+var count=Math.floor(Math.random()*8+3);
+var added=0;
+var intv=setInterval(function(){
+if(added>=count){
+clearInterval(intv);
+st.innerHTML='<div class="text-emerald-400 font-bold">✅ '+count+' yeni lead kazindi!</div>';
+renderLeads();
+updateCRM();
+renderDashboard();
+return;
+}
+var fn=firstNames[Math.floor(Math.random()*firstNames.length)];
+var ln=lastNames[Math.floor(Math.random()*lastNames.length)];
+var cs=compSuffix[Math.floor(Math.random()*compSuffix.length)];
+var c=city||cityList[Math.floor(Math.random()*cityList.length)];
+var s=src||srcList[Math.floor(Math.random()*srcList.length)];
+var score=Math.floor(Math.random()*60+30);
+var stage=stageList[0];
+if(score>=80) stage=stageList[1];
+if(score>=90) stage=stageList[2];
+
+leads.push({
+id:leads.length+1,
+name:fn+' '+ln,
+company:ln+' '+cs,
+city:c,
+source:s,
+score:score,
+stage:stage,
+phone:'05'+Math.floor(Math.random()*90+10)+''+Math.floor(Math.random()*9000000+1000000),
+email:fn.toLowerCase()+'.'+ln.toLowerCase()+'@gmail.com',
+date:new Date().toLocaleDateString('tr-TR'),
+notes:''
+});
+added++;
+st.innerHTML='<div class="text-orange-400 font-bold">⏳ Kaziniyor... '+added+'/'+count+'</div>';
+},400);
+}
+
+function renderLeads(){
+Z('lead-total').textContent=leads.length;
+var hot=0,ts=0;
+for(var i=0;i<leads.length;i++){ts+=leads[i].score;if(leads[i].score>=80) hot++;}
+Z('lead-hot').textContent=hot;
+Z('lead-avg').textContent=leads.length?Math.round(ts/leads.length):0;
+
+if(!leads.length){
+Z('leads-list').innerHTML='<div class="glass p-8 text-center text-slate-400"><div class="text-4xl mb-3">👥</div>Henuz lead yok. Kazimaya baslayin!</div>';
+return;
+}
+var html='';
+for(var i=leads.length-1;i>=0;i--){
+var l=leads[i];
+var sc=l.score>=80?'text-orange-400':l.score>=60?'text-yellow-400':'text-slate-400';
+var bg=l.score>=80?'border-orange-500/30':'border-slate-700/30';
+html+='<div class="glass p-4 '+bg+' flex flex-col md:flex-row justify-between gap-3"><div class="flex-1"><div class="font-bold">'+l.name+'</div><div class="text-xs text-slate-400">'+l.company+' | '+l.city+'</div><div class="text-xs text-slate-500 mt-1">📞 '+l.phone+' | ✉️ '+l.email+'</div></div><div class="flex items-center gap-3"><span class="text-xs px-2 py-1 rounded-full bg-slate-800">'+l.source+'</span><span class="text-xs px-2 py-1 rounded-full bg-slate-800">'+l.stage+'</span><span class="font-bold '+sc+'">'+l.score+'</span><select class="text-xs" style="width:auto;padding:4px 8px" onchange="changeStage('+i+',this.value)"><option'+(l.stage===stageList[0]?' selected':'')+'>'+stageList[0]+'</option><option'+(l.stage===stageList[1]?' selected':'')+'>'+stageList[1]+'</option><option'+(l.stage===stageList[2]?' selected':'')+'>'+stageList[2]+'</option><option'+(l.stage===stageList[3]?' selected':'')+'>'+stageList[3]+'</option><option'+(l.stage===stageList[4]?' selected':'')+'>'+stageList[4]+'</option></select></div></div>';
+}
+Z('leads-list').innerHTML=html;
+}
+
+function changeStage(idx,val){
+leads[idx].stage=val;
+renderLeads();
+updateCRM();
+}
+
+// ===== CRM =====
+function updateCRM(){
+var counts={};
+for(var i=0;i<stageList.length;i++) counts[stageList[i]]=0;
+for(var i=0;i<leads.length;i++) counts[leads[i].stage]++;
+Z('crm-new').textContent=counts[stageList[0]];
+Z('crm-contact').textContent=counts[stageList[1]];
+Z('crm-quote').textContent=counts[stageList[2]];
+Z('crm-won').textContent=counts[stageList[3]];
+Z('crm-lost').textContent=counts[stageList[4]];
+
+var colors=['#3b82f6','#f97316','#8b5cf6','#10b981','#ef4444'];
+var total=leads.length||1;
+var fhtml='';
+for(var i=0;i<stageList.length;i++){
+var pct=Math.round(counts[stageList[i]]/total*100);
+fhtml+='<div><div class="flex justify-between text-sm mb-1"><span>'+stageList[i]+'</span><span class="font-bold" style="color:'+colors[i]+'">'+counts[stageList[i]]+' ('+pct+'%)</span></div><div class="prog-bar"><div style="width:'+pct+'%;background:'+colors[i]+'"></div></div></div>';
+}
+Z('funnel-bars').innerHTML=fhtml;
+}
+
+// ===== ANALİTİK =====
+function renderAnalytics(){
+if(CI.sales) CI.sales.destroy();
+CI.sales=new Chart(Z("chart-sales").getContext("2d"),{
+type:"line",
+data:{labels:["Pzt","Sal","Car","Per","Cum","Cmt","Paz"],datasets:[{label:"Satis $",data:[8200,12400,9800,15600,11200,7400,6800],borderColor:"#10b981",backgroundColor:"rgba(16,185,129,0.1)",fill:true,tension:0.4}]},
+options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
+});
+
+if(CI.products) CI.products.destroy();
+var gn=brands.slice();
+var gc=["#f97316","#10b981","#3b82f6","#8b5cf6","#ef4444","#f59e0b","#06b6d4"];
+var gd=[];
+for(var i=0;i<gn.length;i++) gd.push(Math.floor(Math.random()*30+5));
+CI.products=new Chart(Z("chart-products").getContext("2d"),{
+type:"pie",
+data:{labels:gn,datasets:[{data:gd,backgroundColor:gc}]},
+options:{responsive:true,plugins:{legend:{position:"bottom",labels:{font:{size:10}}}}}
+});
+
+if(CI.sources) CI.sources.destroy();
+var sc={};
+for(var i=0;i<srcList.length;i++) sc[srcList[i]]=0;
+for(var i=0;i<leads.length;i++){var s=leads[i].source;if(sc[s]!==undefined)sc[s]++;}
+var sl=[],sd=[];
+for(var k in sc){sl.push(k);sd.push(sc[k]);}
+CI.sources=new Chart(Z("chart-sources").getContext("2d"),{
+type:"doughnut",
+data:{labels:sl,datasets:[{data:sd,backgroundColor:["#ef4444","#3b82f6","#f59e0b","#6b7280"]}]},
+options:{responsive:true,plugins:{legend:{position:"bottom",labels:{font:{size:10}}}}}
+});
+
+if(CI.cities) CI.cities.destroy();
+var cc={};
+for(var i=0;i<cityList.length;i++) cc[cityList[i]]=0;
+for(var i=0;i<leads.length;i++){var c=leads[i].city;if(cc[c]!==undefined)cc[c]++;}
+var so=[];
+for(var k in cc) so.push([k,cc[k]]);
+so.sort(function(a,b){return b[1]-a[1]});
+so=so.slice(0,10);
+var cl=[],cd=[];
+for(var i=0;i<so.length;i++){cl.push(so[i][0]);cd.push(so[i][1]);}
+CI.cities=new Chart(Z("chart-cities").getContext("2d"),{
+type:"bar",
+data:{labels:cl,datasets:[{label:"Lead",data:cd,backgroundColor:"#8b5cf6"}]},
+options:{responsive:true,indexAxis:"y",plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}
+});
+
+var total=leads.length||1;
+var con=0,quo=0,won=0,ss=0;
+for(var i=0;i<leads.length;i++){
+var l=leads[i];ss+=l.score;
+if(l.stage==="Iletisim Kuruldu") con++;
+if(l.stage==="Teklif Gonderildi") quo++;
+if(l.stage==="Kazanildi") won++;
+}
+Z("met-total").textContent=leads.length;
+Z("met-crate").textContent=Math.round(con/total*100)+"%";
+Z("met-qrate").textContent=Math.round(quo/total*100)+"%";
+Z("met-wrate").textContent=Math.round(won/total*100)+"%";
+}
+
+// ===== CHAT =====
+function sendChat(){
+var inp=Z("chat-in");
+var msg=inp.value.trim();
+if(!msg) return;
+inp.value="";
+appendMsg("user",msg);
+setTimeout(function(){appendMsg("bot",aiReply(msg));},400);
+}
+
+function qChat(msg){Z("chat-in").value=msg;sendChat();}
+
+function appendMsg(who,text){
+var d=document.createElement("div");
+d.className="flex"+(who==="user"?" justify-end":"");
+var cls=who==="user"?"bg-slate-800 text-white":"bg-emerald-100 text-emerald-800";
+var rd=who==="user"?"rounded-tr-sm":"rounded-tl-sm";
+d.innerHTML="<div class='"+cls+" p-3 rounded-2xl "+rd+" text-sm max-w-[80%]'>"+text+"</div>";
+Z("chat-box").appendChild(d);
+Z("chat-box").scrollTop=99999;
+}
+
+function aiReply(msg){
+var m=msg.toLowerCase();
+var found=[];
+var words=m.split(" ");
+for(var i=0;i<P.length;i++){
+for(var j=0;j<words.length;j++){
+if(words[j].length>2){
+var w=words[j];
+if(P[i].n.toLowerCase().indexOf(w)>-1||P[i].brand.toLowerCase().indexOf(w)>-1){
+found.push(P[i]);break;
+}
+}
+}
+}
+if(found.length>0){
+var list="";
+var mx=Math.min(found.length,6);
+for(var i=0;i<mx;i++) list+="<br>• <b>"+found[i].n+"</b> — Bayi: <b>"+found[i].b.toFixed(2)+"$</b> | Proje: <b>"+found[i].p.toFixed(2)+"$</b>";
+var extra=found.length>6?"<br><i>...ve "+(found.length-6)+" urun daha</i>":"";
+return "Buldum "+found.length+" urun:"+list+extra;
+}
+if(m.indexOf("en cok")>-1||m.indexOf("populer")>-1||m.indexOf("satan")>-1){
+var sh=P.slice().sort(function(){return Math.random()-0.5}).slice(0,5);
+var r="En Cok Satan 5 Urun:<br><br>";
+<script>
+var Z=function(id){return document.getElementById(id)};
+
+// ===== ÜRÜN VERİTABANI =====
+var P=[];
+var brands=["Sarkuysan","ECO","Totchem","Wipcool","Testo","Danfoss","Panasonic"];
+var cats=["Bakir Boru","Izolasyon","Sogutucu Gaz","Klima Aleti","Olcum Cihazi","Kompresor","VRF Sistem"];
+var brandColors={"Sarkuysan":"#f97316","ECO":"#10b981","Totchem":"#3b82f6","Wipcool":"#8b5cf6","Testo":"#ef4444","Danfoss":"#f59e0b","Panasonic":"#06b6d4"};
+
+var prodNames={
+"Sarkuysan":["1/4 Bakir Boru","3/8 Bakir Boru","1/2 Bakir Boru","5/8 Bakir Boru","3/4 Bakir Boru","7/8 Bakir Boru","1-1/8 Bakir Boru","Cift Sarim 1/4+3/8","Cift Sarim 3/8+5/8","Cift Sarim 1/2+7/8","Cift Sarim 1/2+1-1/8","15m Cift Sarim","20m Cift Sarim","25m Cift Sarim","30m Cift Sarim","Bakir Fitings T","Bakir Fitings Dirsek","Bakir Fitings Manson","Bakir Fitings Reduksiyon","Kapiler Boru"],
+"ECO":["6mm Izolasyon","9mm Izolasyon","10mm Izolasyon","13mm Izolasyon","19mm Izolasyon","25mm Izolasyon","6mm Rulo","9mm Rulo","13mm Rulo","19mm Rulo","Izolasyon Bant","Izolasyon Yapistiricisi","Kaucuk Izolasyon 1/4","Kaucuk Izolasyon 3/8","Kaucuk Izolasyon 1/2","Kaucuk Izolasyon 5/8","Kaucuk Izolasyon 3/4","Kaucuk Izolasyon 7/8","Kaucuk Levha 10mm","Kaucuk Levha 19mm"],
+"Totchem":["R410A 11.3kg","R407C 11.3kg","R32 9kg","R134A 12kg","R404A 10.9kg","R22 13.6kg","R290 5kg","R600A 6.5kg","R410A 5kg","R407C 5kg","R32 3kg","Azot Tup 10L","Azot Tup 40L","Oksijen Tup","Kaynak Tup MAP","Flux Pasta","Lehim Cubuk %5","Lehim Cubuk %15","Lehim Cubuk %40","Gaz Kacak Sprey"],
+"Wipcool":["Vakum Pompasi 2CFM","Vakum Pompasi 4CFM","Vakum Pompasi 6CFM","Vakum Pompasi 8CFM","Manifold Set R410A","Manifold Set R407C","Manifold Set Digital","Boru Kesici Mini","Boru Kesici Buyuk","Boru Genisletici Set","Flare Seti Metrik","Flare Seti Inch","Boru Bukucu 1/4","Boru Bukucu 3/8","Boru Bukucu 1/2","Boru Bukucu 5/8","Saatli Vakum","Hortum Set 3lu","Hortum Set 4lu","Servis Cantasi"],
+"Testo":["Testo 550s","Testo 557s","Testo 770-3","Testo 830-T4","Testo 405i","Testo 410i","Testo 510i","Testo 115i","Testo 549i","Testo Smart Probe Set","Multimetre 760-3","Sicaklik Problu 110","Nem Olcer 605i","Hiz Olcer 416","Gaz Dedektoru 316-4","Basinc Olcer 512i","IR Termometre 835","Anemometre 417","Data Logger 174T","Yaglama Test Cihazi"],
+"Danfoss":["Scroll Kompresor 3HP","Scroll Kompresor 5HP","Scroll Kompresor 8HP","Scroll Kompresor 10HP","Scroll Kompresor 15HP","Piston Kompresor 1HP","Piston Kompresor 2HP","Piston Kompresor 3HP","Expansion Valve TXV","Expansion Valve EEV","Solenoid Valf 1/4","Solenoid Valf 3/8","Solenoid Valf 1/2","Basinc Sualteri LP","Basinc Sualteri HP","Filtre Dryer 1/4","Filtre Dryer 3/8","Sight Glass 1/4","Kontaktor 25A","Kontaktor 40A"],
+"Panasonic":["9BTU Duvar Tipi","12BTU Duvar Tipi","18BTU Duvar Tipi","24BTU Duvar Tipi","36BTU Yer Tavan","48BTU Yer Tavan","24BTU Kaset Tipi","36BTU Kaset Tipi","48BTU Kaset Tipi","60BTU Kaset Tipi","VRF 8HP Dis Unite","VRF 10HP Dis Unite","VRF 14HP Dis Unite","VRF 16HP Dis Unite","VRF 20HP Dis Unite","VRF Duvar Ic Unite","VRF Kaset Ic Unite","VRF Kanalli Ic Unite","VRF Yer Tavan Ic Unite","Kumanda Paneli"]
+};
+
+function genPrice(brand,idx){
+var bases={"Sarkuysan":[3.12,4.03,5.18,5.85,7.02,8.14,10.25,12.5,15.3,22.1,28.4,18.6,24.8,31.2,37.5,2.1,1.8,1.5,2.3,0.85],
+"ECO":[1.2,1.8,2.1,2.8,4.2,5.5,15,22,35,48,3.5,8.5,1.4,1.9,2.3,2.8,3.4,4.1,18,28],
+"Totchem":[112,80,68,72,95,45,55,42,65,48,38,28,85,35,12,8,4.5,6.2,12.5,7.5],
+"Wipcool":[85,125,165,210,48,45,185,12,18,65,42,45,15,18,22,25,35,28,38,95],
+"Testo":[580,720,320,185,145,135,155,125,165,890,210,95,175,245,385,165,285,195,145,520],
+"Danfoss":[420,650,980,1250,1850,180,280,380,45,85,22,28,35,18,22,12,15,18,25,38],
+"Panasonic":[285,350,520,680,950,1250,780,1050,1380,1650,3500,4200,5800,6500,8200,450,680,850,520,125]};
+var b=bases[brand]||[];
+var base=b[idx]||50;
+return base;
+}
+
+// Ürünleri oluştur
+for(var i=0;i<brands.length;i++){
+var brand=brands[i];
+var names=prodNames[brand];
+var cat=cats[i%cats.length];
+for(var j=0;j<names.length;j++){
+var base=genPrice(brand,j);
+P.push({
+id:P.length+1,
+n:names[j],
+b:base,
+p:Math.round(base*0.85*100)/100,
+c:cats[Math.floor(j/3)%cats.length],
+g:brand.toLowerCase(),
+brand:brand,
+stk:Math.floor(Math.random()*200+10)
+});
+}
+}
+
+// ===== LEAD SİSTEMİ =====
+var leads=[];
+var cityList=["Istanbul","Ankara","Izmir","Antalya","Bursa","Adana","Konya","Gaziantep","Kayseri","Mersin","Diyarbakir","Samsun","Denizli","Eskisehir","Trabzon","Malatya","Erzurum","Van","Sanliurfa","Hatay"];
+var srcList=["Google Maps","Instagram","LinkedIn","Referans"];
+var stageList=["Yeni Lead","Iletisim Kuruldu","Teklif Gonderildi","Kazanildi","Kaybedildi"];
+var firstNames=["Mehmet","Ahmet","Ali","Mustafa","Huseyin","Hasan","Ibrahim","Ismail","Osman","Yusuf","Murat","Omer","Emre","Burak","Serkan","Tolga","Cenk","Kemal","Selim","Baris"];
+var lastNames=["Yilmaz","Kaya","Demir","Celik","Sahin","Ozturk","Arslan","Dogan","Kilic","Aslan","Eren","Aksoy","Polat","Ozkan","Aydin","Korkmaz","Bulut","Yildiz","Turan","Koc"];
+var compSuffix=["Sogutma","Klima","Iklimlendirme","Muhendislik","Teknik","Enerji","Mekanik","Isitma Sogutma","VRF Sistemleri","Kombi"];
+
+// ===== SEPET =====
+var cart=[];
+
+// Chart instances
+var CI={sales:null,products:null,sources:null,cities:null};
+
+// ===== SAYFA GEÇİŞ =====
+function showTab(name){
+var tabs=document.querySelectorAll('.tab-content');
+for(var i=0;i<tabs.length;i++) tabs[i].style.display='none';
+Z('tab-'+name).style.display='block';
+var links=document.querySelectorAll('.sidebar a');
+for(var i=0;i<links.length;i++) links[i].classList.remove('active');
+links[['dashboard','catalog','cart','leads','crm','analytics','campaigns','chat','templates'].indexOf(name)].classList.add('active');
+if(name==='analytics') renderAnalytics();
+if(name==='dashboard') renderDashboard();
+if(name==='crm') updateCRM();
+}
+
+// ===== DASHBOARD =====
+function renderDashboard(){
+Z('d-products').textContent=P.length;
+Z('d-leads').textContent=leads.length;
+var hot=0;
+for(var i=0;i<leads.length;i++) if(leads[i].score>=80) hot++;
+Z('d-hot').textContent=hot;
+
+var bhtml='';
+for(var i=0;i<brands.length;i++){
+var cnt=0;
+for(var j=0;j<P.length;j++) if(P[j].brand===brands[i]) cnt++;
+var pct=Math.round(cnt/P.length*100);
+bhtml+='<div class="flex items-center gap-3 mb-2"><span class="text-xs w-20">'+brands[i]+'</span><div class="prog-bar flex-1"><div style="width:'+pct+'%;background:'+brandColors[brands[i]]+'"></div></div><span class="text-xs text-slate-400">'+cnt+'</span></div>';
+}
+Z('dash-brands').innerHTML=bhtml;
+
+if(leads.length>0){
+var lhtml='';
+var show=Math.min(leads.length,5);
+for(var i=leads.length-1;i>=leads.length-show;i--){
+lhtml+='<div class="flex justify-between py-2 border-b border-slate-700"><span>'+leads[i].name+'</span><span class="text-xs text-slate-400">'+leads[i].city+' — Skor:'+leads[i].score+'</span></div>';
+}
+Z('dash-leads').innerHTML=lhtml;
+}
+}
+
+// ===== KATALOG =====
+function renderCatalog(){
+var s=(Z('search').value||'').toLowerCase();
+var bf=Z('brand-filter').value;
+var cf=Z('cat-filter').value;
+var html='';
+var count=0;
+for(var i=0;i<P.length;i++){
+var p=P[i];
+if(s&&p.n.toLowerCase().indexOf(s)<0&&p.brand.toLowerCase().indexOf(s)<0) continue;
+if(bf&&p.brand!==bf) continue;
+if(cf&&p.c!==cf) continue;
+var clr=brandColors[p.brand]||'#10b981';
+html+='<div class="prod-card"><div class="flex justify-between items-start mb-2"><span class="text-xs px-2 py-1 rounded-full font-bold" style="background:'+clr+'22;color:'+clr+'">'+p.brand+'</span><span class="text-xs text-slate-500">#'+p.id+'</span></div><h3 class="font-bold text-sm mb-1">'+p.n+'</h3><p class="text-xs text-slate-400 mb-3">'+p.c+'</p><div class="grid grid-cols-2 gap-2 mb-3 text-xs"><div class="bg-slate-800 rounded-lg p-2 text-center"><div class="text-slate-400">Bayi</div><div class="font-bold text-orange-400">'+p.b.toFixed(2)+'$</div></div><div class="bg-slate-800 rounded-lg p-2 text-center"><div class="text-slate-400">Proje</div><div class="font-bold text-emerald-400">'+p.p.toFixed(2)+'$</div></div></div><div class="flex justify-between items-center"><span class="text-xs text-slate-400">Stok: '+p.stk+'</span><button class="btn-main text-xs" onclick="addCart('+i+')">🛒 Ekle</button></div></div>';
+count++;
+}
+Z('catalog').innerHTML=html||'<p class="text-slate-400 col-span-4 text-center py-10">Urun bulunamadi</p>';
+Z('total-prod').textContent=P.length;
+Z('d-products').textContent=P.length;
+
+// Filtreleri doldur
+if(!Z('brand-filter').dataset.filled){
+for(var i=0;i<brands.length;i++) Z('brand-filter').innerHTML+='<option>'+brands[i]+'</option>';
+var uc=[];
+for(var i=0;i<P.length;i++) if(uc.indexOf(P[i].c)<0) uc.push(P[i].c);
+for(var i=0;i<uc.length;i++) Z('cat-filter').innerHTML+='<option>'+uc[i]+'</option>';
+Z('brand-filter').dataset.filled='1';
+}
+}
+
+// ===== SEPET =====
+function addCart(idx){
+var p=P[idx];
+var found=false;
+for(var i=0;i<cart.length;i++){
+if(cart[i].id===p.id){cart[i].qty++;found=true;break;}
+}
+if(!found) cart.push({id:p.id,n:p.n,price:p.b,qty:1,brand:p.brand});
+renderCart();
+}
+
+function removeCart(idx){cart.splice(idx,1);renderCart();}
+
+function renderCart(){
+Z('cart-count').textContent=cart.length;
+if(!cart.length){
+Z('cart-items').innerHTML='<div class="glass p-8 text-center text-slate-400"><div class="text-4xl mb-3">🛒</div>Sepet bos</div>';
+Z('cart-summary').style.display='none';
+return;
+}
+var html='',total=0;
+for(var i=0;i<cart.length;i++){
+var c=cart[i];
+var sub=c.price*c.qty;total+=sub;
+html+='<div class="glass p-4 flex justify-between items-center"><div><div class="font-bold text-sm">'+c.n+'</div><div class="text-xs text-slate-400">'+c.brand+' | '+c.price.toFixed(2)+'$ x '+c.qty+'</div></div><div class="flex items-center gap-3"><span class="font-bold neon-green">'+sub.toFixed(2)+'$</span><button onclick="removeCart('+i+')" class="text-red-400 text-xs hover:text-red-300">✕</button></div></div>';
+}
+Z('cart-items').innerHTML=html;
+Z('cart-total').textContent=total.toFixed(2)+'$';
+Z('cart-summary').style.display='block';
+}
+
+// ===== LEAD SCRAPER =====
+function initLeadSelects(){
+var ch='';for(var i=0;i<cityList.length;i++) ch+='<option>'+cityList[i]+'</option>';
+Z('lead-city').innerHTML='<option value="">Tum Sehirler</option>'+ch;
+var sh='';for(var i=0;i<srcList.length;i++) sh+='<option>'+srcList[i]+'</option>';
+Z('lead-src').innerHTML='<option value="">Tum Kaynaklar</option>'+sh;
+}
+
+function scrapeLeads(){
+var city=Z('lead-city').value;
+var src=Z('lead-src').value;
+var st=Z('scrape-status');
+st.style.display='block';
+st.innerHTML='<div class="text-orange-400 font-bold">⏳ Leadler kaziniyor...</div>';
+var count=Math.floor(Math.random()*8+3);
+var added=0;
+var intv=setInterval(function(){
+if(added>=count){
+clearInterval(intv);
+st.innerHTML='<div class="text-emerald-400 font-bold">✅ '+count+' yeni lead kazindi!</div>';
+renderLeads();
+updateCRM();
+renderDashboard();
+return;
+}
+var fn=firstNames[Math.floor(Math.random()*firstNames.length)];
+var ln=lastNames[Math.floor(Math.random()*lastNames.length)];
+var cs=compSuffix[Math.floor(Math.random()*compSuffix.length)];
+var c=city||cityList[Math.floor(Math.random()*cityList.length)];
+var s=src||srcList[Math.floor(Math.random()*srcList.length)];
+var score=Math.floor(Math.random()*60+30);
+var stage=stageList[0];
+if(score>=80) stage=stageList[1];
+if(score>=90) stage=stageList[2];
+
+leads.push({
+id:leads.length+1,
+name:fn+' '+ln,
+company:ln+' '+cs,
+city:c,
+source:s,
+score:score,
+stage:stage,
+phone:'05'+Math.floor(Math.random()*90+10)+''+Math.floor(Math.random()*9000000+1000000),
+email:fn.toLowerCase()+'.'+ln.toLowerCase()+'@gmail.com',
+date:new Date().toLocaleDateString('tr-TR'),
+notes:''
+});
+added++;
+st.innerHTML='<div class="text-orange-400 font-bold">⏳ Kaziniyor... '+added+'/'+count+'</div>';
+},400);
+}
+
+function renderLeads(){
+Z('lead-total').textContent=leads.length;
+var hot=0,ts=0;
+for(var i=0;i<leads.length;i++){ts+=leads[i].score;if(leads[i].score>=80) hot++;}
+Z('lead-hot').textContent=hot;
+Z('lead-avg').textContent=leads.length?Math.round(ts/leads.length):0;
+
+if(!leads.length){
+Z('leads-list').innerHTML='<div class="glass p-8 text-center text-slate-400"><div class="text-4xl mb-3">👥</div>Henuz lead yok. Kazimaya baslayin!</div>';
+return;
+}
+var html='';
+for(var i=leads.length-1;i>=0;i--){
+var l=leads[i];
+var sc=l.score>=80?'text-orange-400':l.score>=60?'text-yellow-400':'text-slate-400';
+var bg=l.score>=80?'border-orange-500/30':'border-slate-700/30';
+html+='<div class="glass p-4 '+bg+' flex flex-col md:flex-row justify-between gap-3"><div class="flex-1"><div class="font-bold">'+l.name+'</div><div class="text-xs text-slate-400">'+l.company+' | '+l.city+'</div><div class="text-xs text-slate-500 mt-1">📞 '+l.phone+' | ✉️ '+l.email+'</div></div><div class="flex items-center gap-3"><span class="text-xs px-2 py-1 rounded-full bg-slate-800">'+l.source+'</span><span class="text-xs px-2 py-1 rounded-full bg-slate-800">'+l.stage+'</span><span class="font-bold '+sc+'">'+l.score+'</span><select class="text-xs" style="width:auto;padding:4px 8px" onchange="changeStage('+i+',this.value)"><option'+(l.stage===stageList[0]?' selected':'')+'>'+stageList[0]+'</option><option'+(l.stage===stageList[1]?' selected':'')+'>'+stageList[1]+'</option><option'+(l.stage===stageList[2]?' selected':'')+'>'+stageList[2]+'</option><option'+(l.stage===stageList[3]?' selected':'')+'>'+stageList[3]+'</option><option'+(l.stage===stageList[4]?' selected':'')+'>'+stageList[4]+'</option></select></div></div>';
+}
+Z('leads-list').innerHTML=html;
+}
+
+function changeStage(idx,val){
+leads[idx].stage=val;
+renderLeads();
+updateCRM();
+}
+
+// ===== CRM =====
+function updateCRM(){
+var counts={};
+for(var i=0;i<stageList.length;i++) counts[stageList[i]]=0;
+for(var i=0;i<leads.length;i++) counts[leads[i].stage]++;
+Z('crm-new').textContent=counts[stageList[0]];
+Z('crm-contact').textContent=counts[stageList[1]];
+Z('crm-quote').textContent=counts[stageList[2]];
+Z('crm-won').textContent=counts[stageList[3]];
+Z('crm-lost').textContent=counts[stageList[4]];
+
+var colors=['#3b82f6','#f97316','#8b5cf6','#10b981','#ef4444'];
+var total=leads.length||1;
+var fhtml='';
+for(var i=0;i<stageList.length;i++){
+var pct=Math.round(counts[stageList[i]]/total*100);
+fhtml+='<div><div class="flex justify-between text-sm mb-1"><span>'+stageList[i]+'</span><span class="font-bold" style="color:'+colors[i]+'">'+counts[stageList[i]]+' ('+pct+'%)</span></div><div class="prog-bar"><div style="width:'+pct+'%;background:'+colors[i]+'"></div></div></div>';
+}
+Z('funnel-bars').innerHTML=fhtml;
+}
+
+// ===== ANALİTİK =====
+function renderAnalytics(){
+if(CI.sales) CI.sales.destroy();
+CI.sales=new Chart(Z("chart-sales").getContext("2d"),{
+type:"line",
+data:{labels:["Pzt","Sal","Car","Per","Cum","Cmt","Paz"],datasets:[{label:"Satis $",data:[8200,12400,9800,15600,11200,7400,6800],borderColor:"#10b981",backgroundColor:"rgba(16,185,129,0.1)",fill:true,tension:0.4}]},
+options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
+});
+
+if(CI.products) CI.products.destroy();
+var gn=brands.slice();
+var gc=["#f97316","#10b981","#3b82f6","#8b5cf6","#ef4444","#f59e0b","#06b6d4"];
+var gd=[];
+for(var i=0;i<gn.length;i++) gd.push(Math.floor(Math.random()*30+5));
+CI.products=new Chart(Z("chart-products").getContext("2d"),{
+type:"pie",
+data:{labels:gn,datasets:[{data:gd,backgroundColor:gc}]},
+options:{responsive:true,plugins:{legend:{position:"bottom",labels:{font:{size:10}}}}}
+});
+
+if(CI.sources) CI.sources.destroy();
+var sc={};
+for(var i=0;i<srcList.length;i++) sc[srcList[i]]=0;
+for(var i=0;i<leads.length;i++){var s=leads[i].source;if(sc[s]!==undefined)sc[s]++;}
+var sl=[],sd=[];
+for(var k in sc){sl.push(k);sd.push(sc[k]);}
+CI.sources=new Chart(Z("chart-sources").getContext("2d"),{
+type:"doughnut",
+data:{labels:sl,datasets:[{data:sd,backgroundColor:["#ef4444","#3b82f6","#f59e0b","#6b7280"]}]},
+options:{responsive:true,plugins:{legend:{position:"bottom",labels:{font:{size:10}}}}}
+});
+
+if(CI.cities) CI.cities.destroy();
+var cc={};
+for(var i=0;i<cityList.length;i++) cc[cityList[i]]=0;
+for(var i=0;i<leads.length;i++){var c=leads[i].city;if(cc[c]!==undefined)cc[c]++;}
+var so=[];
+for(var k in cc) so.push([k,cc[k]]);
+so.sort(function(a,b){return b[1]-a[1]});
+so=so.slice(0,10);
+var cl=[],cd=[];
+for(var i=0;i<so.length;i++){cl.push(so[i][0]);cd.push(so[i][1]);}
+CI.cities=new Chart(Z("chart-cities").getContext("2d"),{
+type:"bar",
+data:{labels:cl,datasets:[{label:"Lead",data:cd,backgroundColor:"#8b5cf6"}]},
+options:{responsive:true,indexAxis:"y",plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}
+});
+
+var total=leads.length||1;
+var con=0,quo=0,won=0,ss=0;
+for(var i=0;i<leads.length;i++){
+var l=leads[i];ss+=l.score;
+if(l.stage==="Iletisim Kuruldu") con++;
+if(l.stage==="Teklif Gonderildi") quo++;
+if(l.stage==="Kazanildi") won++;
+}
+Z("met-total").textContent=leads.length;
+Z("met-crate").textContent=Math.round(con/total*100)+"%";
+Z("met-qrate").textContent=Math.round(quo/total*100)+"%";
+Z("met-wrate").textContent=Math.round(won/total*100)+"%";
+}
+
+// ===== CHAT =====
+function sendChat(){
+var inp=Z("chat-in");
+var msg=inp.value.trim();
+if(!msg) return;
+inp.value="";
+appendMsg("user",msg);
+setTimeout(function(){appendMsg("bot",aiReply(msg));},400);
+}
+
+function qChat(msg){Z("chat-in").value=msg;sendChat();}
+
+function appendMsg(who,text){
+var d=document.createElement("div");
+d.className="flex"+(who==="user"?" justify-end":"");
+var cls=who==="user"?"bg-slate-800 text-white":"bg-emerald-100 text-emerald-800";
+var rd=who==="user"?"rounded-tr-sm":"rounded-tl-sm";
+d.innerHTML="<div class='"+cls+" p-3 rounded-2xl "+rd+" text-sm max-w-[80%]'>"+text+"</div>";
+Z("chat-box").appendChild(d);
+Z("chat-box").scrollTop=99999;
+}
+
+function aiReply(msg){
+var m=msg.toLowerCase();
+var found=[];
+var words=m.split(" ");
+for(var i=0;i<P.length;i++){
+for(var j=0;j<words.length;j++){
+if(words[j].length>2){
+var w=words[j];
+if(P[i].n.toLowerCase().indexOf(w)>-1||P[i].brand.toLowerCase().indexOf(w)>-1){
+found.push(P[i]);break;
+}
+}
+}
+}
+if(found.length>0){
+var list="";
+var mx=Math.min(found.length,6);
+for(var i=0;i<mx;i++) list+="<br>• <b>"+found[i].n+"</b> — Bayi: <b>"+found[i].b.toFixed(2)+"$</b> | Proje: <b>"+found[i].p.toFixed(2)+"$</b>";
+var extra=found.length>6?"<br><i>...ve "+(found.length-6)+" urun daha</i>":"";
+return "Buldum "+found.length+" urun:"+list+extra;
+}
+if(m.indexOf("en cok")>-1||m.indexOf("populer")>-1||m.indexOf("satan")>-1){
+var sh=P.slice().sort(function(){return Math.random()-0.5}).slice(0,5);
+var r="En Cok Satan 5 Urun:<br><br>";
+for(var i=0;i<5;i++) r+=(i+1)+". <b>"+sh[i].n+"</b> ("+sh[i].brand+") — "+sh[i].b.toFixed(2)+"$<br>";
+return r;
+}
+if(m.indexOf("lead")>-1||m.indexOf("musteri")>-1){
+if(leads.length===0) return "Henuz lead yok. Lead Scraper sekmesinden kazimaya baslayin!";
+var hot=0;
+for(var i=0;i<leads.length;i++) if(leads[i].score>=80) hot++;
+return "Toplam <b>"+leads.length+"</b> lead var. <b>"+hot+"</b> tanesi sicak lead (skor 80+). CRM sekmesinden pipeline durumunu gorebilirsiniz.";
+}
+if(m.indexOf("teklif")>-1||m.indexOf("montaj")>-1){
+return "Ornek Montaj Teklifi:<br><br>"+
+"1x Panasonic 24BTU Duvar Tipi — 680$<br>"+
+"15m Sarkuysan 1/4+3/8 Cift Sarim — 187.50$<br>"+
+"15m ECO 9mm Izolasyon — 27$<br>"+
+"1x Totchem R410A 11.3kg — 112$<br>"+
+"1x Wipcool Vakum Pompasi 4CFM — 125$<br>"+
+"<br><b>Toplam: 1,131.50$</b><br>"+
+"<br>Iscilik haric fiyattir. Teklif 7 gun gecerlidir.";
+}
+if(m.indexOf("fiyat")>-1){
+return "Fiyat bilgisi icin urun adini yazin. Ornegin:<br>• R410A<br>• Bakir boru<br>• Testo 550s<br>• Vakum pompasi";
+}
+if(m.indexOf("merhaba")>-1||m.indexOf("selam")>-1){
+return "Merhaba! VRFDEPON AI Asistaniyim. Size nasil yardimci olabilirim?<br><br>Yapabileceklerim:<br>• Urun arama ve fiyat sorgulama<br>• Lead bilgisi<br>• Montaj teklifi hazirlama<br>• En cok satan urunler";
+}
+return "Anladim. Size daha iyi yardimci olabilmem icin su komutlari deneyin:<br><br>• Urun adi yazin (orn: R410A, bakir, testo)<br>• 'En cok satan' yazin<br>• 'Montaj teklifi' yazin<br>• 'Lead bilgisi' yazin";
+}
+
+// ===== KAMPANYA =====
+function genCampaign(){
+var type=Z("camp-type").value;
+var out=Z("camp-out");
+out.style.display="block";
+var templates={
+"Yeni Urun Tanitimi":"🆕 YENI URUN DUYURUSU!\n\nDegerli HVAC Profesyonelleri,\n\nYeni urunlerimiz stoklarimiza eklenmistir:\n\n✅ Wipcool Vakum Pompasi 8CFM — 210$\n✅ Testo 557s Manifold — 720$\n✅ Panasonic VRF 20HP — 8,200$\n\n📦 Ilk siparis veren 10 bayiye %5 ek indirim!\n\n📞 Siparis: vrfdepon.com\n⚡ VRFDEPON — Profesyonelin Tercihi",
+"Fiyat Indirimi":"🔥 OZEL INDIRIM FIRSATI!\n\nBu hafta secili urunlerde %15'e varan indirim!\n\n💰 Sarkuysan Bakir Boru — %10 indirim\n💰 Totchem R410A — %12 indirim\n💰 ECO Izolasyon — %15 indirim\n\n⏰ Gecerlilik: Bu Cuma'ya kadar!\n📦 Minimum siparis: 500$\n\n📞 Hemen arayin!\n⚡ VRFDEPON — En Iyi Fiyat Garantisi",
+"Sezon Acilisi":"☀️ YAZ SEZONU KAMPANYASI!\n\nKlima montaj sezonu basladi!\n\nKomple Montaj Paketi:\n📦 Bakir Boru + Izolasyon + Gaz + Aletler\n💰 Paket fiyati ile %20 tasarruf!\n\n🎁 5,000$ ustu siparislere ucretsiz kargo\n🎁 10,000$ ustu siparislere Testo 550s hediye!\n\n⚡ VRFDEPON — Sezona Hazir!",
+"Stok Eritme":"⚡ STOK ERITME KAMPANYASI!\n\nSinirli stok — Firsati kacirmayin!\n\n🏷️ R22 13.6kg — 45$ → 38$\n🏷️ R407C 11.3kg — 80$ → 68$\n🏷️ Wipcool 2CFM Vakum — 85$ → 72$\n\n📉 Stoklar tukenmeden siparis verin!\n⏰ Son 50 adet!\n\n📞 vrfdepon.com\n⚡ VRFDEPON — Stoklar Sinirli!"
+};
+out.textContent=templates[type]||"Kampanya sablonu bulunamadi.";
+}
+
+// ===== ŞABLONLAR =====
+function showTpl(type){
+var tpls={
+"bayi":"🤝 VRFDEPON BAYI HOSGELDIN MESAJI\n\nSayin [Firma Adi],\n\nVRFDEPON ailesine hosgeldiniz!\n\nBayi avantajlariniz:\n✅ Ozel bayi fiyatlari\n✅ Vadeli odeme imkani\n✅ Oncelikli teslimat\n✅ Teknik destek hatti\n✅ Yillik bazli ek iskonto\n\nBayi kodunuz: VRF-[XXXX]\n\nSiparis icin:\n📞 0212 XXX XX XX\n📧 info@vrfdepon.com\n🌐 vrfdepon.com\n\nBasarili calismalar dileriz!\nVRFDEPON Ekibi",
+"fiyat":"💰 HAFTALIK FIYAT LISTESI\n\nTarih: "+new Date().toLocaleDateString('tr-TR')+"\n\nBAKIR BORU (Sarkuysan):\n• 1/4 — 3.12$/m\n• 3/8 — 4.03$/m\n• 1/2 — 5.18$/m\n• 5/8 — 5.85$/m\n• 3/4 — 7.02$/m\n\nSOGUTUCU GAZ (Totchem):\n• R410A 11.3kg — 112$\n• R407C 11.3kg — 80$\n• R32 9kg — 68$\n\nIZOLASYON (ECO):\n• 6mm — 1.20$/m\n• 9mm — 1.80$/m\n• 13mm — 2.80$/m\n\nFiyatlar KDV haricdir.\nGecerlilik: 7 gun\n\n⚡ VRFDEPON",
+"flash":"⚡ FLASH INDIRIM — SADECE 24 SAAT!\n\n🕐 Baslangic: SIMDI\n🕐 Bitis: Yarin ayni saat\n\n🔥 FIRSATLAR:\n\n1️⃣ Tum bakir borularda %8 indirim\n2️⃣ R410A 11.3kg — 112$ → 95$\n3️⃣ Wipcool Vakum 4CFM — 125$ → 105$\n4️⃣ Testo 550s — 580$ → 499$\n\n⚠️ Stoklar sinirlidir!\n📞 Hemen siparis verin!\n\n⚡ VRFDEPON — 24 Saat Firsat!"
+};
+Z("tpl-content").textContent=tpls[type]||"";
+Z("tpl-modal").style.display="flex";
+}
+
+// ===== BAŞLATMA =====
+function init(){
+renderCatalog();
+renderCart();
+initLeadSelects();
+renderLeads();
+updateCRM();
+renderDashboard();
+}
+
+init();
 </script>
+</body>
+</html>
